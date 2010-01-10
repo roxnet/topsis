@@ -21,11 +21,25 @@ $sql_kriteria="SELECT id_kriteria,nama_kriteria FROM kriteria ORDER BY id_kriter
 $hasil_kriteria=mysqli_query($db_link,$sql_kriteria);
 $total_kriteria=mysqli_num_rows($hasil_kriteria);
 
+
+$get_user_cek=mysqli_query ($db_link,"SELECT A.id_toko FROM jabatan_pegawai A
+                            INNER JOIN pegawai B ON A.id_pegawai=B.no_pegawai
+                            INNER JOIN user c ON B.no_pegawai=c.id_pegawai
+                            WHERE c.user_name=CASE WHEN $hak_akses=3 
+                THEN '".$username."' ELSE c.user_name END ");
+$get_toko_user=mysqli_fetch_assoc($get_user_cek);
+
+
+
+
 $sql_penilaian="SELECT DISTINCT C.nama,B.id_jabatan,A.status FROM penilaian A
                 INNER JOIN jabatan_pegawai B ON A.id_jabatan=B.id_jabatan
                 INNER JOIN pegawai C ON B.id_pegawai=C.no_pegawai
-                WHERE A.status=1
-                ORDER BY C.nama,A.status DESC";
+                WHERE B.id_toko=(CASE WHEN $hak_akses =3 
+                THEN ".$get_toko_user['id_toko']." ELSE B.id_toko END)
+				AND B.id_toko=(CASE WHEN $hak_akses =4 
+                THEN ".$get_toko_user['id_toko']." ELSE B.id_toko END)
+                ORDER BY C.nama asc, A.Status desc";
 $hasil_penilaian=mysqli_query($db_link,$sql_penilaian);
         echo '<table class="table table-bordered table-hover text-center panel panel-primary" >
                     
@@ -99,8 +113,8 @@ $hasil_penilaian=mysqli_query($db_link,$sql_penilaian);
                 $d++;
             }
          echo  "
-                <td>".$data_jabatan['bagian']."</td>
                 <td>".$data_jabatan['jabatan']."</td>
+                <td>".$data_jabatan['bagian']."</td>
                 <td>";
                 if ( $data_penilaian['status']==1 )echo 'Aktif';
                 else echo'Non Aktif';
@@ -120,7 +134,7 @@ $hasil_penilaian=mysqli_query($db_link,$sql_penilaian);
 
 ?>
 	 <center>
-             <button class="btn btn-primary hidden-print" onclick="printJS('../include/view/read/laporan_penilaian_pegawai_for_print.php')"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print</button>
+             <button class="btn btn-primary hidden-print" onclick="printJS('../pdf/print_laporan_penilaian_pegawai.php')"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print</button>
 	    </center>
 		</div>
 	</div>

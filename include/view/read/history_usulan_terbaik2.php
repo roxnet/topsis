@@ -55,7 +55,7 @@ $hasil_rangking=mysqli_query($db_link,$sql_rangking);
 		</div>
         <br><br>
          <center>
-             <button class="btn btn-primary hidden-print" onclick="printJS('../include/view/read/laporan_penilaian_pegawai_for_print.php')"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print</button>
+             <button class="btn btn-primary hidden-print" onclick="printJS('../pdf/print_history.php')"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print</button>
 	    </center>
 
 

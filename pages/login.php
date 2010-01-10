@@ -84,7 +84,7 @@
                         success: function (data) {
                             if (data == 'true') {
 
-                                window.location = "index.php?home=yes";
+                                window.location = "index.php?navigasi=dashboard";
                             }
                             else {
                                 $("#konfirmasi_login").html(data);

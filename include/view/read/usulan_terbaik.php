@@ -70,7 +70,7 @@ $bag=mysqli_query($db_link,"SELECT id_bagian,bagian FROM bagian");
            <div class="form-group" id="id_group_jum_terbaik">
                 <label class="control-label col-sm-3" for="toko">Jumlah Terbaik : </label>
                 <div class="col-sm-5">
-                   <input type="number" name='jumlah_terbaik' class="form-control" >
+                   <input type="number" min="1" max="10" name='jumlah_terbaik' class="form-control">
                 </div>
            </div>
            <div class="text-center">	

@@ -73,7 +73,7 @@
                         </li>
                         <li class="divider"></li><center>
                         <li><button id="logout" type="button"><i class="fa fa-sign-out fa-fw"></i> Logout</button>
-                        </center></li>
+                        </li></center>
                     </ul>
                     <!-- /.dropdown-user -->
                 </li>
@@ -187,15 +187,15 @@
                             ';
 
                         }
-                    ?>
+                    ?> 
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->
             </div>
             <!-- /.navbar-static-side -->
         </nav>
-
         <!-- Page Content -->
+		<!-- jika mau coba disini aja -->
 
         <div class="page-wrapper" >
             <div class="container" >

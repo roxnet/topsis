@@ -1,4 +1,4 @@
-<div class="col-sm-12 col-xs-offset-2">  
+<div class="col-sm-11 col-sm-offset-2">  
 	<h2 class="text-center">DAFTAR PENILAIAN PEGAWAI</h2> 
 	<div class="panel-group" >
 		<div class="panel panel-default" style="padding:10px" >
@@ -28,6 +28,8 @@ $sql_penilaian="SELECT DISTINCT A.id_nilai,C.nama,B.id_jabatan,A.status FROM pen
                 INNER JOIN jabatan_pegawai B ON A.id_jabatan=B.id_jabatan
                 INNER JOIN pegawai C ON B.id_pegawai=C.no_pegawai
                 WHERE B.id_toko=(CASE WHEN $hak_akses =3 
+                THEN ".$get_toko_user['id_toko']." ELSE B.id_toko END)
+				AND B.id_toko=(CASE WHEN $hak_akses =4 
                 THEN ".$get_toko_user['id_toko']." ELSE B.id_toko END)
                 ORDER BY C.nama asc, A.Status desc";
 $hasil_penilaian=mysqli_query($db_link,$sql_penilaian);
@@ -134,7 +136,9 @@ $hasil_penilaian=mysqli_query($db_link,$sql_penilaian);
                         echo '<button type="button" id="tambah" class="btn btn-success">TAMBAH PENILAIAN PEGAWAI</button>';
                         }
                         ?>
-							
+						<button class="btn btn-primary hidden-print" onclick="printJS('../pdf/print_penilaian.php')">
+						<span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print</button>
+	
 						</div>
 					</div>
 			</div>

@@ -84,6 +84,8 @@ $hasil_nilai=mysqli_query($db_link,$sql_penilaian);
 			<div class="panel-footer">
 				<div class="text-center">	
                     <button type="button" id="cancel" onclick="window.location ='index.php?navigasi=laporan_penilaian_pegawai&crud=view';" class="btn btn-danger">CANCEL</button>
+				<button class="btn btn-primary hidden-print" onclick="printJS('../pdf/print_detail_penilaian_pegawai.php?id_jabatan=<?php echo $id_jabatan; ?>')">
+						<span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print</button>
 				</div>
 				</div>
 

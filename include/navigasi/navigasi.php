@@ -1,9 +1,8 @@
 <?php
 if(isset($_GET['navigasi'])){
-      if($_GET['navigasi']=='dasboard'){
-        include_once "../view/dashboard.php";
+      if($_GET['navigasi']=='dashboard'){
+        include_once "../include/view/read/dashboard.php";
       }
-      
       if($_GET['navigasi']=='bagian'){
         if ($_GET['crud']=='view'){
           include_once "../include/view/read/bagian_tampil.php";

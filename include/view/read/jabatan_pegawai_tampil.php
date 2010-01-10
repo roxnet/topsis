@@ -1,4 +1,4 @@
-<div class="col-sm-10 col-sm-offset-2">  
+<div class="col-sm-11 col-sm-offset-2">  
 	<h2 class="text-center">DAFTAR JABATAN PEGAWAI</h2> 
 	<div class="panel-group">
 	<div class="panel panel-default" style="padding:10px">
@@ -14,6 +14,7 @@
 			<table class="table table-bordered table-hover text-center panel panel-primary">
 				<thead class="panel-heading">
 					<tr>
+						<th class="text-center">NO</th>
 						<th class="text-center">NO PEGAWAI</th>
 						<th class="text-center">NAMA PEGAWAI</th>
 						<th class="text-center">TOKO</th>
@@ -52,10 +53,12 @@ ELSE 0 END
 							$hasil = mysqli_query($db_link,$sql);
 							if (!$hasil){
 							die(mysqli_error($db_link));}
-
+							
+							$no=1;
 							while ($data=mysqli_fetch_array($hasil)) {
 							echo "<tr>";
-                            echo "  <td>{$data['no_pegawai']}</td>
+                            echo "  <td>$no</td>
+									<td>{$data['no_pegawai']}</td>
                                     <td>{$data['nama']}</td>
 									<td>".$data['nama_toko']."</td>
 									<td>{$data['bagian']}</td>
@@ -74,6 +77,7 @@ ELSE 0 END
                                   		
                                    echo" </td>";
 							echo "</tr>";
+							$no++;
 						}
 					?>
 				</tbody>
@@ -87,7 +91,9 @@ ELSE 0 END
 							echo '<button type="button" id="tambah" class="btn btn-success">TAMBAH JABATAN PEGAWAI</button>';
 						}
 						?>
-							
+						<button class="btn btn-primary hidden-print" onclick="printJS('../pdf/print_jabatan_pegawai.php')">
+						<span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print</button>
+	
 						</div>
 					</div>
 			</div>

@@ -96,6 +96,14 @@ $b=0;
             var penilaianstring='';
             var bobot=[];
             var bobotstring='';
+			if ($('input[name=penilaian1]').val() < 0 ) {
+                $("#id_group").addClass("form-group has-error has-feedback");
+                $("#nama_kriteria").after("<span class='glyphicon glyphicon-remove form-control-feedback'></span>");
+                $('#pesan_required').text("Nilai Tidak Boleh Minus");
+                $("#required").show();
+             }
+
+			
         while (count<=penilaiancount){
             bobot[count]=$('input[name=bobot'+count+']').val();
             penilaian[count]=$('input[name=penilaian'+count+']').val();

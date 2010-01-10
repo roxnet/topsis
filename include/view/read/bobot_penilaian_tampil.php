@@ -1,4 +1,4 @@
-<div class="col-sm-12 col-sm-offset-2" style="display: inline-block;">  
+<div class="col-sm-15 col-sm-offset-2" style="display: inline-block;">  
 	<h2 class="text-center">DAFTAR BOBOT PENILAIAN</h2> 
 	<div class="panel-group">
 		<div class="panel panel-default" style="padding:10px">
@@ -44,12 +44,12 @@
                 echo '</tr>
                 </thead>
                 <tbody> ';
-        $s=1;
+        $a=1;
 
         while ($data_bagian=mysqli_fetch_assoc($hasil_bagian)) {
             echo "<tr class='tablerow'>";
             echo "  
-                <td></td>
+                <td>$a</td>
                 <td>{$data_bagian['bagian']}</td>";
             $sql_jabatan="SELECT A.jabatan,A.status FROM bobot_penilaian A
                 INNER JOIN bagian C ON A.id_bagian=C.id_bagian
@@ -103,7 +103,7 @@
                echo "</td>";
         
             echo "</tr>";
-        $s++;
+        $a++;
         }
     echo "</tbody></table>";
 
@@ -117,7 +117,9 @@
                             echo '<button type="button" id="tambah" class="btn btn-success">TAMBAH BOBOT PENILAIAN</button>';
                         }
                         ?>
-							
+						<button class="btn btn-primary hidden-print" onclick="printJS('../pdf/print_bobot.php')">
+						<span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print</button>
+	
 						</div>
 					</div>
 			</div>
@@ -126,7 +128,7 @@
 </div>
 
 
-<div class="col-sm-10 col-sm-offset-2" style="display: inline-block;">  
+<div class="col-sm-15 col-sm-offset-2" style="display: inline-block;">  
 	<h2 class="text-center">DAFTAR AKUMULASI BOBOT</h2> 
 	<div class="panel-group">
 		<div class="panel panel-default" style="padding:10px">
@@ -164,12 +166,11 @@
                 echo '</tr>
                 </thead>
                 <tbody> ';
-        $s=1;
-
+        $no=1;
         while ($data_bagian=mysqli_fetch_assoc($hasil_bagian)) {
             echo "<tr>";
             echo "  
-                <td>".$s."</td>
+                <td>$no</td>
                 <td>{$data_bagian['bagian']}</td>";
            $sql_jabatan="SELECT A.jabatan,A.status FROM bobot_penilaian A
                 INNER JOIN bagian C ON A.id_bagian=C.id_bagian
@@ -217,11 +218,14 @@
                 ";
         
             echo "</tr>";
-        $s++;
+        $no++;
         }
     echo "</tbody></table>";
 
-?>
+?><br/><center>
+						<button class="btn btn-primary hidden-print" onclick="printJS('../pdf/print_akumulasi.php')">
+						<span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print</button></center>
+
 		</div>
 	</div>
 </div>

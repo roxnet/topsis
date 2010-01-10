@@ -46,7 +46,7 @@
                             <label class="control-label col-sm-4 col-sm-offset-1" for="bobot">'.$kriteria_tampil["nama_kriteria"].' : </label>
                             <div class="col-sm-3">
                                     <input type="hidden" class="form-control" id="bobot" name="kriteria'.$b.'" value="'.$kriteria_tampil["id_kriteria"].'" >
-                                    <input type="text" class="form-control" id="bobot" name="bobot'.$b.'" placeholder="BOBOT" >
+                                    <input type="number" min="1" max="10" class="form-control" id="bobot" name="bobot'.$b.'" placeholder="BOBOT" >
                             </div>
                             </div>   ';
                         $b++;
@@ -87,6 +87,13 @@
                 $("#id_group").addClass("form-group has-error has-feedback");
                 $("#nama_kriteria").after("<span class='glyphicon glyphicon-remove form-control-feedback'></span>");
                  $('#pesan_required').text("Bobot Nilai Tidak Boleh Kosong");
+                  $("#required").show();
+             }
+			 if ($('input[name=bobot1]').val() < 0 ) {
+
+                $("#id_group").addClass("form-group has-error has-feedback");
+                $("#nama_kriteria").after("<span class='glyphicon glyphicon-remove form-control-feedback'></span>");
+                 $('#pesan_required').text("Bobot Nilai Tidak Boleh Minus");
                   $("#required").show();
              }
              else {

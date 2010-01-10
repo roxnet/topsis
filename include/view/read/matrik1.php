@@ -16,7 +16,7 @@
 		,nama varchar(50)
         ,nilai decimal(10,8)
         ,toko varchar(255)
-        ,jabatan varchar(8)
+        ,jabatan varchar(12)
         ,bagian varchar(255)
         ,tgl_penilaian date);");
 

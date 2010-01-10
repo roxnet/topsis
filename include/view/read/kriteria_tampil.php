@@ -50,7 +50,9 @@
 							echo '<button type="button" id="tambah" class="btn btn-success">TAMBAH KRITERIA</button>';
 						}
 						?>
-							
+						<button class="btn btn-primary hidden-print" onclick="printJS('../pdf/print_kriteria.php')">
+						<span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print</button>
+
 						</div>
 					</div>
 			</div>

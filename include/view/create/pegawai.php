@@ -9,10 +9,7 @@
     $newID = $char . sprintf("%04s", $noUrut);
 ?>
 
-<div class="col-sm-8 col-sm-offset-3">  
-	<div class="panel-group">
-		<div class="panel panel-primary">
-            <div class="panel-heading"><h2 class="text-center">TAMBAH PEGAWAI</h2></div>
+
                 <div class="panel-body">
                     <form class="form-horizontal">
                         <div class="form-group">
@@ -80,7 +77,7 @@
                         <div class="form-group" id="no_telp_group">
                             <label class="control-label col-sm-4" for="no_telp">NO TELPONE :</label>
                             <div class="col-sm-4">
-                                <input type="number" class="form-control" id="no_telp" name="no_telp" placeholder="No Telpone" >
+                                <input type="number" min="0" class="form-control" id="no_telp" name="no_telp" placeholder="No Telpone" >
                             </div>
                         </div>
                         <div class="form-group" id="alamat_group">
@@ -180,6 +177,15 @@
                 $('#pesan_required').text("Nomor Telpone Tidak Boleh Kosong");
                 $("#required").show();
             }
+			
+			if (no_telp < 0) {
+
+                $("#no_telp_group").addClass("form-group has-error has-feedback");
+                $("#no_telp").after("<span class='glyphicon glyphicon-remove form-control-feedback'></span>");
+                $('#pesan_required').text("Nomor Telpone Tidak Boleh Nilai Minus");
+                $("#required").show();
+            }
+			
              if (alamat=='' || alamat==null) {
 
                 $("#alamat_group").addClass("form-group has-error has-feedback");

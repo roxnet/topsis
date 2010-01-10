@@ -17,7 +17,7 @@
             <label class="control-label col-sm-4 col-sm-offset-1" for="bobot">'.$kriteria_tampil["nama_kriteria"].' : </label>
             <div class="col-sm-3" >
                 <input type="hidden" class="form-control" id="bobot" name="bobot'.$b.'" value="'.$kriteria_tampil["id_detailbobot"].'" >
-                <input type="text" class="form-control" id="penilaian" name="penilaian'.$b.'" placeholder="PENILAIAN" >
+                <input type="number" min="0" max="100" class="form-control" id="penilaian" name="penilaian'.$b.'" placeholder="PENILAIAN" >
             </div>
         </div>   ';
     $b++;

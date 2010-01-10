@@ -56,6 +56,9 @@
 			<div class="panel-footer">
 				<div class="text-center">	
                     <button type="button" id="cancel" onclick="window.location ='index.php?navigasi=pegawai&crud=view';" class="btn btn-danger">CANCEL</button>
+					<button class="btn btn-primary hidden-print" onclick="printJS('../pdf/print_detail_pegawai.php?no_pegawai=<?php echo $no_pegawai; ?>')">
+					<span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print</button>
+
 				</div>
 			</div>
 		</div>
