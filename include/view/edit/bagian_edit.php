@@ -61,7 +61,7 @@
             $.ajax({
               type: "POST",
               url: "../include/kontrol/kontrol_bagian.php",
-              data: 'id_bagian=' + id_bagian + '&bagian=' + bagian,
+              data: 'crud=update&id_bagian=' + id_bagian + '&bagian=' + bagian,
               success: function (respons) {
                   if (respons='berhasil'){
                         $("#hasil").show(respons);setTimeout(function(){
