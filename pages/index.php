@@ -81,14 +81,18 @@
                             <a href="index.php?navigasi=bagian&crud=view"><i class="fa fa-table fa-fw"></i> Bagian</a>
                         </li>
                         <li>
+                            <a href="index.php?navigasi=toko&crud=view"><i class="fa fa-table fa-fw"></i> Toko</a>
+                        </li>
+                        <li>
+                            <a href="index.php?navigasi=kriteria&crud=view"><i class="fa fa-table fa-fw"></i> Kriteria</a>
+                        </li>
+                        <li>
                             <a href="index.php?navigasi=pegawai&crud=view"><i class="fa fa-table fa-fw"></i> Pegawai</a>
                         </li>
                         <li>
                             <a href="index.php?navigasi=riwayat_pegawai&crud=view"><i class="fa fa-table fa-fw"></i> Riwayat Pegawai</a>
                         </li>
-                        <li>
-                            <a href="index.php?navigasi=kriteria&crud=view"><i class="fa fa-table fa-fw"></i> Kriteria</a>
-                        </li>
+                        
                         <li>
                             <a href="index.php?navigasi=bobot&crud=view"><i class="fa fa-table fa-fw"></i> Bobot</a>
                         </li>
@@ -121,7 +125,7 @@
 
         <div class="page-wrapper" style="margin:0 auto">
             <div class="container">
-                <div class="row">
+                <div class="row" id="refresh">
                    
                     <!-- /.col-lg-12 -->
                 <!--</div>-->
@@ -155,6 +159,21 @@
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
 
+
+
+<div id="hasil" class="alert alert-success" style="position: fixed;right:2%;display:none; top: 55px;width: 20%; z-index:9999">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <div id="pesan_berhasil"></div>
+</div>
+
+<div id="gagal" class="alert alert-danger" style="position: fixed;right:2%;display:none; top: 55px;width: 20%; z-index:9999">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <div id="pesan_gagal"></div>
+</div>
+<div id="required" class="alert alert-warning" style="position: fixed;right:2%;display:none; top: 55px;width: 20%; z-index:9999">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <div id="pesan_required"></div>
+</div>
 </body>
 
 </html>

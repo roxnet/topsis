@@ -1,6 +1,5 @@
 
 
-
 <div class="col-sm-8 col-sm-offset-3">  
 	<h2 class="text-center">DAFTAR BAGIAN</h2> 
 	<div class="panel-group">
@@ -25,10 +24,8 @@
 								echo "<td>{$data['id_bagian']}</td>
 											<td>{$data['bagian']}</td>
 											<td>
-											
-												<a class='btn btn-primary' href='index.php?navigasi=bagian&crud=edit&id_bagian={$data['id_bagian']}'>Ubah</a>
-													<a class='btn btn-danger' id='hapus' href='index.php?navigasi=bagian&crud=hapus&id_bagian={$data['id_bagian']}' 
-												onclick='return confirm(\"Yakin menghapus Bagian {$data['bagian']}????\");'>Hapus</a>&nbsp;
+												<a class='btn btn-primary ubah' ref='".$data['id_bagian']."'>Ubah</a>
+												<a class='btn btn-danger hapus' ref='".$data['id_bagian']."'>Hapus</a>&nbsp;
 											</td>";
 							echo "</tr>";
 						}
@@ -47,13 +44,56 @@
 	</div>
 </div>
 
+
+
 <script src="../vendor/jquery/jquery.min.js"></script>
 
 
 <script>
 	 $(document).ready(function () {
-          $("#tambah").click(function () {
-           window.location.replace("index.php?navigasi=bagian&crud=tambah");
+        $("#tambah").click(function () {
+           		window.location.replace("index.php?navigasi=bagian&crud=tambah");
           });
-      });
+		
+		$('.ubah').click(function() {
+				var id_bagian=$(this).attr('ref');
+			 window.location.replace("index.php?navigasi=bagian&crud=edit&id_bagian="+id_bagian);
+		});
+
+		$('.hapus').click(function() {
+    		var id_bagian =$(this).attr('ref');
+			 if (confirm('Yakin menghapus Bagian '+id_bagian+'????')) {
+					$.ajax({
+					type: "POST",
+					url: "../include/kontrol/kontrol_bagian.php",
+					data: 'crud=hapus&id_bagian='+id_bagian,
+					success: function (respons) {
+						
+						console.log(respons);
+						if (respons=='berhasil'){
+							$('#pesan_berhasil').text("Bagian Berhasil Dihapus");
+								$("#hasil").show();
+								setTimeout(function(){
+									$("#hasil").hide();
+									window.location.reload(1);
+								}, 2000);
+						}
+
+						else {
+								$('#pesan_gagal').text("Bagian Gagal Dihapus");
+								$("#gagal").show();
+								setTimeout(function(){
+									$("#gagal").hide(); 
+									window.location.reload(1);
+								}, 2000);
+							
+						}
+					}
+					});
+			 }
+			
+		});
+		 
+	 });
 </script>
+
