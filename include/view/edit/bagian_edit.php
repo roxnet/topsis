@@ -2,9 +2,7 @@
             $id_bagian=$_GET['id_bagian'];
             $edit=("select * from bagian where id_bagian='$id_bagian'");
             $hasil = mysqli_query($db_link,$edit);
-
-
-            ?>
+?>
 
 <div class="col-sm-6 col-sm-offset-4">  
 	<div class="panel-group">

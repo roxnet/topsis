@@ -25,7 +25,7 @@
                         <div class="form-group">
                             <label class="control-label col-sm-3" for="bagian">BAGIAN :</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="nama_bagian" placeholder="Nama Bagian" required>
+                                <input type="text" class="form-control" name="nama_bagian" placeholder="Nama Bagian" required>
                             </div>
                         </div>
                     </form>

@@ -42,7 +42,7 @@ if(isset($_GET['navigasi'])){
           include_once "../include/view/edit/pegawai_edit.php";
         }
           if($_GET['crud']=='hapus'){
-          include_once "../include/view/delete/pegawai_hapus.php";
+          include_once "../include/kontrol/kontrol_pegawai.php";
         }
          if($_GET['crud']=='tambah'){
           include_once "../include/view/create/pegawai.php";
@@ -57,7 +57,7 @@ if(isset($_GET['navigasi'])){
           include_once "../include/view/edit/riwayat_edit.php";
         }
           if($_GET['crud']=='hapus'){
-          include_once "../include/view/delete/riwayat_hapus.php";
+          include_once "../include/kontrol/kontrol_riwayat.php";
         }
          if($_GET['crud']=='tambah'){
           include_once "../include/view/create/riwayat.php";
@@ -73,7 +73,7 @@ if(isset($_GET['navigasi'])){
           include_once "../include/view/edit/kriteria_edit.php";
         }
           if($_GET['crud']=='hapus'){
-          include_once "../include/view/delete/kriteria_hapus.php";
+          include_once "../include/kontrol/kontrol_kriteria.php";
         }
          if($_GET['crud']=='tambah'){
           include_once "../include/view/create/kriteria.php";
@@ -89,7 +89,7 @@ if(isset($_GET['navigasi'])){
           include_once "../include/view/edit/bobot_edit.php";
         }
           if($_GET['crud']=='hapus'){
-          include_once "../include/view/delete/bobot_hapus.php";
+          include_once "../include/kontrol/kontrol_bobot.php";
         }
          if($_GET['crud']=='tambah'){
           include_once "../include/view/create/bobot.php";

@@ -25,6 +25,10 @@
     <!-- Custom Fonts -->
     <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
+
+    <!--DatePicker -->
+    <link href="../vendor/bootstrap/css/bootstrap-datetimepicker-standalone.css" rel="stylesheet">
+    <link href="../vendor/bootstrap/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -123,8 +127,8 @@
 
         <!-- Page Content -->
 
-        <div class="page-wrapper" style="margin:0 auto">
-            <div class="container">
+        <div class="page-wrapper" style="margin:0 auto;background-color:white">
+            <div class="container" style="">
                 <div class="row" id="refresh">
                    
                     <!-- /.col-lg-12 -->
@@ -158,6 +162,9 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
+
+    <!-- Datepicker -->
+    <script src="../vendor/bootstrap/js/bootstrap-datetimepicker.min.js"></script>
 
 
 
