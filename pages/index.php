@@ -94,7 +94,7 @@
                             <a href="index.php?navigasi=pegawai&crud=view"><i class="fa fa-table fa-fw"></i> Pegawai</a>
                         </li>
                         <li>
-                            <a href="index.php?navigasi=riwayat_pegawai&crud=view"><i class="fa fa-table fa-fw"></i> Riwayat Pegawai</a>
+                            <a href="index.php?navigasi=jabatan_pegawai&crud=view"><i class="fa fa-table fa-fw"></i> Jabatan Pegawai</a>
                         </li>
                         
                         <li>
@@ -163,10 +163,9 @@
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
 
-    <!-- Datepicker -->
-    <script src="../vendor/bootstrap/js/bootstrap-datetimepicker.min.js"></script>
 
-
+<script src="../vendor/bootstrap/js/moment.js"></script>
+<script src="../vendor/bootstrap/js/bootstrap-datetimepicker.min.js"></script>
 
 <div id="hasil" class="alert alert-success" style="position: fixed;right:2%;display:none; top: 55px;width: 20%; z-index:9999">
     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>

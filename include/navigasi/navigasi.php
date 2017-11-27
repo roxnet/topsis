@@ -47,20 +47,23 @@ if(isset($_GET['navigasi'])){
          if($_GET['crud']=='tambah'){
           include_once "../include/view/create/pegawai.php";
         }
+         if($_GET['crud']=='detail'){
+          include_once "../include/view/read/pegawai_detail.php";
+        }
       }
 
-      if($_GET['navigasi']=='riwayat_pegawai'){
+      if($_GET['navigasi']=='jabatan_pegawai'){
         if ($_GET['crud']=='view'){
-          include_once "../include/view/read/riwayat_tampil.php";
+          include_once "../include/view/read/jabatan_pegawai_tampil.php";
         }
         if($_GET['crud']=='edit'){
-          include_once "../include/view/edit/riwayat_edit.php";
+          include_once "../include/view/edit/jabatan_pegawai_edit.php";
         }
           if($_GET['crud']=='hapus'){
-          include_once "../include/kontrol/kontrol_riwayat.php";
+          include_once "../include/kontrol/kontrol_jabatan_pegawai.php";
         }
          if($_GET['crud']=='tambah'){
-          include_once "../include/view/create/riwayat.php";
+          include_once "../include/view/create/jabatan_pegawai.php";
         }
       }
 

@@ -2,6 +2,7 @@
             $id_bagian=$_GET['id_bagian'];
             $edit=("select * from bagian where id_bagian='$id_bagian'");
             $hasil = mysqli_query($db_link,$edit);
+            $row=mysqli_fetch_array($hasil);
 ?>
 
 <div class="col-sm-6 col-sm-offset-4">  
@@ -12,9 +13,6 @@
            
                <form class="form-horizontal">
                     <div class="form-group">
-                        <?php
-                            $row=mysqli_fetch_array($hasil);
-                        ?>
                         <input type="hidden" name="id_bagian" value="<?php echo $id_bagian;?>"/>
                                 
                         <label class="control-label col-sm-3" for="name">Nama Bagian : </label>
