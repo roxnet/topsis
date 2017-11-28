@@ -84,31 +84,31 @@ if(isset($_GET['navigasi'])){
       }
 
       
-      if($_GET['navigasi']=='bobot'){
+      if($_GET['navigasi']=='bobot_penilaian'){
         if ($_GET['crud']=='view'){
-          include_once "../include/view/bobot_tampil.php";
+          include_once "../include/view/read/bobot_penilaian_tampil.php";
         }
         if($_GET['crud']=='edit'){
-          include_once "../include/view/edit/bobot_edit.php";
+          include_once "../include/view/edit/bobot_penilaian_edit.php";
         }
           if($_GET['crud']=='hapus'){
-          include_once "../include/kontrol/kontrol_bobot.php";
+          include_once "../include/kontrol/kontrol_bobot_penilaian.php";
         }
          if($_GET['crud']=='tambah'){
-          include_once "../include/view/create/bobot.php";
+          include_once "../include/view/create/bobot_penilaian.php";
         }
       }
 
       
       if($_GET['navigasi']=='penilaian'){
         if ($_GET['crud']=='view'){
-          include_once "../include/view/penilaian_tampil.php";
+          include_once "../include/view/read/penilaian_tampil.php";
         }
         if($_GET['crud']=='edit'){
           include_once "../include/view/edit/penilaian_edit.php";
         }
           if($_GET['crud']=='hapus'){
-          include_once "../include/view/delete/penilaian_hapus.php";
+          include_once "../include/kontrol/penilaian_hapus.php";
         }
          if($_GET['crud']=='tambah'){
           include_once "../include/view/create/penilaian.php";

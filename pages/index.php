@@ -98,7 +98,7 @@
                         </li>
                         
                         <li>
-                            <a href="index.php?navigasi=bobot&crud=view"><i class="fa fa-table fa-fw"></i> Bobot</a>
+                            <a href="index.php?navigasi=bobot_penilaian&crud=view"><i class="fa fa-table fa-fw"></i> Bobot</a>
                         </li>
                         <li>
                             <a href="index.php?navigasi=penilaian&crud=view"><i class="fa fa-table fa-fw"></i> Penilaian</a>
@@ -113,7 +113,7 @@
                                     <a href="index.php?navigasi=laporan_per_pegawai">Per Pegawai</a>
                                 </li>
                                 <li>
-                                    <a href="index.php?navigasi=usulan_pegawai_terbaik">Usualan Pegawai Terbaik</a>
+                                    <a href="index.php?navigasi=usulan_pegawai_terbaik">Usulan Pegawai Terbaik</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
