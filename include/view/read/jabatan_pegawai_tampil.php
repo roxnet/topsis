@@ -32,7 +32,9 @@
                                     <td>{$data['nama']}</td>
 									<td>".$data['nama_toko']."</td>
 									<td>{$data['bagian']}</td>
-									<td>{$data['jabatan']}</td>
+									<td>";
+									echo ucwords($data['jabatan']); 
+									echo "</td>
 									<td>{$data['tgl_jabat']}</td>
 									<td>
                                   		<a class='btn btn-primary ubah' ref='".$data['id_jabatan']."'>Ubah</a>

@@ -76,6 +76,7 @@
  $(document).ready(function () {
       
           $("#tambah").click(function () {
+            var id_bobot=$('input[name=id_bobot]').val();
             var kriteria = $('select[name=kriteria]').val();
             var jabatan= $('select[name=jabatan]').val();
             var bobot= $('input[name=bobot]').val();
@@ -84,7 +85,8 @@
             $.ajax({
               type: "POST",
               url: "../include/kontrol/kontrol_bobot_penilaian.php",
-              data: 'crud=update&kriteria=' +kriteria+
+              data: 'crud=update&id_bobot='+id_bobot+
+                    '&kriteria=' +kriteria+
                     '&jabatan='+jabatan+
                     '&status='+status+
                     '&bobot='+bobot,

@@ -4,12 +4,10 @@
         WHERE B.id_pegawai IS NULL ");
     $pegawai_query = mysqli_query($db_link,$pegawai);
     $toko=("SELECT A.id_toko,A.nama_toko from toko A
-        LEFT JOIN jabatan_pegawai B ON A.id_toko=B.id_toko
-        WHERE B.id_toko IS NULL ");
+        ");
     $toko_query = mysqli_query($db_link,$toko);
      $bagian=("SELECT A.id_bagian,A.bagian from bagian A
-        LEFT JOIN jabatan_pegawai B ON A.id_bagian=B.id_bagian
-        WHERE B.id_bagian IS NULL ");
+       ");
     $bagian_query = mysqli_query($db_link,$bagian);
             
 ?>

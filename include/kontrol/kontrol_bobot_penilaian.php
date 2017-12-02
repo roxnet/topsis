@@ -12,7 +12,7 @@ if(isset($_POST['id_bobot'])|| isset($_POST['kriteria']) || isset ($_POST['jabat
             $bobot=$_POST['bobot'];
             $jabatan=$_POST['jabatan'];
             $status=$_POST['status'];
-            $proses="UPDATE bobot_kriteria SET id_kriteria='$id_kriteria',bobot='$bobot'
+            $proses="UPDATE bobot_penilaian SET id_kriteria='$id_kriteria',bobot='$bobot'
             ,jabatan='".$jabatan."',Status=".$status." WHERE id_bobot='$id_bobot'";
             $hasil = mysqli_query($db_link,$proses);
             if($hasil){
@@ -29,7 +29,7 @@ if(isset($_POST['id_bobot'])|| isset($_POST['kriteria']) || isset ($_POST['jabat
             $bobot=$_POST['bobot'];
             $jabatan=$_POST['jabatan'];
             $status=$_POST['status'];
-            $sql = "INSERT INTO jabatan_pegawai (id_kriteria,bobot,jabatan,status)
+            $sql = "INSERT INTO bobot_penilaian (id_kriteria,bobot,jabatan,status)
                     VALUES ('".$id_kriteria."',".$bobot.",'".$jabatan."',".$status.") ";
             $hasil = mysqli_query($db_link,$sql); 
             
