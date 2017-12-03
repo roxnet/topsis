@@ -1,25 +1,92 @@
-<div class="col-sm-10 col-sm-offset-2">  
-	<h2 class="text-center">DAFTAR JABATAN PEGAWAI</h2> 
+<div class="col-sm-10 col-sm-offset-2" style="display: inline-block;">  
+	<h2 class="text-center">DAFTAR BOBOT PENILAIAN</h2> 
 	<div class="panel-group">
-		<div class="panel panel-default">
+		<div class="panel panel-default" style="padding:10px">
             <br/>
-                    <div class="form-group col-sm-offset-4" >
-                            <label class="control-label col-sm-2" for="jabatan"><h4>Jabatan : </h4></label>
-                        <div class="col-sm-4">
-                                <select  class="form-control" name="pilih_jabatan" id="pilih_jabatan">
-                                <option> - </option>
-                                <option value="all">ALL</option>
-                                <option value="manager">Manager</option>
-                                <option value="HRD">HRD</option>
-                                <option value="koordinator">Koordinator</option>
-                                <option value="karyawan">Karyawan</option>
-                            </select> 
-                        </div>
-                    </div>
-                    <br/><br/>
-        <div id="hidden">
-			
-             </div>
+<?php   
+
+$sql_kriteria="SELECT id_kriteria,nama_kriteria FROM kriteria ORDER BY id_kriteria";
+$hasil_kriteria=mysqli_query($db_link,$sql_kriteria);
+$total_kriteria=mysqli_num_rows($hasil_kriteria);
+$sql_bagian="SELECT id_bagian,bagian FROM bagian ORDER BY id_bagian";
+$hasil_bagian=mysqli_query($db_link,$sql_bagian);
+$total_bagian=mysqli_num_rows($hasil_bagian);
+
+        echo '<table class="table table-bordered table-hover text-center panel panel-primary">
+                    
+                <thead class="panel-heading">
+                <tr>
+                    <th class="text-center" rowspan="2" style="vertical-align: middle;">NO</th>
+                    <th class="text-center" rowspan="2" style="vertical-align: middle;">BAGIAN</th>
+                    <th class="text-center" colspan="'.$total_kriteria.'">KRITERIA</th>
+                    <th class="text-center" rowspan="2" style="vertical-align: middle;">JABATAN</th>
+                    <th class="text-center" rowspan="2" style="vertical-align: middle;">AKSI</th>
+                </tr>
+                <tr>';
+
+                $kriteriaarray=array();
+                    while($data_kriteria=mysqli_fetch_assoc($hasil_kriteria)){
+                        $kriteriaarray[]=''.$data_kriteria['id_kriteria'].'';
+                        echo "
+                        <th>".$data_kriteria['nama_kriteria']."</th>
+                        ";
+                    }
+                echo '</tr>
+                </thead>
+                <tbody> ';
+        $s=1;
+
+        while ($data_bagian=mysqli_fetch_assoc($hasil_bagian)) {
+            echo "<tr>";
+            echo "  
+                <td>".$s."</td>
+                <td>{$data_bagian['bagian']}</td>";
+            $sql_jabatan="SELECT A.jabatan FROM bobot_penilaian A
+                INNER JOIN bagian C ON A.id_bagian=C.id_bagian
+                WHERE  C.id_bagian='".$data_bagian['id_bagian']."'
+                ORDER BY A.id_bobot ASC";
+                $hasil_jabatan = mysqli_query($db_link,$sql_jabatan);
+                if (!$hasil_jabatan){
+                        echo mysqli_error($db_link);
+                die("Gagal Query Data ");
+                }
+                $data_jabatan=mysqli_fetch_assoc($hasil_jabatan);
+            $d=1;
+            while ($d<=$total_kriteria){
+                $sql="SELECT A.id_bobot,A.bobot FROM bobot_penilaian A
+                INNER JOIN kriteria B ON A.id_kriteria=B.id_kriteria
+                INNER JOIN bagian C ON A.id_bagian=C.id_bagian
+                WHERE B.id_kriteria='".$kriteriaarray[$d-1]."'
+                AND C.id_bagian='".$data_bagian['id_bagian']."'
+                ORDER BY A.id_bobot ASC";
+                $hasil = mysqli_query($db_link,$sql);
+                if (!$hasil){
+                        echo mysqli_error($db_link);
+                die("Gagal Query Data ");
+                }
+                $cek=mysqli_num_rows($hasil);
+                if($cek==0){
+                    echo "<td></td>";
+                    }
+                else {
+                    $data=mysqli_fetch_assoc($hasil);
+                    echo "<td>".$data['bobot']."</td>";
+                }
+                $d++;
+            }
+         echo  "
+                <td>".$data_jabatan['jabatan']."</td>
+                <td>
+                    <a class='btn btn-primary ubah' ref='".$data_bagian['id_bagian']."'>Ubah</a>
+                    <a class='btn btn-danger hapus' ref='".$data_bagian['id_bagian']."'>Hapus</a>&nbsp;
+                </td>";
+        
+            echo "</tr>";
+        $s++;
+        }
+    echo "</tbody></table>";
+
+?>
 						<hr style="height:2px; border:none;margin:0; color:#000; background-color:#428bca;">
 			<div class="panel-heading">
 					<div class="row">
@@ -53,6 +120,44 @@
                     }
                });
         });
+        $('.ubah').click(function() {
+				var id_bagian=$(this).attr('ref');
+			 window.location.replace("index.php?navigasi=bobot_penilaian&crud=edit&id_bagian="+id_bagian);
+		});
 
+		$('.hapus').click(function() {
+    		var id_bobot =$(this).attr('ref');
+		
+			 if (confirm('Yakin menghapus Bobot Penilaian ????')) {
+					$.ajax({
+					type: "POST",
+					url: "../include/kontrol/kontrol_bobot_penilaian.php",
+					data: 'crud=hapus&id_bagian='+id_bagian,
+					success: function (respons) {
+						
+						console.log(respons);
+						if (respons=='berhasil'){
+							$('#pesan_berhasil').text("Bobot Penilaian Berhasil Dihapus");
+								$("#hasil").show();
+								setTimeout(function(){
+									$("#hasil").hide();
+									window.location.reload(1);
+								}, 2000);
+						}
+
+						else {
+								$('#pesan_gagal').text("Bobot Penilaian Gagal Dihapus");
+								$("#gagal").show();
+								setTimeout(function(){
+									$("#gagal").hide(); 
+									window.location.reload(1);
+								}, 2000);
+							
+						}
+					}
+					});
+			 }
+			
+		});
 	 });
 </script>

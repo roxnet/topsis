@@ -1,6 +1,8 @@
  <?php
     $kriteria=("SELECT id_kriteria,nama_kriteria FROM kriteria");
     $kriteria_query = mysqli_query($db_link,$kriteria);
+    $bagian=("SELECT id_bagian,bagian FROM bagian");
+    $bagian_query = mysqli_query($db_link,$bagian);
    
             
 ?>
@@ -9,49 +11,51 @@
 <div class="col-sm-6 col-sm-offset-4">  
 	<div class="panel-group">
 		<div class="panel panel-primary">
-            <div class="panel-heading"><h2 class="text-center">TAMBAH JABATAN PEGAWAI</h2></div>
+            <div class="panel-heading"><h2 class="text-center">TAMBAH BOBOT PENILAIAN</h2></div>
                 <div class="panel-body">
                     <form class="form-horizontal">
-                        <div class="form-group" id="pegawai">
-                            <label class="control-label col-sm-4" for="kriteria">Nama Kriteria : </label>
-                            <div class="col-sm-6">
-                                 <select  class="form-control" name="kriteria" id="kriteria">  
-                                    <?php
-                                       while ($kriteria_tampil=mysqli_fetch_assoc($kriteria_query)){
-                                           echo "<option value='".$kriteria_tampil['id_kriteria']."'>".$kriteria_tampil['nama_kriteria']."</option>";
-                                       }
-                                    ?>
-                                </select> 
-                            </div>
-                        </div>
-                   
                     <div class="form-group">
                             <label class="control-label col-sm-4" for="jabatan">Jabatan : </label>
                             <div class="col-sm-6">
                                  <select  class="form-control" name="jabatan" id="jabatan">  
-                                   <option value="manager">Manager</option>
-                                   <option value="HRD">HRD</option>
                                    <option value="koordinator">Koordinator</option>
                                    <option value="karyawan">Karyawan</option>
                                 </select> 
                             </div>
                         </div>
-                    <div class="form-group">
-                            <label class="control-label col-sm-4" for="tgl_jabat">Bobot :</label>
+                    <div class="form-group" id="pegawai">
+                            <label class="control-label col-sm-4" for="kriteria">Nama Bagian : </label>
                             <div class="col-sm-6">
-                                    <input type="text" class="form-control" id="bobot" name="bobot" placeholder="BOBOT PENILAIAN" >
-                            </div>
-                        </div>
-               
-                    <div class="form-group">
-                            <label class="control-label col-sm-4" for="status">Status : </label>
-                            <div class="col-sm-6">
-                                 <select  class="form-control" name="status" id="status">  
-                                   <option value="1">Aktif</option>
-                                   <option value="0">Tidak Aktif</option>
+                                 <select  class="form-control" name="bagian" id="bagian">  
+                                    <?php
+                                       while ($bagian_tampil=mysqli_fetch_assoc($bagian_query)){
+                                           echo "<option value='".$bagian_tampil['id_bagian']."'>".$bagian_tampil['bagian']."</option>";
+                                       }
+                                    ?>
                                 </select> 
                             </div>
+                        </div>
+                    <div class="form-group">
+                            <label class="control-label col-sm-4" for="tgl_jabat">Bobot Kriteria :</label>
                     </div>
+                    <?php
+                        $b=1;
+
+                        while ($kriteria_tampil=mysqli_fetch_assoc($kriteria_query)){
+                            echo '
+                             <div class="form-group">
+                            <label class="control-label col-sm-4 col-sm-offset-1" for="bobot">'.$kriteria_tampil["nama_kriteria"].' : </label>
+                            <div class="col-sm-3">
+                                    <input type="hidden" class="form-control" id="bobot" name="kriteria'.$b.'" value="'.$kriteria_tampil["id_kriteria"].'" >
+                                    <input type="text" class="form-control" id="bobot" name="bobot'.$b.'" placeholder="BOBOT" >
+                            </div>
+                            </div>   ';
+                        $b++;
+                        }
+                        
+                       
+                    ?>
+                     
                    </form>   
                 </div>
 			<hr style="height:1px; border:none;margin:0; color:#000; background-color:#428bca;">
@@ -69,20 +73,32 @@
 <script>
  
  $(document).ready(function () {
-      
+        var bobotcount=<?php echo $b; ?>;
+            bobotcount=bobotcount-1;
           $("#tambah").click(function () {
-            var kriteria = $('select[name=kriteria]').val();
+            var bagian = $('select[name=bagian]').val();
             var jabatan= $('select[name=jabatan]').val();
-            var bobot= $('input[name=bobot]').val();
-            var status= $('select[name=status]').val();
+            var count=1;
+            var bobot=[];
+            var bobotstring='';
+            var kriteria=[];
+            var kriteriastring='';
+        while (count<=bobotcount){
+            bobot[count]=$('input[name=bobot'+count+']').val();
+            bobotstring=bobotstring+'&bobot'+count+'='+bobot[count];
+
+            kriteria[count]=$('input[name=kriteria'+count+']').val();
+            kriteriastring=kriteriastring+'&kriteria'+count+'='+kriteria[count];
+            count++;
+        }
             
             $.ajax({
               type: "POST",
               url: "../include/kontrol/kontrol_bobot_penilaian.php",
-              data: 'crud=tambah&kriteria=' +kriteria+
+              data: 'crud=tambah&count='+bobotcount+
+                    '&bagian=' +bagian+
                     '&jabatan='+jabatan+
-                    '&status='+status+
-                    '&bobot='+bobot,
+                    bobotstring+kriteriastring,
               success: function (respons) {
                   if (respons=='berhasil'){
                          $('#pesan_berhasil').text("Bobot Penilaian Berhasil Ditambah");
@@ -100,6 +116,7 @@
 
                   }
               }
+              
             });
           });
       });

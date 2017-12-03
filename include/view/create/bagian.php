@@ -48,7 +48,7 @@
  $(document).ready(function () {
           $("#tambah").click(function () {
             var id_bagian = $('input[name=id_bagian]').val();
-            var bagian = $('input[name=bagian]').val();
+            var bagian = $('input[name=nama_bagian]').val();
             $.ajax({
               type: "POST",
               url: "../include/kontrol/kontrol_bagian.php",

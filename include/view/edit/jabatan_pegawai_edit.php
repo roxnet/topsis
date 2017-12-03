@@ -153,5 +153,12 @@
               }
             });
           });
+           $(function () {
+                $('.datetimepicker1').datetimepicker({
+                viewMode: 'years',
+                format: 'DD/MM/YYYY'
+            }
+                );
+            });
       });
 </script>
