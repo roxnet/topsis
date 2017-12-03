@@ -107,10 +107,7 @@
                             <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Laporan Penilaian<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="index.php?navigasi=laporan_semua_pegawai">Semua Pegawai</a>
-                                </li>
-                                <li>
-                                    <a href="index.php?navigasi=laporan_per_pegawai">Per Pegawai</a>
+                                    <a href="index.php?navigasi=laporan_penilaian_pegawai&crud=view">Penilain Pegawai</a>
                                 </li>
                                 <li>
                                     <a href="index.php?navigasi=usulan_pegawai_terbaik">Usulan Pegawai Terbaik</a>

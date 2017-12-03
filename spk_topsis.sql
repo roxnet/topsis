@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Waktu pembuatan: 25 Nov 2017 pada 10.54
+-- Waktu pembuatan: 03 Des 2017 pada 16.43
 -- Versi server: 5.7.19
 -- Versi PHP: 7.1.7
 
@@ -38,7 +38,10 @@ CREATE TABLE `bagian` (
 --
 
 INSERT INTO `bagian` (`id_bagian`, `bagian`) VALUES
-('B-0001', 'Kasir');
+('B-0001', 'Kasir'),
+('B-0002', 'Gudang'),
+('B-0003', 'Pelayan'),
+('B-0004', 'Kuli');
 
 -- --------------------------------------------------------
 
@@ -49,21 +52,21 @@ INSERT INTO `bagian` (`id_bagian`, `bagian`) VALUES
 CREATE TABLE `bobot_penilaian` (
   `id_bobot` int(11) NOT NULL,
   `id_kriteria` char(8) DEFAULT NULL,
-  `id_jabatan` int(11) DEFAULT NULL,
-  `bobot` int(11) DEFAULT NULL,
-  `status` bit(1) DEFAULT b'1'
+  `id_bagian` char(8) DEFAULT NULL,
+  `jabatan` enum('manager','HRD','koordinator','karyawan') DEFAULT NULL,
+  `bobot` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `bobot_penilaian`
 --
 
-INSERT INTO `bobot_penilaian` (`id_bobot`, `id_kriteria`, `id_jabatan`, `bobot`, `status`) VALUES
-(1, 'K-0001', NULL, 4, NULL),
-(2, 'K-0002', NULL, 4, NULL),
-(3, 'K-0003', NULL, 4, NULL),
-(4, 'K-0004', NULL, 5, NULL),
-(5, 'K-0005', NULL, 3, NULL);
+INSERT INTO `bobot_penilaian` (`id_bobot`, `id_kriteria`, `id_bagian`, `jabatan`, `bobot`) VALUES
+(6, 'K-0001', 'B-0001', 'karyawan', 1),
+(7, 'K-0002', 'B-0001', 'karyawan', 2),
+(8, 'K-0003', 'B-0001', 'karyawan', 3),
+(9, 'K-0004', 'B-0001', 'karyawan', 4),
+(10, 'K-0005', 'B-0001', 'karyawan', 5);
 
 -- --------------------------------------------------------
 
@@ -102,6 +105,14 @@ CREATE TABLE `jabatan_pegawai` (
   `Status` bit(1) NOT NULL,
   `tgl_jabat` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `jabatan_pegawai`
+--
+
+INSERT INTO `jabatan_pegawai` (`id_jabatan`, `id_pegawai`, `id_toko`, `id_bagian`, `jabatan`, `Status`, `tgl_jabat`) VALUES
+(1, 'P-0001', 26, 'B-0001', 'koordinator', b'1', '2017-11-27'),
+(2, 'P-0002', 26, 'B-0001', 'manager', b'1', '2017-12-02');
 
 -- --------------------------------------------------------
 
@@ -165,8 +176,8 @@ INSERT INTO `pegawai` (`no_pegawai`, `nama`, `tempat_lahir`, `tanggal_lahir`, `j
 CREATE TABLE `penilaian` (
   `id_nilai` int(11) NOT NULL,
   `id_bobot` int(11) DEFAULT NULL,
+  `id_jabatan` int(11) NOT NULL,
   `nilai` decimal(10,2) NOT NULL,
-  `total_nilai` decimal(10,2) NOT NULL,
   `tgl_penilaian` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -174,31 +185,12 @@ CREATE TABLE `penilaian` (
 -- Dumping data untuk tabel `penilaian`
 --
 
-INSERT INTO `penilaian` (`id_nilai`, `id_bobot`, `nilai`, `total_nilai`, `tgl_penilaian`) VALUES
-(1, NULL, '0.00', '0.00', NULL),
-(2, NULL, '0.00', '0.00', NULL),
-(3, NULL, '0.00', '0.00', NULL),
-(4, NULL, '0.00', '0.00', NULL),
-(5, NULL, '0.00', '0.00', NULL),
-(6, NULL, '0.00', '0.00', NULL),
-(7, NULL, '0.00', '0.00', NULL),
-(8, NULL, '0.00', '0.00', NULL),
-(9, NULL, '0.00', '0.00', NULL),
-(10, NULL, '0.00', '0.00', NULL),
-(11, NULL, '0.00', '0.00', NULL),
-(12, NULL, '0.00', '0.00', NULL),
-(13, NULL, '0.00', '0.00', NULL),
-(14, NULL, '0.00', '0.00', NULL),
-(15, NULL, '0.00', '0.00', NULL),
-(16, NULL, '0.00', '0.00', NULL),
-(17, NULL, '0.00', '0.00', NULL),
-(18, NULL, '0.00', '0.00', NULL),
-(19, NULL, '0.00', '0.00', NULL),
-(20, NULL, '0.00', '0.00', NULL),
-(21, NULL, '0.00', '0.00', NULL),
-(22, NULL, '0.00', '0.00', NULL),
-(23, NULL, '0.00', '0.00', NULL),
-(24, NULL, '0.00', '0.00', NULL);
+INSERT INTO `penilaian` (`id_nilai`, `id_bobot`, `id_jabatan`, `nilai`, `tgl_penilaian`) VALUES
+(1, 6, 1, '42.00', '2017-12-03'),
+(2, 7, 1, '23.00', '2017-12-03'),
+(3, 8, 1, '41.00', '2017-12-03'),
+(4, 9, 1, '52.00', '2017-12-03'),
+(5, 10, 1, '70.00', '2017-12-03');
 
 -- --------------------------------------------------------
 
@@ -248,7 +240,7 @@ ALTER TABLE `bagian`
 ALTER TABLE `bobot_penilaian`
   ADD PRIMARY KEY (`id_bobot`),
   ADD KEY `FK_bobot_penilaian_kriteria` (`id_kriteria`),
-  ADD KEY `FK_bobot_penilaian_jabatan_pegawai` (`id_jabatan`);
+  ADD KEY `FK_bobot_penilaian_bagian` (`id_bagian`);
 
 --
 -- Indeks untuk tabel `informasi`
@@ -282,7 +274,8 @@ ALTER TABLE `pegawai`
 --
 ALTER TABLE `penilaian`
   ADD PRIMARY KEY (`id_nilai`),
-  ADD KEY `FK_penilaian_bobot_penilaian` (`id_bobot`);
+  ADD KEY `FK_penilaian_bobot_penilaian` (`id_bobot`),
+  ADD KEY `FK_penilaian_jabatan_pegawai` (`id_jabatan`);
 
 --
 -- Indeks untuk tabel `toko`
@@ -305,19 +298,19 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT untuk tabel `bobot_penilaian`
 --
 ALTER TABLE `bobot_penilaian`
-  MODIFY `id_bobot` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_bobot` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT untuk tabel `jabatan_pegawai`
 --
 ALTER TABLE `jabatan_pegawai`
-  MODIFY `id_jabatan` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_jabatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `penilaian`
 --
 ALTER TABLE `penilaian`
-  MODIFY `id_nilai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id_nilai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `toko`
@@ -333,7 +326,7 @@ ALTER TABLE `toko`
 -- Ketidakleluasaan untuk tabel `bobot_penilaian`
 --
 ALTER TABLE `bobot_penilaian`
-  ADD CONSTRAINT `FK_bobot_penilaian_jabatan_pegawai` FOREIGN KEY (`id_jabatan`) REFERENCES `jabatan_pegawai` (`id_jabatan`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_bobot_penilaian_bagian` FOREIGN KEY (`id_bagian`) REFERENCES `bagian` (`id_bagian`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `FK_bobot_penilaian_kriteria` FOREIGN KEY (`id_kriteria`) REFERENCES `kriteria` (`id_kriteria`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
@@ -348,7 +341,8 @@ ALTER TABLE `jabatan_pegawai`
 -- Ketidakleluasaan untuk tabel `penilaian`
 --
 ALTER TABLE `penilaian`
-  ADD CONSTRAINT `FK_penilaian_bobot_penilaian` FOREIGN KEY (`id_bobot`) REFERENCES `bobot_penilaian` (`id_bobot`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `FK_penilaian_bobot_penilaian` FOREIGN KEY (`id_bobot`) REFERENCES `bobot_penilaian` (`id_bobot`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_penilaian_jabatan_pegawai` FOREIGN KEY (`id_jabatan`) REFERENCES `jabatan_pegawai` (`id_jabatan`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Ketidakleluasaan untuk tabel `user`

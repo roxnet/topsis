@@ -114,6 +114,15 @@ if(isset($_GET['navigasi'])){
           include_once "../include/view/create/penilaian.php";
         }
       }
+
+      if($_GET['navigasi']=='laporan_penilaian_pegawai'){
+        if ($_GET['crud']=='view'){
+          include_once "../include/view/read/laporan_penilaian_pegawai.php";
+        }
+        if($_GET['crud']=='detail'){
+          include_once "../include/view/read/laporan_penilaian_pegawai_detail.php";
+        }
+      }
       
     };
 
