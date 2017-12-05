@@ -66,7 +66,7 @@ if( isset($_POST['no_pegawai']) ||
                 no_telp,
                 alamat,
                 tgl_masuk)
-                    VALUES ('$no_pegawai','$nama',
+                    VALUES ('$no_pegawai','$nama_pegawai',
                     '$tempat_lahir',
                     STR_TO_DATE('".$tanggal_lahir."', '%d/%m/%Y'),
                     '$jekel',
