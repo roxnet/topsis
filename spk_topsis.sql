@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Waktu pembuatan: 03 Des 2017 pada 16.43
+-- Waktu pembuatan: 06 Des 2017 pada 06.42
 -- Versi server: 5.7.19
 -- Versi PHP: 7.1.7
 
@@ -40,8 +40,8 @@ CREATE TABLE `bagian` (
 INSERT INTO `bagian` (`id_bagian`, `bagian`) VALUES
 ('B-0001', 'Kasir'),
 ('B-0002', 'Gudang'),
-('B-0003', 'Pelayan'),
-('B-0004', 'Kuli');
+('B-0003', 'Pelayan Kosmetik'),
+('B-0004', 'Pelayan Pakaian');
 
 -- --------------------------------------------------------
 
@@ -54,19 +54,40 @@ CREATE TABLE `bobot_penilaian` (
   `id_kriteria` char(8) DEFAULT NULL,
   `id_bagian` char(8) DEFAULT NULL,
   `jabatan` enum('manager','HRD','koordinator','karyawan') DEFAULT NULL,
-  `bobot` int(11) DEFAULT NULL
+  `bobot` int(11) DEFAULT NULL,
+  `akumulasi` decimal(10,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `bobot_penilaian`
 --
 
-INSERT INTO `bobot_penilaian` (`id_bobot`, `id_kriteria`, `id_bagian`, `jabatan`, `bobot`) VALUES
-(6, 'K-0001', 'B-0001', 'karyawan', 1),
-(7, 'K-0002', 'B-0001', 'karyawan', 2),
-(8, 'K-0003', 'B-0001', 'karyawan', 3),
-(9, 'K-0004', 'B-0001', 'karyawan', 4),
-(10, 'K-0005', 'B-0001', 'karyawan', 5);
+INSERT INTO `bobot_penilaian` (`id_bobot`, `id_kriteria`, `id_bagian`, `jabatan`, `bobot`, `akumulasi`) VALUES
+(1, 'K-0001', 'B-0001', 'koordinator', 4, '20.00'),
+(2, 'K-0002', 'B-0001', 'koordinator', 4, '20.00'),
+(3, 'K-0003', 'B-0001', 'koordinator', 4, '20.00'),
+(4, 'K-0004', 'B-0001', 'koordinator', 5, '25.00'),
+(5, 'K-0005', 'B-0001', 'koordinator', 3, '15.00'),
+(6, 'K-0001', 'B-0002', 'karyawan', 3, '15.00'),
+(7, 'K-0002', 'B-0002', 'karyawan', 4, '20.00'),
+(8, 'K-0003', 'B-0002', 'karyawan', 4, '20.00'),
+(9, 'K-0004', 'B-0002', 'karyawan', 5, '25.00'),
+(10, 'K-0005', 'B-0002', 'karyawan', 4, '20.00'),
+(21, 'K-0001', 'B-0003', 'karyawan', 4, '19.05'),
+(22, 'K-0002', 'B-0003', 'karyawan', 4, '19.05'),
+(23, 'K-0003', 'B-0003', 'karyawan', 4, '19.05'),
+(24, 'K-0004', 'B-0003', 'karyawan', 5, '23.81'),
+(25, 'K-0005', 'B-0003', 'karyawan', 4, '19.05'),
+(26, 'K-0001', 'B-0004', 'karyawan', 4, '19.05'),
+(27, 'K-0002', 'B-0004', 'karyawan', 4, '19.05'),
+(28, 'K-0003', 'B-0004', 'karyawan', 4, '19.05'),
+(29, 'K-0004', 'B-0004', 'karyawan', 5, '23.81'),
+(30, 'K-0005', 'B-0004', 'karyawan', 4, '19.05'),
+(51, 'K-0001', 'B-0001', 'karyawan', 1, '8.33'),
+(52, 'K-0002', 'B-0001', 'karyawan', 5, '41.67'),
+(53, 'K-0003', 'B-0001', 'karyawan', 2, '16.67'),
+(54, 'K-0004', 'B-0001', 'karyawan', 3, '25.00'),
+(55, 'K-0005', 'B-0001', 'karyawan', 1, '8.33');
 
 -- --------------------------------------------------------
 
@@ -111,8 +132,10 @@ CREATE TABLE `jabatan_pegawai` (
 --
 
 INSERT INTO `jabatan_pegawai` (`id_jabatan`, `id_pegawai`, `id_toko`, `id_bagian`, `jabatan`, `Status`, `tgl_jabat`) VALUES
-(1, 'P-0001', 26, 'B-0001', 'koordinator', b'1', '2017-11-27'),
-(2, 'P-0002', 26, 'B-0001', 'manager', b'1', '2017-12-02');
+(1, 'P-0001', 27, 'B-0001', 'koordinator', b'1', '0000-00-00'),
+(2, 'P-0003', 27, 'B-0001', 'karyawan', b'1', '2017-06-13'),
+(3, 'P-0002', 27, 'B-0002', 'karyawan', b'1', '2015-03-12'),
+(4, 'P-0004', 27, 'B-0002', 'karyawan', b'1', '2016-05-16');
 
 -- --------------------------------------------------------
 
@@ -132,9 +155,9 @@ CREATE TABLE `kriteria` (
 
 INSERT INTO `kriteria` (`id_kriteria`, `nama_kriteria`, `atribut`) VALUES
 ('K-0001', 'Kedisiplinan', 'K'),
-('K-0002', 'Tanggung Jawab', 'K'),
+('K-0002', 'Tanggung jawab', 'K'),
 ('K-0003', 'Kejujuran', 'K'),
-('K-0004', 'Alpa/Absen', 'B'),
+('K-0004', 'Alfa/Absen', 'B'),
 ('K-0005', 'Kebersihan', 'K');
 
 -- --------------------------------------------------------
@@ -161,11 +184,10 @@ CREATE TABLE `pegawai` (
 --
 
 INSERT INTO `pegawai` (`no_pegawai`, `nama`, `tempat_lahir`, `tanggal_lahir`, `jekel`, `agama`, `status_perkawinan`, `no_telp`, `alamat`, `tgl_masuk`) VALUES
-('P-0001', 'Anas', 'Bima', '2011-04-01', 'L', 'Islam', 'Belum kawin', '082137677011', 'Jl. cerita lama no 90 yogyakarta 55571', '2017-08-01'),
-('P-0002', 'Joko', 'Bantul', '2012-09-01', 'L', 'Islam', 'Kawin', '08123456000', 'jl. kenangan indah no 100 bantul', '2017-07-01'),
-('P-0003', 'Malingi', 'Bantul', '2011-09-02', 'P', 'Islam', 'Kawin', '081234560888', 'jl. pahit bangat no 23 sleman', '2017-07-01'),
-('P-0004', 'Khairullah', 'Bima', '2013-09-01', 'L', 'Islam', 'Belum kawin', '08123456444', 'Jl. berliku liku no.97 bima', '2017-08-04'),
-('P-0005', 'Wawa', 'Bantul', '2017-09-04', 'P', 'Islam', 'Kawin', '082137677011', 'Jln penuh misteri No.80 bantul', '2017-09-01');
+('P-0001', 'Arifah', 'Bantul', '1996-02-03', 'L', 'Islam', 'Belum kawin', '085643132000', 'Jalan Raya Bantul', '2012-01-20'),
+('P-0002', 'Kiki', 'Yogyakarta', '1990-12-05', 'L', 'Islam', 'Belum kawin', '082241403727', 'Bantul', '2016-01-04'),
+('P-0003', 'Niswa', 'Bantul', '1991-01-01', 'L', 'Islam', 'Belum kawin', '086543210000', 'Jalan Imogiri', '2013-02-05'),
+('P-0004', 'Brian', 'Sleman', '1990-10-03', 'L', 'Islam', 'Kawin', '089765432100', 'Jalan Kusumanegara', '2013-01-29');
 
 -- --------------------------------------------------------
 
@@ -186,11 +208,26 @@ CREATE TABLE `penilaian` (
 --
 
 INSERT INTO `penilaian` (`id_nilai`, `id_bobot`, `id_jabatan`, `nilai`, `tgl_penilaian`) VALUES
-(1, 6, 1, '42.00', '2017-12-03'),
-(2, 7, 1, '23.00', '2017-12-03'),
-(3, 8, 1, '41.00', '2017-12-03'),
-(4, 9, 1, '52.00', '2017-12-03'),
-(5, 10, 1, '70.00', '2017-12-03');
+(1, 1, 3, '70.00', '2017-11-30'),
+(2, 2, 3, '85.00', '2017-11-30'),
+(3, 3, 3, '75.00', '2017-11-30'),
+(4, 4, 3, '2.00', '2017-11-30'),
+(5, 5, 3, '80.00', '2017-11-30'),
+(6, 1, 2, '85.00', '2017-11-30'),
+(7, 2, 2, '70.00', '2017-11-30'),
+(8, 3, 2, '85.00', '2017-11-30'),
+(9, 4, 2, '3.00', '2017-11-30'),
+(10, 5, 2, '85.00', '2017-11-30'),
+(11, 1, 4, '80.00', '2017-11-30'),
+(12, 2, 4, '75.00', '2017-11-30'),
+(13, 3, 4, '80.00', '2017-11-30'),
+(14, 4, 4, '2.00', '2017-11-30'),
+(15, 5, 4, '70.00', '2017-11-30'),
+(16, 1, 1, '1.00', '2017-12-06'),
+(17, 2, 1, '2.00', '2017-12-06'),
+(18, 3, 1, '3.00', '2017-12-06'),
+(19, 4, 1, '4.00', '2017-12-06'),
+(20, 5, 1, '5.00', '2017-12-06');
 
 -- --------------------------------------------------------
 
@@ -209,7 +246,13 @@ CREATE TABLE `toko` (
 --
 
 INSERT INTO `toko` (`id_toko`, `nama_toko`, `alamat_toko`) VALUES
-(26, 'Pamella 1', 'Jalan Pamella 1');
+(27, 'Pamella 1', 'Jl. Kusumanegara 135-141 Yogyakarta'),
+(28, 'Pamella 2', '	Jl. Pandean 16 Yogyakarta'),
+(29, 'Pamella 3', '	Jl. Wonocatur No. 377 Banguntapan Yogyakarta'),
+(30, 'Pamella 4', '	Jl. Pramuka No.84 Yogyakarta'),
+(31, 'Pamella 6', 'Jl. Raya Candigebang CC. Yogyakarta'),
+(32, 'Pamella 7', 'Ds. Bromonillan, Purwomartani, Kalasan,Sleman, Yogyakarta'),
+(33, 'Pamella 8', 'Jl. Lowanu 88 Yogyakarta');
 
 -- --------------------------------------------------------
 
@@ -298,25 +341,25 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT untuk tabel `bobot_penilaian`
 --
 ALTER TABLE `bobot_penilaian`
-  MODIFY `id_bobot` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_bobot` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT untuk tabel `jabatan_pegawai`
 --
 ALTER TABLE `jabatan_pegawai`
-  MODIFY `id_jabatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_jabatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `penilaian`
 --
 ALTER TABLE `penilaian`
-  MODIFY `id_nilai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_nilai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT untuk tabel `toko`
 --
 ALTER TABLE `toko`
-  MODIFY `id_toko` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id_toko` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
