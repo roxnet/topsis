@@ -3,7 +3,8 @@
     $kriteria_query = mysqli_query($db_link,$kriteria);
     
     $id_bagian=$_GET['id_bagian'];
-     $edit=("select * from bobot_penilaian where id_bagian='$id_bagian'");
+    $jabatan=$_GET['jabatan'];
+     $edit=("select * from bobot_penilaian where id_bagian='$id_bagian' AND jabatan='".$jabatan."' ");
         $hasil = mysqli_query($db_link,$edit);
         $row=mysqli_fetch_assoc($hasil);
 
@@ -36,7 +37,8 @@
 
                         while ($kriteria_tampil=mysqli_fetch_assoc($kriteria_query)){
                              $edit_bobot=("select id_kriteria,bobot from bobot_penilaian where id_bagian='$id_bagian'
-                                AND id_kriteria='".$kriteria_tampil['id_kriteria']."'");
+                                AND id_kriteria='".$kriteria_tampil['id_kriteria']."'
+                                AND jabatan='".$jabatan."'");
                                 $hasil_bobot = mysqli_query($db_link,$edit_bobot);
                                 $row_bobot=mysqli_fetch_assoc($hasil_bobot);
                             echo '
@@ -70,7 +72,7 @@
         var bobotcount=<?php echo $b; ?>;
             bobotcount=bobotcount-1;
           $("#tambah").click(function () {
-            var bagian =<?php echo $id_bagian; ?>;
+            var bagian ='<?php echo $id_bagian; ?>';
             var jabatan= $('select[name=jabatan]').val();
             var count=1;
             var bobot=[];

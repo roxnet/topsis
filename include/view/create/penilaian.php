@@ -1,7 +1,5 @@
  <?php
-    $kriteria=("SELECT b.id_bobot,a.nama_kriteria FROM kriteria A
-                INNER JOIN bobot_penilaian B ON a.id_kriteria=b.id_kriteria");
-    $kriteria_query = mysqli_query($db_link,$kriteria);
+    
 
    
     $sql_pegawai="SELECT B.id_jabatan,A.nama FROM pegawai A
@@ -9,7 +7,8 @@
                 LEFT JOIN Penilaian C ON B.id_jabatan=C.id_jabatan 
                 WHERE C.id_jabatan IS NULL
                 ORDER BY A.no_pegawai";
-$hasil_pegawai=mysqli_query($db_link,$sql_pegawai);        
+$hasil_pegawai=mysqli_query($db_link,$sql_pegawai);
+$b=0;        
 ?>
 
 
@@ -22,7 +21,8 @@ $hasil_pegawai=mysqli_query($db_link,$sql_pegawai);
                     <div class="form-group">
                         <label class="control-label col-sm-4" for="jabatan">Nama Pegawai : </label>
                         <div class="col-sm-6">
-                            <select  class="form-control" name="jabatan">  
+                            <select  class="form-control" name="jabatan" id="jabatan">  
+                                <option>-</option>
                             <?php
                                 while ($pegawai_tampil=mysqli_fetch_assoc($hasil_pegawai)){
                                     echo "<option value='".$pegawai_tampil['id_jabatan']."'>".$pegawai_tampil['nama']."</option>";
@@ -34,33 +34,18 @@ $hasil_pegawai=mysqli_query($db_link,$sql_pegawai);
                     <div class="form-group">
                             <label class="control-label col-sm-4" for="penilaian">Kriteria Penilaian :</label>
                     </div>
-                    <?php
-                        $b=1;
-
-                        while ($kriteria_tampil=mysqli_fetch_assoc($kriteria_query)){
-                            echo '
-                             <div class="form-group">
-                            <label class="control-label col-sm-4 col-sm-offset-1" for="bobot">'.$kriteria_tampil["nama_kriteria"].' : </label>
-                            <div class="col-sm-3">
-                                    <input type="hidden" class="form-control" id="bobot" name="bobot'.$b.'" value="'.$kriteria_tampil["id_bobot"].'" >
-                                    <input type="text" class="form-control" id="bobot" name="penilaian'.$b.'" placeholder="PENILAIAN" >
-                            </div>
-                            </div>   ';
-                        $b++;
-                        }
-                        
-                       
-                    ?>
+                        <div id="kriteria">
+                        </div>
                      <div class="form-group">
-                            <label class="control-label col-sm-4" for="tgl_penilaian">Tanggal Penilaian :</label>
-                            <div class="col-sm-6">
-                                <div class='input-group date datetimepicker1'>
-                                    <input type="text" class="form-control" id="tgl_penilaian" name="tgl_penilaian" placeholder="Tanggal Penilaian" >
-                                    <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-calendar"></span>
-                                    </span>
-                                </div>
-                            </div>
+                        <label class="control-label col-sm-4" for="tgl_penilaian">Tanggal Penilaian :</label>
+                        <div class="col-sm-6">
+                        <div class="input-group date datetimepicker1">
+                            <input type="text" class="form-control" id="tgl_penilaian" name="tgl_penilaian" placeholder="Tanggal Penilaian" >
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                        </div>
                         </div>
                    </form>   
                 </div>
@@ -79,9 +64,10 @@ $hasil_pegawai=mysqli_query($db_link,$sql_pegawai);
 <script>
  
  $(document).ready(function () {
-        var penilaiancount=<?php echo $b; ?>;
-            penilaiancount=penilaiancount-1;
+       
           $("#tambah").click(function () {
+               var penilaiancount=<?php echo $b; ?>;
+            penilaiancount=penilaiancount-1;
             var jabatan= $('select[name=jabatan]').val();
             var tgl_penilaian=$('input[name=tgl_penilaian]').val();
             var count=1;
@@ -131,6 +117,22 @@ $hasil_pegawai=mysqli_query($db_link,$sql_pegawai);
             }
                 );
             });
+
+        $("#jabatan").click(function () {
+            var jabatan= $(this).val();
+
+            console.log(jabatan);
+           	$.ajax({
+					type: "GET",
+					url: "../include/view/create/penilaian2.php",
+
+					data: 'id_jabatan='+jabatan,
+					success: function (respons) {
+                        $('#kriteria').html(respons);
+                        
+                    }
+               });
+        });
       });
       
 </script>

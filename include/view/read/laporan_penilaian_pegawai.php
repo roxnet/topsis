@@ -79,8 +79,8 @@ $hasil_penilaian=mysqli_query($db_link,$sql_penilaian);
                 $d++;
             }
          echo  "
-                <td>".$data_jabatan['jabatan']."</td>
                 <td>".$data_jabatan['bagian']."</td>
+                <td>".$data_jabatan['jabatan']."</td>
                 <td>
                     <a class='btn btn-primary detail' ref='".$data_penilaian['id_jabatan']."'>Detail</a>
                 </td>";
