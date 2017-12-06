@@ -64,25 +64,41 @@ $b=0;
 <script>
  
  $(document).ready(function () {
-       
+        $("#jabatan").click(function () {
+            var jabatan= $(this).val();
+
+           	$.ajax({
+					type: "GET",
+					url: "../include/view/create/penilaian2.php",
+
+					data: 'id_jabatan='+jabatan,
+					success: function (respons) {
+                        $('#kriteria').html(respons);
+                        
+                    }
+               });
+        });
           $("#tambah").click(function () {
-               var penilaiancount=<?php echo $b; ?>;
-            penilaiancount=penilaiancount-1;
+            
             var jabatan= $('select[name=jabatan]').val();
             var tgl_penilaian=$('input[name=tgl_penilaian]').val();
-            var count=1;
+          penilaiancount=penilaiancount-1;
+    var count=1;
             var penilaian=[];
             var penilaianstring='';
             var bobot=[];
             var bobotstring='';
         while (count<=penilaiancount){
             bobot[count]=$('input[name=bobot'+count+']').val();
-            bobotstring=bobotstring+'&bobot'+count+'='+bobot[count];
-
             penilaian[count]=$('input[name=penilaian'+count+']').val();
+            bobotstring=bobotstring+'&bobot'+count+'='+bobot[count];
             penilaianstring=penilaianstring+'&nilai'+count+'='+penilaian[count];
             count++;
         }
+            console.log(jabatan);
+            console.log(tgl_penilaian);
+            console.log(bobotstring);
+            console.log(penilaianstring);
             $.ajax({
               type: "POST",
               url: "../include/kontrol/kontrol_penilaian.php",
@@ -118,21 +134,7 @@ $b=0;
                 );
             });
 
-        $("#jabatan").click(function () {
-            var jabatan= $(this).val();
-
-            console.log(jabatan);
-           	$.ajax({
-					type: "GET",
-					url: "../include/view/create/penilaian2.php",
-
-					data: 'id_jabatan='+jabatan,
-					success: function (respons) {
-                        $('#kriteria').html(respons);
-                        
-                    }
-               });
-        });
+       
       });
       
 </script>
