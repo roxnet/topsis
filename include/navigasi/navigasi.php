@@ -123,7 +123,11 @@ if(isset($_GET['navigasi'])){
           include_once "../include/view/read/laporan_penilaian_pegawai_detail.php";
         }
       }
-      
+       if($_GET['navigasi']=='usulan_pegawai_terbaik'){
+        if ($_GET['crud']=='view'){
+          include_once "../include/view/read/usulan_terbaik.php";
+        }
+      }
     };
 
 ?>

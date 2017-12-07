@@ -5,15 +5,12 @@
             $row=mysqli_fetch_array($hasil);
 
              $pegawai=("SELECT A.no_pegawai,A.nama from pegawai A
-                LEFT JOIN jabatan_pegawai B ON A.no_pegawai=B.id_pegawai
                  ");
             $pegawai_query = mysqli_query($db_link,$pegawai);
             $toko=("SELECT A.id_toko,A.nama_toko from toko A
-                LEFT JOIN jabatan_pegawai B ON A.id_toko=B.id_toko
                  ");
             $toko_query = mysqli_query($db_link,$toko);
             $bagian=("SELECT A.id_bagian,A.bagian from bagian A
-                LEFT JOIN jabatan_pegawai B ON A.id_bagian=B.id_bagian
                  ");
             $bagian_query = mysqli_query($db_link,$bagian);
 ?>

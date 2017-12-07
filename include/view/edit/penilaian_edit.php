@@ -1,9 +1,13 @@
  <?php
-    $kriteria=("SELECT b.id_bobot,a.nama_kriteria FROM kriteria A
-                INNER JOIN bobot_penilaian B ON a.id_kriteria=b.id_kriteria");
+ 
+   $id_jabatan=$_GET['id_jabatan'];
+    $kriteria=("SELECT C.id_bobot,D.nama_kriteria FROM bagian A
+                INNER JOIN jabatan_pegawai B ON A.id_bagian=B.id_bagian
+                INNER JOIN bobot_penilaian C ON A.id_bagian=C.id_bagian AND B.jabatan=C.jabatan
+                INNER JOIN kriteria D ON C.id_kriteria=D.id_kriteria 
+                WHERE B.id_jabatan='".$id_jabatan."'");
     $kriteria_query = mysqli_query($db_link,$kriteria);
 
-   $id_jabatan=$_GET['id_jabatan'];
     $sql_pegawai="SELECT B.id_jabatan,A.nama,C.tgl_penilaian FROM pegawai A
                 INNER JOIN jabatan_pegawai B ON A.no_pegawai=B.id_pegawai
                 INNER JOIN penilaian C ON B.id_jabatan=C.id_jabatan 
@@ -43,6 +47,7 @@ $hasil_pegawai=mysqli_query($db_link,$sql_pegawai);
                         while ($kriteria_tampil=mysqli_fetch_assoc($kriteria_query)){
                              $edit_bobot=("SELECT B.id_bobot,nilai from penilaian A
                              INNER JOIN bobot_penilaian B ON A.id_bobot=B.id_bobot
+                             INNER JOIN jabatan_pegawai C ON B.id_bagian=C.id_bagian AND A.id_jabatan=C.id_jabatan
                                  where A.id_jabatan='$id_jabatan'
                                 AND B.id_bobot='".$kriteria_tampil['id_bobot']."'");
                                 $hasil_bobot = mysqli_query($db_link,$edit_bobot);

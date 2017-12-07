@@ -21,7 +21,7 @@
                                     INNER JOIN pegawai B ON A.id_pegawai=B.no_pegawai
                                     INNER JOIN toko C ON A.id_toko=C.id_toko
                                     INNER JOIN bagian D ON A.id_bagian=D.id_bagian 
-                                    WHERE A.Status=1 ORDER BY id_jabatan";
+                                    WHERE A.Status=1 ORDER BY B.no_pegawai";
 							$hasil = mysqli_query($db_link,$sql);
 							if (!$hasil){
 							die("Gagal Query Data ");}

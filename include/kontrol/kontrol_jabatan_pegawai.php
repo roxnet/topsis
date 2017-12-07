@@ -15,7 +15,7 @@ if(isset($_POST['id_jabatan'])|| isset($_POST['id_pegawai']) || isset ($_POST['i
             $status=$_POST['status'];
             $tgl_jabat=$_POST['tgl_jabat'];
             $proses="UPDATE jabatan_pegawai SET id_pegawai='$id_pegawai',id_toko='$id_toko',id_bagian='$id_bagian'
-            ,jabatan='".$jabatan."',Status=".$status.",tgl_jabat='".$tgl_jabat."' WHERE id_jabatan='$id_jabatan'";
+            ,jabatan='".$jabatan."',Status=".$status.",tgl_jabat=STR_TO_DATE('".$tgl_jabat."', '%d/%m/%Y') WHERE id_jabatan='$id_jabatan'";
             $hasil = mysqli_query($db_link,$proses);
             if($hasil){
                 echo "berhasil";

@@ -110,7 +110,7 @@
                                     <a href="index.php?navigasi=laporan_penilaian_pegawai&crud=view">Penilain Pegawai</a>
                                 </li>
                                 <li>
-                                    <a href="index.php?navigasi=usulan_pegawai_terbaik">Usulan Pegawai Terbaik</a>
+                                    <a href="index.php?navigasi=usulan_pegawai_terbaik&crud=view">Usulan Pegawai Terbaik</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
