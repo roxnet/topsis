@@ -115,6 +115,11 @@
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
+						
+						<li>
+                           <a href="index.php?navigasi=user&crud=view"><i class="fa fa-table fa-fw"></i> User</a>
+                        </li>
+
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->
