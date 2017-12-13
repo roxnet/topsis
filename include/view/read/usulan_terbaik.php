@@ -9,6 +9,17 @@ $bag=mysqli_query($db_link,"SELECT id_bagian,bagian FROM bagian");
 		<div class="panel panel-default" style="padding:10px" >
             <br/>
             <form class="form-horizontal">
+              <div class="form-group">
+                            <label class="control-label col-sm-3" for="periode">PERIODE :</label>
+                            <div class="col-sm-5">
+                                <div class='input-group date datetimepicker1'>
+                                    <input type="text" class="form-control" id="periode" name="periode" placeholder="Tanggal Jabat" >
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
              <div class="form-group">
                 <label class="control-label col-sm-3" for="toko">Toko : </label>
                 <div class="col-sm-5">
@@ -73,6 +84,7 @@ $bag=mysqli_query($db_link,"SELECT id_bagian,bagian FROM bagian");
 	 $(document).ready(function () {
 
         $("#tampil").click(function () {
+             var periode= $('select[name=periode]').val();
             var id_toko= $('select[name=toko]').val();
             var jabatan= $('select[name=jabatan]').val();
             var id_bagian= $('select[name=bagian]').val();
@@ -80,12 +92,19 @@ $bag=mysqli_query($db_link,"SELECT id_bagian,bagian FROM bagian");
            	$.ajax({
 					type: "POST",
 					url: "../include/view/read/usulan_terbaik2.php",
-					data: 'id_toko='+id_toko+'&jabatan='+jabatan+'&id_bagian='+id_bagian+'&jum_terbaik='+jum_terbaik,
+					data: 'periode='+periode+'&id_toko='+id_toko+'&jabatan='+jabatan+'&id_bagian='+id_bagian+'&jum_terbaik='+jum_terbaik,
 					success: function (respons) {
                         $('.point').html(respons);
                         
                     }
                });
         });
+        $(function () {
+                $('.datetimepicker1').datetimepicker({
+                viewMode: 'years',
+                format: 'DD/MM/YYYY'
+            }
+                );
+            });
      });
 </script>

@@ -1,5 +1,6 @@
 <?php
     include_once "../../../koneksi.php";
+    $periode=$_POST['periode'];
     $id_toko=$_POST['id_toko'];
     $jabatan=$_POST['jabatan'];
     $id_bagian=$_POST['id_bagian'];
@@ -15,7 +16,8 @@
         ,nilai decimal(10,8)
         ,toko varchar(255)
         ,jabatan varchar(8)
-        ,bagian varchar(255));");
+        ,bagian varchar(255)
+        ,periode date);");
 
 
 
@@ -25,12 +27,13 @@
         
         $nilai_ynegatif=array();
         $id_jabatan=array();
+        $peri=array();
     //mengambil data kriteria
     $kriteria=mysqli_query($db_link,"SELECT id_kriteria,atribut FROM kriteria ");
     while($data_kriteria=mysqli_fetch_assoc($kriteria)){
         //per kriteria
         //masih seluruh pegawai belum ada filter
-        $sqlfornilai="SELECT C.no_pegawai,C.nama,A.nilai,D.akumulasi,E.nama_toko,B.jabatan,F.bagian FROM penilaian A
+        $sqlfornilai="SELECT C.no_pegawai,C.nama,A.nilai,D.akumulasi,E.nama_toko,B.jabatan,F.bagian,A.tgl_penilaian FROM penilaian A
                                         INNER JOIN jabatan_pegawai B ON A.id_jabatan=B.id_jabatan
                                         INNER JOIN pegawai C ON B.id_pegawai=C.no_pegawai
                                         INNER JOIN bobot_penilaian D ON A.id_bobot=D.id_bobot AND B.jabatan=D.jabatan
@@ -40,6 +43,7 @@
                                         AND E.id_toko=CASE WHEN ".$id_toko."=0 THEN E.id_toko ELSE ".$id_toko." END
                                         AND B.jabatan=CASE WHEN '".$jabatan."'='none'THEN B.jabatan ELSE '".$jabatan."' END
                                         AND F.id_bagian=CASE WHEN '".$id_bagian."'='none' THEN F.id_bagian ELSE '".$id_bagian."' END
+                                        AND A.tgl_penilaian=STR_TO_DATE('".$periode."', '%d/%m/%Y')
                                       ORDER BY C.no_pegawai";
     $nilai_krit=mysqli_query($db_link,$sqlfornilai);                                  
     $nilai_krit2=mysqli_query($db_link,$sqlfornilai);
@@ -97,6 +101,7 @@
             $toko[$e]=$data_nilai['nama_toko'];
             $bag[$e]=$data_nilai['bagian'];
             $jab[$e]=$data_nilai['jabatan'];
+            $peri[$e]=$data_nilai['periode'];
         $ee=$e;
         $e++;
         }
@@ -135,14 +140,14 @@
         //nilai preferensi alternatif
         //echo $d_minus[$zz].'/'.$d_minus[$zz].'+'.$d_plus[$zz].'<br>';
         $v[$zz]=$d_minus[$zz]/($d_minus[$zz]+$d_plus[$zz]);
-        $queryfinish=mysqli_query($db_link,"INSERT INTO rangking (no_pegawai,nama,nilai,toko,jabatan,bagian) 
-        VALUES ('".$no_pegawai[$zz]."','".$nama_pegawai[$zz]."',".$v[$zz].",'".$toko[$zz]."','".$jab[$zz]."','".$bag[$zz]."')");
+        $queryfinish=mysqli_query($db_link,"INSERT INTO rangking (no_pegawai,nama,nilai,toko,jabatan,bagian,periode) 
+        VALUES ('".$no_pegawai[$zz]."','".$nama_pegawai[$zz]."',".$v[$zz].",'".$toko[$zz]."','".$jab[$zz]."','".$bag[$zz]."','".$peri[$zz]."')");
     }
 
     //munculkan toko
     
 
-$sql_rangking="SELECT no_pegawai,nama,nilai,toko,jabatan,bagian FROM rangking ORDER BY nilai DESC limit ".$jum_terbaik." ";
+$sql_rangking="SELECT no_pegawai,nama,nilai,toko,jabatan,bagian,periode FROM rangking ORDER BY nilai DESC limit ".$jum_terbaik." ";
 $hasil_rangking=mysqli_query($db_link,$sql_rangking);
 
 
@@ -157,6 +162,7 @@ $hasil_rangking=mysqli_query($db_link,$sql_rangking);
                     <th class="text-center" rowspan="2" style="vertical-align: middle;">NILAI</th>
                     <th class="text-center" rowspan="2" style="vertical-align: middle;">BAGIAN</th>
                     <th class="text-center" rowspan="2" style="vertical-align: middle;">JABATAN</th>
+                    <th class="text-center" rowspan="2" style="vertical-align: middle;">PERIODE</th>
                 </tr>
         </thead>
         <tbody> ';
@@ -171,7 +177,8 @@ $hasil_rangking=mysqli_query($db_link,$sql_rangking);
                 <td>{$data_rangking['toko']}</td>
                 <td>".$data_rangking['nilai']."</td>
                 <td>{$data_rangking['bagian']}</td>
-                <td>{$data_rangking['jabatan']}</td>";
+                <td>{$data_rangking['jabatan']}</td>
+                <td>{$data_rangking['periode']}</td>";
             echo "</tr>";
         $s++;
         }
