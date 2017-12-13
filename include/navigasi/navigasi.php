@@ -128,6 +128,22 @@ if(isset($_GET['navigasi'])){
           include_once "../include/view/read/usulan_terbaik.php";
         }
       }
+	  
+	  	  if($_GET['navigasi']=='user'){
+        if ($_GET['crud']=='view'){
+          include_once "../include/view/read/user_tampil.php";
+        }
+       if($_GET['crud']=='edit'){
+          include_once "../include/view/edit/user_edit.php";
+        }
+          if($_GET['crud']=='hapus'){
+          include_once "../include/kontrol/user_hapus.php";
+        }
+         if($_GET['crud']=='tambah'){
+          include_once "../include/view/create/user.php";
+        }
+      }
+	  
     };
 
 ?>
