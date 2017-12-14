@@ -10,7 +10,8 @@ if(isset($_POST['id_pegawai']) || isset ($_POST['user_name']) || isset ($_POST['
             $user_name=$_POST['user_name'];
             $password=$_POST['password'];
 			$hak_akses=$_POST['hak_akses'];
-            $sql_update="UPDATE user SET user_name='$user_name',password='$password',hak_akses='$hak_akses' WHERE user_name='$user_name'";
+            $sql_update="UPDATE user SET user_name='$user_name',password='$password',hak_akses='$hak_akses',id_pegawai='$id_pegawai'
+			WHERE id_pegawai='$id_pegawai'";
             $hasil = mysqli_query($db_link,$sql_update);
             if($hasil){
                 echo "berhasil";
@@ -41,7 +42,7 @@ if(isset($_POST['id_pegawai']) || isset ($_POST['user_name']) || isset ($_POST['
 
         if($_POST['crud']=='hapus'){
            $user_name = $_POST['user_name'];
-            $sql_delete = "DELETE from user where user_name='$user_name'";
+            $sql_delete = "DELETE from user where id_pegawai='$id_pegawai'";
             $hasil = mysqli_query($db_link,$sql_delete);
             if($hasil){
                  echo "berhasil";
