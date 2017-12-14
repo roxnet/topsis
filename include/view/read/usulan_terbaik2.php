@@ -2,7 +2,6 @@
     include_once "../../../koneksi.php";
 	$month 			=$_POST['month'];
 	$year 			=$_POST['year'];
-    $tgl_penilaian	=$_POST['year'].'-'.$_POST['month'];
     $id_toko		=$_POST['id_toko'];
     $jabatan		=$_POST['jabatan'];
     $id_bagian		=$_POST['id_bagian'];
