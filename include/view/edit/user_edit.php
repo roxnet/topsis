@@ -1,11 +1,11 @@
 <?php
-            $user_name=$_GET['user_name'];
-            $edit=("select * from user where user_name='$user_name'");
+            $id_pegawai=$_GET['id_pegawai'];
+            $edit=("select * from user where id_pegawai='$id_pegawai'");
             $hasil = mysqli_query($db_link,$edit);
             $row=mysqli_fetch_array($hasil);
 			
-			$pegawai=("SELECT A.no_pegawai,A.nama from pegawai A
-            LEFT JOIN jabatan_pegawai B ON A.no_pegawai=B.id_pegawai");
+			$pegawai=("SELECT A.no_pegawai,A.nama, B.id_pegawai from pegawai A
+            LEFT JOIN jabatan_pegawai B ON A.no_pegawai=B.id_pegawai WHERE B.id_pegawai='".$id_pegawai."'");
             $pegawai_query = mysqli_query($db_link,$pegawai);
 ?>
 
@@ -16,11 +16,11 @@
                 <div class="panel-body">
                <form class="form-horizontal">
                     <div class="form-group">
-                        <input type="hidden" name="user_name" value="<?php echo $user_name;?>"/>
+                        <input type="hidden" name="id_pegawai" value="<?php echo $id_pegawai;?>"/>
                                 
                         <label class="control-label col-sm-3" for="name">No Pegawai : </label>
                          <div class="col-sm-8">
-                            <select  class="form-control" name="id_pegawai" id="pegawai" >  
+                            <select  class="form-control" name="id_pegawai" id="id_pegawai" >  
                                     <?php
                                        while ($pegawai_tampil=mysqli_fetch_assoc($pegawai_query)){
                                            echo "<option value='".$pegawai_tampil['no_pegawai']."'";

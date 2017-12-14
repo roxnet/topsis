@@ -14,7 +14,7 @@
 				</thead>
 				<tbody>
 					<?php /*php pembuka tabel atas*/
-							$sql = "select * from user order by user_name";
+							$sql = "select * from user order by id_pegawai";
 							$hasil = mysqli_query($db_link,$sql);
 							if (!$hasil){
 							die("Gagal Query Data ");}
@@ -26,8 +26,8 @@
                                     <td>{$data['password']}</td>
 									<td>{$data['hak_akses']}</td>
                                     <td>
-                                  		<a class='btn btn-primary ubah' ref='".$data['user_name']."'>Ubah</a>
-										<a class='btn btn-danger hapus' ref='".$data['user_name']."' nama='".$data['user_name']."'>Hapus</a>&nbsp;
+                                  		<a class='btn btn-primary ubah' ref='".$data['id_pegawai']."'>Ubah</a>
+										<a class='btn btn-danger hapus' ref='".$data['id_pegawai']."' nama='".$data['id_pegawai']."'>Hapus</a>&nbsp;
                                     </td>";
 							echo "</tr>";
 						}
@@ -55,18 +55,18 @@
           });
 		
 		$('.ubah').click(function() {
-				var user_name=$(this).attr('ref');
-			 window.location.replace("index.php?navigasi=user&crud=edit&user_name="+user_name);
+				var id_pegawai=$(this).attr('ref');
+			 window.location.replace("index.php?navigasi=user&crud=edit&id_pegawai="+id_pegawai);
 		});
 
 		$('.hapus').click(function() {
-    		var user_name =$(this).attr('ref');
+    		var id_pegawai =$(this).attr('ref');
 			var nama=$(this).attr('nama');
-			 if (confirm('Yakin menghapus User '+user_name+'????')) {
+			 if (confirm('Yakin menghapus User '+id_pegawai+'????')) {
 					$.ajax({
 					type: "POST",
 					url: "../include/kontrol/kontrol_user.php",
-					data: 'crud=hapus&user_name='+user_name,
+					data: 'crud=hapus&id_pegawai='+id_pegawai,
 					success: function (respons) {
 						
 						console.log(respons);
