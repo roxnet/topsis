@@ -24,10 +24,13 @@
 							echo "<tr>";
                             echo "  <td>{$data['nama_toko']}</td>
                                     <td>{$data['alamat_toko']}</td>
-                                    <td>
-                                  		<a class='btn btn-primary ubah' ref='".$data['id_toko']."'>Ubah</a>
-										<a class='btn btn-danger hapus' ref='".$data['id_toko']."' nama='".$data['nama_toko']."'>Hapus</a>&nbsp;
-                                    </td>";
+									<td>";
+									 if($hak_akses==0 || $hak_akses==2  ){
+										echo "	<a class='btn btn-primary ubah' ref='".$data['id_toko']."'>Ubah</a>
+										<a class='btn btn-danger hapus' ref='".$data['id_toko']."' nama='".$data['nama_toko']."'>Hapus</a>&nbsp;";
+									}
+                                  	
+                                    echo "</td>";
 							echo "</tr>";
 						}
 					?>
@@ -37,7 +40,12 @@
 			<div class="panel-heading">
 					<div class="row">
 						<div class="col-sm-12">
-							<button type="button" id="tambah" class="btn btn-success">TAMBAH TOKO</button>
+						<?php
+						 if($hak_akses==0 || $hak_akses==2  ){
+							echo '<button type="button" id="tambah" class="btn btn-success">TAMBAH TOKO</button>';
+						}
+						?>
+							
 						</div>
 					</div>
 			</div>

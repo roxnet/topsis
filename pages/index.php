@@ -168,7 +168,7 @@
                             ';
 
                         }
-                         if($hak_akses==0){
+                         if($hak_akses==0 || $hak_akses=2){
                             echo ' 
                             <li>
                             <a href="index.php?navigasi=user&crud=view"><i class="fa fa-table fa-fw"></i> User</a>

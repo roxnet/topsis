@@ -33,10 +33,13 @@
 									<td>{$data['status_perkawinan']}</td>
 									<td>{$data['tgl_masuk']}</td>
 									<td>
-										<a class='btn btn-info detail' ref='".$data['no_pegawai']."'>Detail</a>
-                                  		<a class='btn btn-primary ubah' ref='".$data['no_pegawai']."'>Ubah</a>
-										<a class='btn btn-danger hapus' ref='".$data['no_pegawai']."' nama='".$data['nama']."'>Hapus</a>&nbsp;
-                                    </td>";
+										<a class='btn btn-info detail' ref='".$data['no_pegawai']."'>Detail</a>";
+							 if($hak_akses==0 || $hak_akses==2  ){
+										echo "<a class='btn btn-primary ubah' ref='".$data['no_pegawai']."'>Ubah</a>
+										<a class='btn btn-danger hapus' ref='".$data['no_pegawai']."' nama='".$data['nama']."'>Hapus</a>&nbsp;";
+									}
+                                  		
+                                    echo "</td>";
 							echo "</tr>";
 						}
 					?>
@@ -46,7 +49,12 @@
 			<div class="panel-heading">
 					<div class="row">
 						<div class="col-sm-12">
-							<button type="button" id="tambah" class="btn btn-success">TAMBAH PEGAWAI</button>
+						<?php
+						 if($hak_akses==0 || $hak_akses==2 ){
+							echo '<button type="button" id="tambah" class="btn btn-success">TAMBAH PEGAWAI</button>';
+						}
+						?>
+							
 						</div>
 					</div>
 			</div>

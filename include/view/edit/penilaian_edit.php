@@ -1,5 +1,9 @@
  <?php
- 
+ $get_user_cek=mysqli_query ($db_link,"SELECT id_toko FROM jabatan_pegawai A
+                            INNER JOIN user B ON A.no_pegawai=B.id_pegawai
+                            WHERE B.user_name='".$username."' ");
+$get_toko_user=mysqli_fetch_assoc($get_user_cek);
+
    $id_jabatan=$_GET['id_jabatan'];
     $kriteria=("SELECT C.id_bobot,D.nama_kriteria FROM bagian A
                 INNER JOIN jabatan_pegawai B ON A.id_bagian=B.id_bagian
@@ -11,7 +15,8 @@
     $sql_pegawai="SELECT B.id_jabatan,A.nama,C.tgl_penilaian FROM pegawai A
                 INNER JOIN jabatan_pegawai B ON A.no_pegawai=B.id_pegawai
                 INNER JOIN penilaian C ON B.id_jabatan=C.id_jabatan 
-                WHERE  C.id_jabatan=$id_jabatan
+                WHERE  C.id_jabatan=$id_jabatan AND B.id_toko=CASE WHEN $hak_akses==3 THEN '".$get_toko_user['id_toko']."'
+                ELSE B.id_toko END
                 ORDER BY A.no_pegawai";
 $hasil_pegawai=mysqli_query($db_link,$sql_pegawai);      
   $pegawai_tampil=mysqli_fetch_assoc($hasil_pegawai);

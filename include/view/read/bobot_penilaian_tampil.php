@@ -79,10 +79,13 @@
             }
          echo  "
                 <td>".$data_jabatan['jabatan']."</td>
-                <td>
-                    <a class='btn btn-primary ubah' ref='".$data_bagian['id_bagian']."' def='".$data_jabatan['jabatan']."'>Ubah</a>
-                    <a class='btn btn-danger hapus' ref='".$data_bagian['id_bagian']."'  def='".$data_jabatan['jabatan']."'>Hapus</a>&nbsp;
-                </td>";
+                <td>";
+                if($hak_akses==0 || $hak_akses==2  ){
+                    echo "<a class='btn btn-primary ubah' ref='".$data_bagian['id_bagian']."' def='".$data_jabatan['jabatan']."'>Ubah</a>
+                    <a class='btn btn-danger hapus' ref='".$data_bagian['id_bagian']."'  def='".$data_jabatan['jabatan']."'>Hapus</a>&nbsp;";
+                }
+                    
+               echo "</td>";
         
             echo "</tr>";
         $s++;
@@ -94,7 +97,12 @@
 			<div class="panel-heading">
 					<div class="row">
 						<div class="col-sm-12">
-							<button type="button" id="tambah" class="btn btn-success">TAMBAH BOBOT PENILAIAN</button>
+                        <?php
+                        if($hak_akses==0 || $hak_akses==2  ){
+                            echo '<button type="button" id="tambah" class="btn btn-success">TAMBAH BOBOT PENILAIAN</button>';
+                        }
+                        ?>
+							
 						</div>
 					</div>
 			</div>

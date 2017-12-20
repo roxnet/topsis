@@ -36,10 +36,13 @@
 									echo ucwords($data['jabatan']); 
 									echo "</td>
 									<td>{$data['tgl_jabat']}</td>
-									<td>
-                                  		<a class='btn btn-primary ubah' ref='".$data['id_jabatan']."'>Ubah</a>
-										<a class='btn btn-danger hapus' ref='".$data['id_jabatan']."' nama='".$data['nama']."'>Hapus</a>&nbsp;
-                                    </td>";
+									<td>";
+									 if($hak_akses==0 || $hak_akses==2){
+										echo "<a class='btn btn-primary ubah' ref='".$data['id_jabatan']."'>Ubah</a>
+										<a class='btn btn-danger hapus' ref='".$data['id_jabatan']."' nama='".$data['nama']."'>Hapus</a>&nbsp;";
+									}
+                                  		
+                                   echo" </td>";
 							echo "</tr>";
 						}
 					?>
@@ -49,7 +52,12 @@
 			<div class="panel-heading">
 					<div class="row">
 						<div class="col-sm-12">
-							<button type="button" id="tambah" class="btn btn-success">TAMBAH JABATAN PEGAWAI</button>
+						<?php
+						 if($hak_akses==0 || $hak_akses==2  ){
+							echo '<button type="button" id="tambah" class="btn btn-success">TAMBAH JABATAN PEGAWAI</button>';
+						}
+						?>
+							
 						</div>
 					</div>
 			</div>
