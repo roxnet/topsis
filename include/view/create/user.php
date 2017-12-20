@@ -42,10 +42,10 @@ $pegawai=("SELECT A.no_pegawai,A.nama from pegawai A
                             <label class="control-label col-sm-3" for="hak_akses">Hak Akses : </label>
                             <div class="col-sm-8">
                                  <select  class="form-control" name="hak_akses" id="hak_akses">  
-                                   <option value="manager">Manager</option>
-                                   <option value="HRD">HRD</option>
-                                   <option value="koordinator">Koordinator</option>
-                                   <option value="karyawan">Karyawan</option>
+                                   <option value="1">Manager</option>
+                                   <option value="2">HRD</option>
+                                   <option value="3">Koordinator</option>
+                                   <option value="4">Karyawan</option>
                                 </select> 
                             </div>
                         </div>

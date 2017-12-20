@@ -24,11 +24,29 @@
                             echo "  <td>{$data['id_pegawai']}</td>
 									<td>{$data['user_name']}</td>
                                     <td>{$data['password']}</td>
-									<td>{$data['hak_akses']}</td>
-                                    <td>
-                                  		<a class='btn btn-primary ubah' ref='".$data['id_pegawai']."'>Ubah</a>
-										<a class='btn btn-danger hapus' ref='".$data['id_pegawai']."' nama='".$data['id_pegawai']."'>Hapus</a>&nbsp;
-                                    </td>";
+									<td>";
+									if($data['hak_akses']==0){
+										echo "Admin";
+									}
+									else if($data['hak_akses']==1){
+										echo "Manager";
+									}
+									else if($data['hak_akses']==2){
+										echo "HRD";
+									}
+									else if($data['hak_akses']==3){
+										echo "Koordinator";
+									}
+									else if($data['hak_akses']==4){
+										echo "Pegawai";
+									}
+									echo "</td>
+									<td>
+										  <a class='btn btn-primary ubah' ref='".$data['id_pegawai']."'>Ubah</a>&nbsp;";
+									if ($data['hak_akses']<>0){
+										echo "<a class='btn btn-danger hapus' ref='".$data['id_pegawai']."' nama='".$data['id_pegawai']."'>Hapus</a>";
+									}
+                                    echo "</td>";
 							echo "</tr>";
 						}
 					?>

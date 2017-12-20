@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Waktu pembuatan: 06 Des 2017 pada 06.42
+-- Waktu pembuatan: 20 Des 2017 pada 00.16
 -- Versi server: 5.7.19
 -- Versi PHP: 7.1.7
 
@@ -63,16 +63,16 @@ CREATE TABLE `bobot_penilaian` (
 --
 
 INSERT INTO `bobot_penilaian` (`id_bobot`, `id_kriteria`, `id_bagian`, `jabatan`, `bobot`, `akumulasi`) VALUES
-(1, 'K-0001', 'B-0001', 'koordinator', 4, '20.00'),
-(2, 'K-0002', 'B-0001', 'koordinator', 4, '20.00'),
-(3, 'K-0003', 'B-0001', 'koordinator', 4, '20.00'),
-(4, 'K-0004', 'B-0001', 'koordinator', 5, '25.00'),
-(5, 'K-0005', 'B-0001', 'koordinator', 3, '15.00'),
-(6, 'K-0001', 'B-0002', 'karyawan', 3, '15.00'),
-(7, 'K-0002', 'B-0002', 'karyawan', 4, '20.00'),
-(8, 'K-0003', 'B-0002', 'karyawan', 4, '20.00'),
-(9, 'K-0004', 'B-0002', 'karyawan', 5, '25.00'),
-(10, 'K-0005', 'B-0002', 'karyawan', 4, '20.00'),
+(1, 'K-0001', 'B-0001', 'karyawan', 4, '20.00'),
+(2, 'K-0002', 'B-0001', 'karyawan', 4, '20.00'),
+(3, 'K-0003', 'B-0001', 'karyawan', 4, '20.00'),
+(4, 'K-0004', 'B-0001', 'karyawan', 5, '25.00'),
+(5, 'K-0005', 'B-0001', 'karyawan', 3, '15.00'),
+(6, 'K-0001', 'B-0002', 'karyawan', 3, '15.79'),
+(7, 'K-0002', 'B-0002', 'karyawan', 4, '21.05'),
+(8, 'K-0003', 'B-0002', 'karyawan', 4, '21.05'),
+(9, 'K-0004', 'B-0002', 'karyawan', 5, '26.32'),
+(10, 'K-0005', 'B-0002', 'karyawan', 3, '15.79'),
 (21, 'K-0001', 'B-0003', 'karyawan', 4, '19.05'),
 (22, 'K-0002', 'B-0003', 'karyawan', 4, '19.05'),
 (23, 'K-0003', 'B-0003', 'karyawan', 4, '19.05'),
@@ -82,12 +82,7 @@ INSERT INTO `bobot_penilaian` (`id_bobot`, `id_kriteria`, `id_bagian`, `jabatan`
 (27, 'K-0002', 'B-0004', 'karyawan', 4, '19.05'),
 (28, 'K-0003', 'B-0004', 'karyawan', 4, '19.05'),
 (29, 'K-0004', 'B-0004', 'karyawan', 5, '23.81'),
-(30, 'K-0005', 'B-0004', 'karyawan', 4, '19.05'),
-(51, 'K-0001', 'B-0001', 'karyawan', 1, '8.33'),
-(52, 'K-0002', 'B-0001', 'karyawan', 5, '41.67'),
-(53, 'K-0003', 'B-0001', 'karyawan', 2, '16.67'),
-(54, 'K-0004', 'B-0001', 'karyawan', 3, '25.00'),
-(55, 'K-0005', 'B-0001', 'karyawan', 1, '8.33');
+(30, 'K-0005', 'B-0004', 'karyawan', 4, '19.05');
 
 -- --------------------------------------------------------
 
@@ -132,10 +127,10 @@ CREATE TABLE `jabatan_pegawai` (
 --
 
 INSERT INTO `jabatan_pegawai` (`id_jabatan`, `id_pegawai`, `id_toko`, `id_bagian`, `jabatan`, `Status`, `tgl_jabat`) VALUES
-(1, 'P-0001', 27, 'B-0001', 'koordinator', b'1', '0000-00-00'),
+(1, 'P-0001', 27, 'B-0001', 'karyawan', b'1', '2017-12-06'),
 (2, 'P-0003', 27, 'B-0001', 'karyawan', b'1', '2017-06-13'),
-(3, 'P-0002', 27, 'B-0002', 'karyawan', b'1', '2015-03-12'),
-(4, 'P-0004', 27, 'B-0002', 'karyawan', b'1', '2016-05-16');
+(3, 'P-0002', 27, 'B-0001', 'karyawan', b'1', '2017-12-06'),
+(4, 'P-0004', 27, 'B-0001', 'karyawan', b'1', '2017-12-06');
 
 -- --------------------------------------------------------
 
@@ -223,11 +218,11 @@ INSERT INTO `penilaian` (`id_nilai`, `id_bobot`, `id_jabatan`, `nilai`, `tgl_pen
 (13, 3, 4, '80.00', '2017-11-30'),
 (14, 4, 4, '2.00', '2017-11-30'),
 (15, 5, 4, '70.00', '2017-11-30'),
-(16, 1, 1, '1.00', '2017-12-06'),
-(17, 2, 1, '2.00', '2017-12-06'),
-(18, 3, 1, '3.00', '2017-12-06'),
-(19, 4, 1, '4.00', '2017-12-06'),
-(20, 5, 1, '5.00', '2017-12-06');
+(16, 1, 1, '75.00', '2017-12-06'),
+(17, 2, 1, '80.00', '2017-12-06'),
+(18, 3, 1, '70.00', '2017-12-06'),
+(19, 4, 1, '1.00', '2017-12-06'),
+(20, 5, 1, '75.00', '2017-12-06');
 
 -- --------------------------------------------------------
 
@@ -263,9 +258,17 @@ INSERT INTO `toko` (`id_toko`, `nama_toko`, `alamat_toko`) VALUES
 CREATE TABLE `user` (
   `user_name` varchar(25) NOT NULL,
   `password` varchar(15) NOT NULL,
-  `hak_akses` varchar(20) DEFAULT NULL,
+  `hak_akses` int(1) DEFAULT NULL,
   `id_pegawai` char(8) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `user`
+--
+
+INSERT INTO `user` (`user_name`, `password`, `hak_akses`, `id_pegawai`) VALUES
+('admin', 'admin', 0, NULL),
+('arifah', 'arifah', 1, 'P-0001');
 
 --
 -- Indexes for dumped tables
@@ -341,7 +344,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT untuk tabel `bobot_penilaian`
 --
 ALTER TABLE `bobot_penilaian`
-  MODIFY `id_bobot` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `id_bobot` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT untuk tabel `jabatan_pegawai`

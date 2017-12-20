@@ -28,7 +28,7 @@ if(isset($_POST['id_pegawai']) || isset ($_POST['user_name']) || isset ($_POST['
 			$password=$_POST['password'];
 			$hak_akses=$_POST['hak_akses'];
             $sql_tambah="INSERT INTO user (user_name, password, hak_akses, id_pegawai) 
-			VALUE ('".$user_name."', '".$password."','".$hak_akses."', '".$id_pegawai."')";
+			VALUES ('".$user_name."', '".$password."',".$hak_akses.", '".$id_pegawai."')";
             $hasil = mysqli_query($db_link,$sql_tambah); 
             
             if ($hasil) {
@@ -36,7 +36,7 @@ if(isset($_POST['id_pegawai']) || isset ($_POST['user_name']) || isset ($_POST['
             } 
             else {
                 echo "gagal";
-                echo mysqli_error();
+                echo mysqli_error(db_link);
             }
         }
 

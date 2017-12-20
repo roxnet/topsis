@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+    <title>TOPSIS</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -45,18 +45,13 @@
                         <form role="form">
                             <fieldset>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="UserName" name="username" type="text" autofocus>
+                                    <input class="form-control" placeholder="User Name" name="username" type="text" autofocus>
                                 </div>
                                 <div class="form-group">
                                     <input class="form-control" placeholder="Password" name="password" type="password" value="">
                                 </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input name="remember" type="checkbox" value="Remember Me">Remember Me
-                                    </label>
-                                </div>
                                 <!-- Change this to a button or input when using this as a form -->
-                                <a href="index.html" class="btn btn-lg btn-success btn-block">Login</a>
+                                <button type="button" id="login" class="btn btn-lg btn-success btn-block">Login</button>
                             </fieldset>
                         </form>
                     </div>
@@ -80,16 +75,16 @@
     <script>
         $(document).ready(function () {
             $("#login").click(function () {
-                    var email_login = $('input[name=username]').val();
-                    var password_login = $('input[name=password]').val();
+                    var username = $('input[name=username]').val();
+                    var password = $('input[name=password]').val();
                     $.ajax({
                         type: "POST",
-                        url: "../kontrol/login.php",
-                        data: "type=login&username=" + email_login + "&password=" + password_login,
+                        url: "../include/kontrol/login.php",
+                        data: "type=login&username=" + username + "&password=" + password,
                         success: function (data) {
                             if (data == 'true') {
 
-                                window.location = "layout_user.php?home=yes";
+                                window.location = "index.php?home=yes";
                             }
                             else {
                                 $("#konfirmasi_login").html(data);
