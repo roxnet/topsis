@@ -1,4 +1,4 @@
-<div class="col-sm-10 col-sm-offset-2" style="display: inline-block;">  
+<div class="col-sm-12 col-sm-offset-2" style="display: inline-block;">  
 	<h2 class="text-center">DAFTAR BOBOT PENILAIAN</h2> 
 	<div class="panel-group">
 		<div class="panel panel-default" style="padding:10px">

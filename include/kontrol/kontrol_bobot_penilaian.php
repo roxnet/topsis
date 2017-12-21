@@ -16,6 +16,12 @@ if(isset($_POST['id_bobot'])|| isset ($_POST['jabatan'])){
             while($b<=$count){
                 $kriteria[]=$_POST["kriteria$b"];
                 $bobot[]=$_POST["bobot$b"];
+
+                $cek_kriteria=" INSERT INTO bobot_penilaian (id_bagian,id_kriteria,jabatan)
+                    SELECT * FROM (SELECT '".$bagian."' aa,'".$kriteria[$b-1]."' bb,'".$jabatan."' cc) AS Temp
+                     WHERE NOT EXISTS (SELECT * FROM bobot_penilaian WHERE id_bagian='".$bagian."' AND jabatan='".$jabatan."' AND id_kriteria='".$kriteria[$b-1]."')
+                ";
+               mysqli_query($db_link,$cek_kriteria);
                  $proses="UPDATE bobot_penilaian SET bobot=".$bobot[$b-1].",jabatan='".$jabatan."' 
                  WHERE id_bagian='$bagian' AND id_kriteria='".$kriteria[$b-1]."'";
             $hasil = mysqli_query($db_link,$proses);

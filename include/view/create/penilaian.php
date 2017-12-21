@@ -1,17 +1,19 @@
  <?php
-    $get_user_cek=mysqli_query ($db_link,"SELECT id_toko FROM jabatan_pegawai A
-                            INNER JOIN user B ON A.no_pegawai=B.id_pegawai
-                            WHERE B.user_name='".$username."' ");
+   
+$get_user_cek=mysqli_query ($db_link,"SELECT A.id_toko FROM jabatan_pegawai A
+                            INNER JOIN pegawai B ON A.id_pegawai=B.no_pegawai
+                            INNER JOIN user c ON B.no_pegawai=c.id_pegawai
+                            WHERE c.user_name=CASE WHEN $hak_akses=3 
+                THEN '".$username."' ELSE c.user_name END ");
 $get_toko_user=mysqli_fetch_assoc($get_user_cek);
-
    
     $sql_pegawai="SELECT B.id_jabatan,A.nama FROM pegawai A
-                INNER JOIN jabatan_pegawai B ON A.no_pegawai=B.id_pegawai
-                LEFT JOIN Penilaian C ON B.id_jabatan=C.id_jabatan 
-                WHERE B.id_toko=CASE WHEN $hak_akses==3 THEN '".$get_toko_user['id_toko']."'
+                INNER JOIN jabatan_pegawai B ON A.no_pegawai=B.id_pegawai 
+                WHERE B.id_toko=CASE WHEN $hak_akses=3 THEN '".$get_toko_user['id_toko']."'
                 ELSE B.id_toko END
                 ORDER BY A.no_pegawai";
 $hasil_pegawai=mysqli_query($db_link,$sql_pegawai);
+
 $b=0;        
 ?>
 
@@ -23,7 +25,7 @@ $b=0;
                 <div class="panel-body">
                     <form class="form-horizontal">
                     <div class="form-group">
-                        <label class="control-label col-sm-4" for="jabatan">Nama Pegawai : </label>
+                        <label class="control-label col-sm-5" for="jabatan">Nama Pegawai : </label>
                         <div class="col-sm-6">
                             <select  class="form-control" name="jabatan" id="jabatan">  
                                 <option>-</option>
@@ -36,12 +38,12 @@ $b=0;
                         </div>
                     </div>
                     <div class="form-group">
-                            <label class="control-label col-sm-4" for="penilaian">Kriteria Penilaian :</label>
+                            <label class="control-label col-sm-5" for="penilaian">Kriteria Penilaian :</label>
                     </div>
                         <div id="kriteria">
                         </div>
                      <div class="form-group">
-                        <label class="control-label col-sm-4" for="tgl_penilaian">Tanggal Penilaian :</label>
+                        <label class="control-label col-sm-5" for="tgl_penilaian">Tanggal Penilaian :</label>
                         <div class="col-sm-6">
                         <div class="input-group date datetimepicker1">
                             <input type="text" class="form-control" id="tgl_penilaian" name="tgl_penilaian" placeholder="Tanggal Penilaian" >

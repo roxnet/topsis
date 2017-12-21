@@ -16,9 +16,15 @@ if( isset ($_POST['jabatan'])){
             while($b<=$count){
                  $id_bobot[]=$_POST["bobot$b"];
                 $nilai[]=$_POST["nilai$b"];
+                $cek_kriteria="INSERT INTO penilaian (id_bobot,id_jabatan,tgl_penilaian)
+                SELECT * FROM (SELECT ".$id_bobot[$b-1]." aa,$jabatan bb,STR_TO_DATE('".$tgl_nilai."', '%d/%m/%Y'))AS Temp
+                     WHERE NOT EXISTS  (SELECT id_bobot FROM penilaian WHERE id_jabatan=$jabatan AND id_bobot=".$id_bobot[$b-1].")";
+                $end=mysqli_query($db_link,$cek_kriteria);
+ 
                  $proses="UPDATE penilaian SET nilai=".$nilai[$b-1].",tgl_penilaian=STR_TO_DATE('".$tgl_nilai."', '%d/%m/%Y') 
-                 WHERE id_jabatan='$jabatan' AND id_bobot=".$id_bobot[$b-1]."";
+                 WHERE id_jabatan=$jabatan AND id_bobot=".$id_bobot[$b-1]."";
             $hasil = mysqli_query($db_link,$proses);
+
                 $b++;
             }
            

@@ -1,4 +1,4 @@
-<div class="col-sm-11 col-xs-offset-2">  
+<div class="col-sm-12 col-xs-offset-2">  
 	<h2 class="text-center">DAFTAR PENILAIAN PEGAWAI</h2> 
 	<div class="panel-group" >
 		<div class="panel panel-default" style="padding:10px" >
@@ -9,16 +9,18 @@ $sql_kriteria="SELECT id_kriteria,nama_kriteria FROM kriteria ORDER BY id_kriter
 $hasil_kriteria=mysqli_query($db_link,$sql_kriteria);
 $total_kriteria=mysqli_num_rows($hasil_kriteria);
 
-$get_user_cek=mysqli_query ($db_link,"SELECT id_toko FROM jabatan_pegawai A
-                            INNER JOIN user B ON A.no_pegawai=B.id_pegawai
-                            WHERE B.user_name='".$username."' ");
+$get_user_cek=mysqli_query ($db_link,"SELECT A.id_toko FROM jabatan_pegawai A
+                            INNER JOIN pegawai B ON A.id_pegawai=B.no_pegawai
+                            INNER JOIN user c ON B.no_pegawai=c.id_pegawai
+                            WHERE c.user_name=CASE WHEN $hak_akses=3 
+                THEN '".$username."' ELSE c.user_name END ");
 $get_toko_user=mysqli_fetch_assoc($get_user_cek);
 
 $sql_penilaian="SELECT DISTINCT C.nama,B.id_jabatan FROM penilaian A
                 INNER JOIN jabatan_pegawai B ON A.id_jabatan=B.id_jabatan
                 INNER JOIN pegawai C ON B.id_pegawai=C.no_pegawai
-                WHERE B.id_toko=CASE WHEN $hak_akses==3 THEN '".$get_toko_user['id_toko']."'
-                ELSE B.id_toko END ";
+                WHERE B.id_toko=(CASE WHEN $hak_akses =3 
+                THEN ".$get_toko_user['id_toko']." ELSE B.id_toko END) ";
 $hasil_penilaian=mysqli_query($db_link,$sql_penilaian);
         echo '<table class="table table-bordered table-hover text-center panel panel-primary" >
                     
@@ -29,7 +31,7 @@ $hasil_penilaian=mysqli_query($db_link,$sql_penilaian);
                     <th class="text-center" colspan="'.$total_kriteria.'">KRITERIA</th>
                     <th class="text-center" rowspan="2" style="vertical-align: middle;">BAGIAN</th>
                     <th class="text-center" rowspan="2" style="vertical-align: middle;">JABATAN</th>
-                    <th class="text-center" rowspan="2" style="vertical-align: middle;">AKSI</th>
+                    <th class="text-center" rowspan="2" style="vertical-align: middle;" width="160">AKSI</th>
                 </tr>
                 <tr>';
 
@@ -91,8 +93,8 @@ $hasil_penilaian=mysqli_query($db_link,$sql_penilaian);
                 <td>";
                  if($hak_akses==0 || $hak_akses==2 || $hak_akses==3 ){
 
-                    echo "<a class='btn btn-primary ubah' ref='".$data_penilaian['id_jabatan']."'>Ubah</a>
-                    <a class='btn btn-danger hapus' ref='".$data_penilaian['id_jabatan']."'>Hapus</a>&nbsp;";
+                    echo "<a class='btn btn-primary ubah' ref='".$data_penilaian['id_jabatan']."'>Ubah</a>&nbsp;
+                    <a class='btn btn-danger hapus' ref='".$data_penilaian['id_jabatan']."'>Hapus</a>";
                 }
                     
                 echo "</td>";

@@ -187,8 +187,8 @@
         <!-- Page Content -->
 
         <div class="page-wrapper" style="margin:0 auto;background-color:white">
-            <div class="container" style="">
-                <div class="row" id="refresh">
+            <div class="container" style="overflow-x:scroll;">
+                <div class="row" >
                    
                     <!-- /.col-lg-12 -->
                 <!--</div>-->

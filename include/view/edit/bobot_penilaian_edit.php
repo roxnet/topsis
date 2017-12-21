@@ -36,16 +36,18 @@
                         $b=1;
 
                         while ($kriteria_tampil=mysqli_fetch_assoc($kriteria_query)){
-                             $edit_bobot=("select id_kriteria,bobot from bobot_penilaian where id_bagian='$id_bagian'
-                                AND id_kriteria='".$kriteria_tampil['id_kriteria']."'
-                                AND jabatan='".$jabatan."'");
+                             $edit_bobot=("select B.id_kriteria,A.bobot from bobot_penilaian A
+                                LEFT JOIN kriteria B ON A.id_kriteria=B.id_kriteria
+                                where A.id_bagian='$id_bagian'
+                                AND B.id_kriteria='".$kriteria_tampil['id_kriteria']."'
+                                AND A.jabatan='".$jabatan."'");
                                 $hasil_bobot = mysqli_query($db_link,$edit_bobot);
                                 $row_bobot=mysqli_fetch_assoc($hasil_bobot);
                             echo '
                              <div class="form-group">
                             <label class="control-label col-sm-4 col-sm-offset-1" for="bobot">'.$kriteria_tampil["nama_kriteria"].' : </label>
                             <div class="col-sm-3">
-                                    <input type="hidden" class="form-control" id="bobot" name="kriteria'.$b.'" value="'.$row_bobot["id_kriteria"].'" >
+                                    <input type="hidden" class="form-control" id="bobot" name="kriteria'.$b.'" value="'.$kriteria_tampil["id_kriteria"].'" >
                                     <input type="text" class="form-control" id="bobot" name="bobot'.$b.'" placeholder="BOBOT" value="'.$row_bobot['bobot'].'" >
                             </div>
                             </div>   ';
