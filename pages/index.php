@@ -25,6 +25,9 @@
     <!-- Custom CSS -->
     <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
 
+     <!-- Custom CSS -->
+    <link href="../vendor/bootstrap/css/print.min.css"  type="text/css" media="print">
+
     <!-- Custom Fonts -->
     <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
@@ -187,7 +190,7 @@
         <!-- Page Content -->
 
         <div class="page-wrapper" style="margin:0 auto;background-color:white">
-            <div class="container" style="overflow-x:scroll;">
+            <div class="container" style="">
                 <div class="row" >
                    
                     <!-- /.col-lg-12 -->
@@ -214,7 +217,7 @@
 
     <!-- Bootstrap Core JavaScript -->
     <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
-
+    <script src="../vendor/bootstrap/js/print.min.js"></script>
     <!-- Metis Menu Plugin JavaScript -->
     <script src="../vendor/metisMenu/metisMenu.min.js"></script>
 

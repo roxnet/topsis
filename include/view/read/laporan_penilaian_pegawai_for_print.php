@@ -7,7 +7,7 @@
 		<div class="panel panel-default" style="padding:10px" >
             <br/>
 <?php   
-
+include_once "../../../koneksi.php";
 $sql_kriteria="SELECT id_kriteria,nama_kriteria FROM kriteria ORDER BY id_kriteria";
 $hasil_kriteria=mysqli_query($db_link,$sql_kriteria);
 $total_kriteria=mysqli_num_rows($hasil_kriteria);
@@ -25,7 +25,7 @@ $hasil_penilaian=mysqli_query($db_link,$sql_penilaian);
                     <th class="text-center" colspan="'.$total_kriteria.'">KRITERIA</th>
                     <th class="text-center" rowspan="2" style="vertical-align: middle;">BAGIAN</th>
                     <th class="text-center" rowspan="2" style="vertical-align: middle;">JABATAN</th>
-                    <th class="text-center" rowspan="2" style="vertical-align: middle;">AKSI</th>
+                    
                 </tr>
                 <tr>';
 
@@ -84,9 +84,7 @@ $hasil_penilaian=mysqli_query($db_link,$sql_penilaian);
          echo  "
                 <td>".$data_jabatan['bagian']."</td>
                 <td>".$data_jabatan['jabatan']."</td>
-                <td>
-                    <a class='btn btn-primary detail' ref='".$data_penilaian['id_jabatan']."'>Detail</a>
-                </td>";
+                ";
         
             echo "</tr>";
         $s++;
@@ -97,9 +95,7 @@ $hasil_penilaian=mysqli_query($db_link,$sql_penilaian);
     ';
 
 ?>
-	 <center>
-             <button class="btn btn-primary hidden-print" onclick="printJS('../include/view/read/laporan_penilaian_pegawai_for_print.php')"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print</button>
-	    </center>
+
 		</div>
 	</div>
     
