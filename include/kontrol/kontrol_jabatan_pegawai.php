@@ -33,6 +33,8 @@ if(isset($_POST['id_jabatan'])|| isset($_POST['id_pegawai']) || isset ($_POST['i
             $jabatan=$_POST['jabatan'];
             $status=$_POST['status'];
             $tgl_jabat=$_POST['tgl_jabat'];
+            $proses="UPDATE jabatan_pegawai SET Status=0 WHERE id_jabatan='$id_jabatan'";
+             mysqli_query($db_link,$proses);
             $sql = "INSERT INTO jabatan_pegawai (id_pegawai,id_toko,id_bagian,jabatan,Status,tgl_jabat)
                     VALUES ('".$id_pegawai."',".$id_toko.",'".$id_bagian."','".$jabatan."',".$status.",STR_TO_DATE('".$tgl_jabat."', '%d/%m/%Y')) ";
             $hasil = mysqli_query($db_link,$sql); 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Waktu pembuatan: 20 Des 2017 pada 00.16
+-- Waktu pembuatan: 25 Des 2017 pada 11.45
 -- Versi server: 5.7.19
 -- Versi PHP: 7.1.7
 
@@ -51,38 +51,81 @@ INSERT INTO `bagian` (`id_bagian`, `bagian`) VALUES
 
 CREATE TABLE `bobot_penilaian` (
   `id_bobot` int(11) NOT NULL,
-  `id_kriteria` char(8) DEFAULT NULL,
   `id_bagian` char(8) DEFAULT NULL,
   `jabatan` enum('manager','HRD','koordinator','karyawan') DEFAULT NULL,
-  `bobot` int(11) DEFAULT NULL,
-  `akumulasi` decimal(10,2) DEFAULT NULL
+  `status` bit(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `bobot_penilaian`
 --
 
-INSERT INTO `bobot_penilaian` (`id_bobot`, `id_kriteria`, `id_bagian`, `jabatan`, `bobot`, `akumulasi`) VALUES
-(1, 'K-0001', 'B-0001', 'karyawan', 4, '20.00'),
-(2, 'K-0002', 'B-0001', 'karyawan', 4, '20.00'),
-(3, 'K-0003', 'B-0001', 'karyawan', 4, '20.00'),
-(4, 'K-0004', 'B-0001', 'karyawan', 5, '25.00'),
-(5, 'K-0005', 'B-0001', 'karyawan', 3, '15.00'),
-(6, 'K-0001', 'B-0002', 'karyawan', 3, '15.79'),
-(7, 'K-0002', 'B-0002', 'karyawan', 4, '21.05'),
-(8, 'K-0003', 'B-0002', 'karyawan', 4, '21.05'),
-(9, 'K-0004', 'B-0002', 'karyawan', 5, '26.32'),
-(10, 'K-0005', 'B-0002', 'karyawan', 3, '15.79'),
-(21, 'K-0001', 'B-0003', 'karyawan', 4, '19.05'),
-(22, 'K-0002', 'B-0003', 'karyawan', 4, '19.05'),
-(23, 'K-0003', 'B-0003', 'karyawan', 4, '19.05'),
-(24, 'K-0004', 'B-0003', 'karyawan', 5, '23.81'),
-(25, 'K-0005', 'B-0003', 'karyawan', 4, '19.05'),
-(26, 'K-0001', 'B-0004', 'karyawan', 4, '19.05'),
-(27, 'K-0002', 'B-0004', 'karyawan', 4, '19.05'),
-(28, 'K-0003', 'B-0004', 'karyawan', 4, '19.05'),
-(29, 'K-0004', 'B-0004', 'karyawan', 5, '23.81'),
-(30, 'K-0005', 'B-0004', 'karyawan', 4, '19.05');
+INSERT INTO `bobot_penilaian` (`id_bobot`, `id_bagian`, `jabatan`, `status`) VALUES
+(3, 'B-0001', 'karyawan', b'0'),
+(5, 'B-0001', 'karyawan', b'1');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `detail_bobot`
+--
+
+CREATE TABLE `detail_bobot` (
+  `id_detailbobot` int(11) NOT NULL,
+  `id_bobot` int(11) DEFAULT NULL,
+  `id_kriteria` char(50) DEFAULT NULL,
+  `bobot` int(11) DEFAULT NULL,
+  `akumulasi` decimal(10,2) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `detail_bobot`
+--
+
+INSERT INTO `detail_bobot` (`id_detailbobot`, `id_bobot`, `id_kriteria`, `bobot`, `akumulasi`) VALUES
+(25, 3, 'K-0001', 90, '21.33'),
+(26, 3, 'K-0002', 80, '18.96'),
+(27, 3, 'K-0003', 75, '17.77'),
+(28, 3, 'K-0004', 2, '0.47'),
+(29, 3, 'K-0005', 90, '21.33'),
+(30, 3, 'K-0006', 85, '20.14'),
+(37, 5, 'K-0001', 90, '22.67'),
+(38, 5, 'K-0002', 80, '20.15'),
+(39, 5, 'K-0003', 95, '23.93'),
+(40, 5, 'K-0004', 2, '0.50'),
+(41, 5, 'K-0005', 70, '17.63'),
+(42, 5, 'K-0006', 60, '15.11');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `detail_penilaian`
+--
+
+CREATE TABLE `detail_penilaian` (
+  `id_detailnilai` int(11) NOT NULL,
+  `id_nilai` int(11) DEFAULT NULL,
+  `id_detailbobot` int(11) DEFAULT NULL,
+  `nilai` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `detail_penilaian`
+--
+
+INSERT INTO `detail_penilaian` (`id_detailnilai`, `id_nilai`, `id_detailbobot`, `nilai`) VALUES
+(7, 4, 37, 80),
+(8, 4, 38, 90),
+(9, 4, 39, 90),
+(10, 4, 40, 2),
+(11, 4, 41, 80),
+(12, 4, 42, 70),
+(13, 5, 38, 80),
+(14, 5, 39, 78),
+(15, 5, 40, 3),
+(16, 5, 41, 78),
+(17, 5, 42, 50),
+(18, 5, 37, 90);
 
 -- --------------------------------------------------------
 
@@ -153,7 +196,8 @@ INSERT INTO `kriteria` (`id_kriteria`, `nama_kriteria`, `atribut`) VALUES
 ('K-0002', 'Tanggung jawab', 'K'),
 ('K-0003', 'Kejujuran', 'K'),
 ('K-0004', 'Alfa/Absen', 'B'),
-('K-0005', 'Kebersihan', 'K');
+('K-0005', 'Kebersihan', 'K'),
+('K-0006', 'Budaya', 'K');
 
 -- --------------------------------------------------------
 
@@ -192,37 +236,18 @@ INSERT INTO `pegawai` (`no_pegawai`, `nama`, `tempat_lahir`, `tanggal_lahir`, `j
 
 CREATE TABLE `penilaian` (
   `id_nilai` int(11) NOT NULL,
-  `id_bobot` int(11) DEFAULT NULL,
   `id_jabatan` int(11) NOT NULL,
-  `nilai` decimal(10,2) NOT NULL,
-  `tgl_penilaian` date DEFAULT NULL
+  `tgl_penilaian` date DEFAULT NULL,
+  `status` bit(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `penilaian`
 --
 
-INSERT INTO `penilaian` (`id_nilai`, `id_bobot`, `id_jabatan`, `nilai`, `tgl_penilaian`) VALUES
-(1, 1, 3, '70.00', '2017-11-30'),
-(2, 2, 3, '85.00', '2017-11-30'),
-(3, 3, 3, '75.00', '2017-11-30'),
-(4, 4, 3, '2.00', '2017-11-30'),
-(5, 5, 3, '80.00', '2017-11-30'),
-(6, 1, 2, '85.00', '2017-11-30'),
-(7, 2, 2, '70.00', '2017-11-30'),
-(8, 3, 2, '85.00', '2017-11-30'),
-(9, 4, 2, '3.00', '2017-11-30'),
-(10, 5, 2, '85.00', '2017-11-30'),
-(11, 1, 4, '80.00', '2017-11-30'),
-(12, 2, 4, '75.00', '2017-11-30'),
-(13, 3, 4, '80.00', '2017-11-30'),
-(14, 4, 4, '2.00', '2017-11-30'),
-(15, 5, 4, '70.00', '2017-11-30'),
-(16, 1, 1, '75.00', '2017-12-06'),
-(17, 2, 1, '80.00', '2017-12-06'),
-(18, 3, 1, '70.00', '2017-12-06'),
-(19, 4, 1, '1.00', '2017-12-06'),
-(20, 5, 1, '75.00', '2017-12-06');
+INSERT INTO `penilaian` (`id_nilai`, `id_jabatan`, `tgl_penilaian`, `status`) VALUES
+(4, 1, '2017-12-25', b'0'),
+(5, 1, '2017-12-25', b'1');
 
 -- --------------------------------------------------------
 
@@ -270,6 +295,23 @@ INSERT INTO `user` (`user_name`, `password`, `hak_akses`, `id_pegawai`) VALUES
 ('admin', 'admin', 0, NULL),
 ('arifah', 'arifah', 1, 'P-0001');
 
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `usulan`
+--
+
+CREATE TABLE `usulan` (
+  `id_usulan` int(11) NOT NULL,
+  `no_pegawai` char(8) NOT NULL,
+  `nama_pegawai` char(50) NOT NULL,
+  `nama_toko` varchar(255) NOT NULL,
+  `nilai` decimal(10,8) NOT NULL,
+  `bagian` varchar(50) NOT NULL,
+  `jabatan` varchar(50) NOT NULL,
+  `periode` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 --
 -- Indexes for dumped tables
 --
@@ -285,8 +327,23 @@ ALTER TABLE `bagian`
 --
 ALTER TABLE `bobot_penilaian`
   ADD PRIMARY KEY (`id_bobot`),
-  ADD KEY `FK_bobot_penilaian_kriteria` (`id_kriteria`),
   ADD KEY `FK_bobot_penilaian_bagian` (`id_bagian`);
+
+--
+-- Indeks untuk tabel `detail_bobot`
+--
+ALTER TABLE `detail_bobot`
+  ADD PRIMARY KEY (`id_detailbobot`),
+  ADD KEY `FK_detail_bobot_bobot_penilaian` (`id_bobot`),
+  ADD KEY `FK_detail_bobot_kriteria` (`id_kriteria`);
+
+--
+-- Indeks untuk tabel `detail_penilaian`
+--
+ALTER TABLE `detail_penilaian`
+  ADD PRIMARY KEY (`id_detailnilai`),
+  ADD KEY `FK_detail_penilaian_penilaian` (`id_nilai`),
+  ADD KEY `FK_detail_penilaian_detail_bobot` (`id_detailbobot`);
 
 --
 -- Indeks untuk tabel `informasi`
@@ -320,7 +377,6 @@ ALTER TABLE `pegawai`
 --
 ALTER TABLE `penilaian`
   ADD PRIMARY KEY (`id_nilai`),
-  ADD KEY `FK_penilaian_bobot_penilaian` (`id_bobot`),
   ADD KEY `FK_penilaian_jabatan_pegawai` (`id_jabatan`);
 
 --
@@ -337,6 +393,12 @@ ALTER TABLE `user`
   ADD KEY `FK_user_pegawai` (`id_pegawai`);
 
 --
+-- Indeks untuk tabel `usulan`
+--
+ALTER TABLE `usulan`
+  ADD PRIMARY KEY (`id_usulan`);
+
+--
 -- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
@@ -344,7 +406,19 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT untuk tabel `bobot_penilaian`
 --
 ALTER TABLE `bobot_penilaian`
-  MODIFY `id_bobot` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id_bobot` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT untuk tabel `detail_bobot`
+--
+ALTER TABLE `detail_bobot`
+  MODIFY `id_detailbobot` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+
+--
+-- AUTO_INCREMENT untuk tabel `detail_penilaian`
+--
+ALTER TABLE `detail_penilaian`
+  MODIFY `id_detailnilai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT untuk tabel `jabatan_pegawai`
@@ -356,7 +430,7 @@ ALTER TABLE `jabatan_pegawai`
 -- AUTO_INCREMENT untuk tabel `penilaian`
 --
 ALTER TABLE `penilaian`
-  MODIFY `id_nilai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id_nilai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `toko`
@@ -372,8 +446,21 @@ ALTER TABLE `toko`
 -- Ketidakleluasaan untuk tabel `bobot_penilaian`
 --
 ALTER TABLE `bobot_penilaian`
-  ADD CONSTRAINT `FK_bobot_penilaian_bagian` FOREIGN KEY (`id_bagian`) REFERENCES `bagian` (`id_bagian`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `FK_bobot_penilaian_kriteria` FOREIGN KEY (`id_kriteria`) REFERENCES `kriteria` (`id_kriteria`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `FK_bobot_penilaian_bagian` FOREIGN KEY (`id_bagian`) REFERENCES `bagian` (`id_bagian`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `detail_bobot`
+--
+ALTER TABLE `detail_bobot`
+  ADD CONSTRAINT `FK_detail_bobot_bobot_penilaian` FOREIGN KEY (`id_bobot`) REFERENCES `bobot_penilaian` (`id_bobot`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_detail_bobot_kriteria` FOREIGN KEY (`id_kriteria`) REFERENCES `kriteria` (`id_kriteria`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `detail_penilaian`
+--
+ALTER TABLE `detail_penilaian`
+  ADD CONSTRAINT `FK_detail_penilaian_detail_bobot` FOREIGN KEY (`id_detailbobot`) REFERENCES `detail_bobot` (`id_detailbobot`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_detail_penilaian_penilaian` FOREIGN KEY (`id_nilai`) REFERENCES `penilaian` (`id_nilai`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Ketidakleluasaan untuk tabel `jabatan_pegawai`
@@ -387,7 +474,6 @@ ALTER TABLE `jabatan_pegawai`
 -- Ketidakleluasaan untuk tabel `penilaian`
 --
 ALTER TABLE `penilaian`
-  ADD CONSTRAINT `FK_penilaian_bobot_penilaian` FOREIGN KEY (`id_bobot`) REFERENCES `bobot_penilaian` (`id_bobot`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `FK_penilaian_jabatan_pegawai` FOREIGN KEY (`id_jabatan`) REFERENCES `jabatan_pegawai` (`id_jabatan`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
