@@ -2,9 +2,8 @@
     
     $bagian=("SELECT id_bagian,bagian FROM bagian");
     $bagian_query = mysqli_query($db_link,$bagian);
-   $kriteria=("SELECT id_kriteria,nama_kriteria FROM kriteria");
+  	$kriteria=("SELECT id_kriteria,nama_kriteria FROM kriteria");
     $kriteria_query = mysqli_query($db_link,$kriteria);
-            
 ?>
 
 

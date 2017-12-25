@@ -91,7 +91,7 @@ if(isset($_POST['id_bobot'])|| isset ($_POST['jabatan'])){
         if($_POST['crud']=='hapus'){
            $id_bagian = $_POST['id_bagian'];
            $jabatan= $_POST['jabatan'];
-            $sql = "DELETE from bobot_penilaian where id_bagian='".$id_bagian."' AND jabatan='".$jabatan."'";
+            $sql = "DELETE FROM bobot_penilaian WHERE id_bagian='".$id_bagian."' AND jabatan='".$jabatan."'";
             $hasil = mysqli_query($db_link,$sql);
             if($hasil){
                 
