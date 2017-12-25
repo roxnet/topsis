@@ -2,9 +2,9 @@
     $kriteria=("SELECT id_kriteria,nama_kriteria FROM kriteria");
     $kriteria_query = mysqli_query($db_link,$kriteria);
     
-    $id_bagian=$_GET['id_bagian'];
-    $jabatan=$_GET['jabatan'];
-     $edit=("select * from bobot_penilaian where id_bagian='$id_bagian' AND jabatan='".$jabatan."' ");
+    $id_bobot=$_GET['id_bobot'];
+     $edit=("select A.*,B.id_kriteria,B.bobot from bobot_penilaian A 
+     INNER JOIN detail_bobot B ON A.id_bobot=B.id_bobot where A.id_bobot=$id_bobot");
         $hasil = mysqli_query($db_link,$edit);
         $row=mysqli_fetch_assoc($hasil);
 
@@ -36,11 +36,11 @@
                         $b=1;
 
                         while ($kriteria_tampil=mysqli_fetch_assoc($kriteria_query)){
-                             $edit_bobot=("select B.id_kriteria,A.bobot from bobot_penilaian A
-                                LEFT JOIN kriteria B ON A.id_kriteria=B.id_kriteria
-                                where A.id_bagian='$id_bagian'
-                                AND B.id_kriteria='".$kriteria_tampil['id_kriteria']."'
-                                AND A.jabatan='".$jabatan."'");
+                             $edit_bobot=("select B.id_kriteria,BB.bobot from bobot_penilaian A
+                             INNER JOIN detail_bobot BB ON A.id_bobot=BB.id_bobot
+                                LEFT JOIN kriteria B ON BB.id_kriteria=B.id_kriteria
+                                where A.id_bobot='$id_bobot'
+                                AND B.id_kriteria='".$kriteria_tampil['id_kriteria']."'");
                                 $hasil_bobot = mysqli_query($db_link,$edit_bobot);
                                 $row_bobot=mysqli_fetch_assoc($hasil_bobot);
                             echo '
@@ -74,7 +74,8 @@
         var bobotcount=<?php echo $b; ?>;
             bobotcount=bobotcount-1;
           $("#tambah").click(function () {
-            var bagian ='<?php echo $id_bagian; ?>';
+            var id_bobot='<?php echo $id_bobot;?>';
+            var bagian ='<?php echo $row['id_bagian']; ?>';
             var jabatan= $('select[name=jabatan]').val();
             var count=1;
             var bobot=[];
@@ -94,6 +95,7 @@
               type: "POST",
               url: "../include/kontrol/kontrol_bobot_penilaian.php",
               data: 'crud=update&count='+bobotcount+
+                    '&id_bobot='+id_bobot+
                     '&bagian=' +bagian+
                     '&jabatan='+jabatan+
                     bobotstring+kriteriastring,

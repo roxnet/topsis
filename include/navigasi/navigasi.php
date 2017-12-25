@@ -128,6 +128,12 @@ if(isset($_GET['navigasi'])){
           include_once "../include/view/read/usulan_terbaik.php";
         }
       }
+
+      if($_GET['navigasi']=='history_usulan_pegawai_terbaik'){
+        if ($_GET['crud']=='view'){
+          include_once "../include/view/read/history_usulan_terbaik.php";
+        }
+      }
 	  
 	  	  if($_GET['navigasi']=='user'){
         if ($_GET['crud']=='view'){

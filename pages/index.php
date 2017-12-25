@@ -153,6 +153,14 @@
                          if($hak_akses==0 || $hak_akses==1 || $hak_akses==2 || $hak_akses==3 || $hak_akses==4){
                             echo '
                             <li>
+                                <a href="index.php?navigasi=usulan_pegawai_terbaik&crud=view"><i class="fa fa-table fa-fw"></i>  Usulan Pegawai Terbaik</a>
+                            </li>
+                            ';
+
+                        }
+                         if($hak_akses==0 || $hak_akses==1 || $hak_akses==2 || $hak_akses==3 || $hak_akses==4){
+                            echo '
+                            <li>
                                 <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Laporan Penilaian<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">';
                                 if($hak_akses==0 || $hak_akses==1 || $hak_akses==2 || $hak_akses==3 || $hak_akses==4){
@@ -162,7 +170,7 @@
                                 }
                                 if ($hak_akses==0 || $hak_akses==1 || $hak_akses==2 || $hak_akses==3 || $hak_akses==4){
                                     echo '<li>
-                                        <a href="index.php?navigasi=usulan_pegawai_terbaik&crud=view">Usulan Pegawai Terbaik</a>
+                                        <a href="index.php?navigasi=history_usulan_pegawai_terbaik&crud=view">History Usulan Pegawai Terbaik</a>
                                     </li>';
                                 }
                             echo '    </ul>
@@ -189,8 +197,8 @@
 
         <!-- Page Content -->
 
-        <div class="page-wrapper" style="margin:0 auto;background-color:white">
-            <div class="container" style="">
+        <div class="page-wrapper" style="background-color:white">
+            <div class="container" >
                 <div class="row" >
                    
                     <!-- /.col-lg-12 -->

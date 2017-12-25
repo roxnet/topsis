@@ -1,7 +1,7 @@
 <?php
     include_once "../../../koneksi.php";
-	$month 			=$_POST['month'];
-	$year 			=$_POST['year'];
+	$start 			=$_POST['start'];
+	$end 			=$_POST['end'];
     $id_toko		=$_POST['id_toko'];
     $jabatan		=$_POST['jabatan'];
     $id_bagian		=$_POST['id_bagian'];
@@ -32,19 +32,24 @@
     while($data_kriteria=mysqli_fetch_assoc($kriteria)){
         //per kriteria
         //masih seluruh pegawai belum ada filter
-        $sqlfornilai="SELECT C.no_pegawai,C.nama,A.nilai,D.akumulasi,E.nama_toko,B.jabatan,F.bagian,A.tgl_penilaian FROM penilaian A
+        $sqlfornilai="SELECT C.no_pegawai,C.nama,BB.nilai,DD.akumulasi,E.nama_toko,B.jabatan,F.bagian,A.tgl_penilaian FROM penilaian A
+                    INNER JOIN detail_penilaian BB ON A.id_nilai=BB.id_nilai
                       INNER JOIN jabatan_pegawai B ON A.id_jabatan=B.id_jabatan
                       INNER JOIN pegawai C ON B.id_pegawai=C.no_pegawai
-                      INNER JOIN bobot_penilaian D ON A.id_bobot=D.id_bobot AND B.jabatan=D.jabatan
+                       INNER JOIN detail_bobot DD ON BB.id_detailbobot=DD.id_detailbobot
+                      INNER JOIN bobot_penilaian D ON DD.id_bobot=D.id_bobot AND B.jabatan=D.jabatan
                       INNER JOIN toko E ON B.id_toko=E.id_toko
                       INNER JOIN bagian F ON B.id_bagian=F.id_bagian
-                      WHERE D.id_kriteria='".$data_kriteria['id_kriteria']."'
+                      WHERE DD.id_kriteria='".$data_kriteria['id_kriteria']."'
                       AND E.id_toko=CASE WHEN ".$id_toko."=0 THEN E.id_toko ELSE ".$id_toko." END
                       AND B.jabatan=CASE WHEN '".$jabatan."'='none'THEN B.jabatan ELSE '".$jabatan."' END
                       AND F.id_bagian=CASE WHEN '".$id_bagian."'='none' THEN F.id_bagian ELSE '".$id_bagian."' END
-					  AND month(tgl_penilaian)='".$month."' AND year(tgl_penilaian)='".$year."'
-                      ORDER BY C.no_pegawai"; 
-    $nilai_krit=mysqli_query($db_link,$sqlfornilai);                                  
+                      AND date_format(A.tgl_penilaian,'MM/YYYY')>=date_format($start, 'MM/YYYY') AND date_format(A.tgl_penilaian,'MM/YYYY')<=date_format($end, 'MM/YYYY')
+                      AND D.status=1 AND A.status=1
+                      ORDER BY C.no_pegawai;
+                      "; 
+    $nilai_krit=mysqli_query($db_link,$sqlfornilai); 
+    echo mysqli_error($db_link);                                 
     $nilai_krit2=mysqli_query($db_link,$sqlfornilai);
          if(!$nilai_krit){
                  mysqli_errno($db_link);
@@ -153,7 +158,14 @@ $hasil_rangking=mysqli_query($db_link,$sql_rangking);
         </thead>
         <tbody> ';
         $s=1;
-
+        $no_peg=array();
+        $nama_peg=array();
+        $toko_kerja=array();
+        $nilai_kerja=array();
+        $bagian=array();
+        $jabatan_peg=array();
+        $tgl_rangking=array();
+        $number=0;
         while ($data_rangking=mysqli_fetch_assoc($hasil_rangking)) {
             echo "<tr>";
             echo "  
@@ -166,6 +178,23 @@ $hasil_rangking=mysqli_query($db_link,$sql_rangking);
                 <td>{$data_rangking['jabatan']}</td>
                 <td>{$data_rangking['tgl_penilaian']}</td>";
             echo "</tr>";
+            echo "<input type='text' name='no_peg$s' value='".$data_rangking['no_pegawai']."'>";
+            echo "<input type='hidden' name='nama_peg$s' value='".$data_rangking['nama']."'>";
+            echo "<input type='hidden' name='toko_kerja$s' value='".$data_rangking['toko']."'>";
+            echo "<input type='hidden' name='nilai_kerja$s' value='".$data_rangking['nilai']."'>";
+            echo "<input type='hidden' name='bagian$s' value='".$data_rangking['bagian']."'>";
+            echo "<input type='hidden' name='jabatan-peg$s' value='".$data_rangking['jabatan']."'>";
+            echo "<input type='hidden' name='tgl_rangking$s' value='".$data_rangking['tgl_penilaian']."'>";
+            $number=$s;
         $s++;
         }
 ?>
+
+<script src="../vendor/jquery/jquery.min.js"></script>
+<script>
+   var penilaiancount=<?php echo $number; ?>;
+          
+
+</script>
+
+   

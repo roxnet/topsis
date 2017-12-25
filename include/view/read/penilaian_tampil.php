@@ -3,6 +3,14 @@
 	<div class="panel-group" >
 		<div class="panel panel-default" style="padding:10px" >
             <br/>
+              <div class="col-sm-3 input-group pull-right">
+         <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+        <input type="text" class="form-control" id="nama" placeholder="Search">
+        <span class="input-group-btn">
+        <button id="showall" class="btn btn-danger pull-right"><i class="glyphicon glyphicon-align-justify"></i></button>
+        </span>
+        </div>
+        <br/><br/>
 <?php   
 
 $sql_kriteria="SELECT id_kriteria,nama_kriteria FROM kriteria ORDER BY id_kriteria";
@@ -16,11 +24,12 @@ $get_user_cek=mysqli_query ($db_link,"SELECT A.id_toko FROM jabatan_pegawai A
                 THEN '".$username."' ELSE c.user_name END ");
 $get_toko_user=mysqli_fetch_assoc($get_user_cek);
 
-$sql_penilaian="SELECT DISTINCT C.nama,B.id_jabatan FROM penilaian A
+$sql_penilaian="SELECT DISTINCT A.id_nilai,C.nama,B.id_jabatan,A.status FROM penilaian A
                 INNER JOIN jabatan_pegawai B ON A.id_jabatan=B.id_jabatan
                 INNER JOIN pegawai C ON B.id_pegawai=C.no_pegawai
                 WHERE B.id_toko=(CASE WHEN $hak_akses =3 
-                THEN ".$get_toko_user['id_toko']." ELSE B.id_toko END) ";
+                THEN ".$get_toko_user['id_toko']." ELSE B.id_toko END)
+                ORDER BY C.nama asc, A.Status desc";
 $hasil_penilaian=mysqli_query($db_link,$sql_penilaian);
         echo '<table class="table table-bordered table-hover text-center panel panel-primary" >
                     
@@ -31,6 +40,7 @@ $hasil_penilaian=mysqli_query($db_link,$sql_penilaian);
                     <th class="text-center" colspan="'.$total_kriteria.'">KRITERIA</th>
                     <th class="text-center" rowspan="2" style="vertical-align: middle;">BAGIAN</th>
                     <th class="text-center" rowspan="2" style="vertical-align: middle;">JABATAN</th>
+                    <th class="text-center" rowspan="2" style="vertical-align: middle;">STATUS</th>
                     <th class="text-center" rowspan="2" style="vertical-align: middle;" width="160">AKSI</th>
                 </tr>
                 <tr>';
@@ -48,14 +58,15 @@ $hasil_penilaian=mysqli_query($db_link,$sql_penilaian);
         $s=1;
 
         while ($data_penilaian=mysqli_fetch_assoc($hasil_penilaian)) {
-            echo "<tr>";
+            echo "<tr  class='tablerow'>";
             echo "  
-                <td>".$s."</td>
+                <td></td>
                 <td>{$data_penilaian['nama']}</td>";
                 $sql_jabatan="SELECT B.jabatan,C.bagian FROM penilaian A
                 INNER JOIN jabatan_pegawai B ON A.id_jabatan=B.id_jabatan
                 INNER JOIN bagian C ON B.id_bagian=C.id_bagian
                 WHERE  B.id_jabatan='".$data_penilaian['id_jabatan']."'
+                AND A.status='".$data_penilaian['status']."'
                 ORDER BY A.id_nilai ASC";
                 $hasil_jabatan = mysqli_query($db_link,$sql_jabatan);
                 if (!$hasil_jabatan){
@@ -66,11 +77,16 @@ $hasil_penilaian=mysqli_query($db_link,$sql_penilaian);
 
             $d=1;
             while ($d<=$total_kriteria){
-                $sql="SELECT A.id_nilai,A.nilai FROM penilaian A
-                        INNER JOIN bobot_penilaian B ON A.id_bobot=B.id_bobot
+                $sql="SELECT A.id_nilai,BB.nilai FROM penilaian A
+                        INNER JOIN detail_penilaian BB ON A.id_nilai=BB.id_nilai
+ 
+                        INNER JOIN detail_bobot CC ON BB.id_detailbobot=CC.id_detailbobot
+                        INNER JOIN bobot_penilaian B ON CC.id_bobot=B.id_bobot
                         INNER JOIN jabatan_pegawai C ON A.id_jabatan=C.id_jabatan
-                        WHERE B.id_kriteria='".$kriteriaarray[$d-1]."'
+                        WHERE CC.id_kriteria='".$kriteriaarray[$d-1]."'
                         AND C.id_jabatan='".$data_penilaian['id_jabatan']."'
+                        AND A.status='".$data_penilaian['status']."'
+                        AND A.id_nilai='".$data_penilaian['id_nilai']."'
                         ORDER BY A.id_nilai ASC";
                 $hasil = mysqli_query($db_link,$sql);
                 if (!$hasil){
@@ -91,10 +107,14 @@ $hasil_penilaian=mysqli_query($db_link,$sql_penilaian);
                 <td>".$data_jabatan['jabatan']."</td>
                 <td>".$data_jabatan['bagian']."</td>
                 <td>";
+                if ($data_penilaian['status']==1) echo 'Aktif';
+                else echo 'Non Aktif';
+                echo "</td>
+                <td>";
                  if($hak_akses==0 || $hak_akses==2 || $hak_akses==3 ){
 
-                    echo "<a class='btn btn-primary ubah' ref='".$data_penilaian['id_jabatan']."'>Ubah</a>&nbsp;
-                    <a class='btn btn-danger hapus' ref='".$data_penilaian['id_jabatan']."'>Hapus</a>";
+                    echo "<a class='btn btn-primary ubah' ref='".$data_penilaian['id_jabatan']."' req='".$data_penilaian['id_nilai']."'>Ubah</a>&nbsp;
+                    <a class='btn btn-danger hapus' req='".$data_penilaian['id_nilai']."'>Hapus</a>";
                 }
                     
                 echo "</td>";
@@ -132,17 +152,18 @@ $hasil_penilaian=mysqli_query($db_link,$sql_penilaian);
           });
         $('.ubah').click(function() {
 				var id_jabatan=$(this).attr('ref');
-			 window.location.replace("index.php?navigasi=penilaian&crud=edit&id_jabatan="+id_jabatan);
+                var id_nilai=$(this).attr('req');
+			 window.location.replace("index.php?navigasi=penilaian&crud=edit&id_jabatan="+id_jabatan+"&id_nilai="+id_nilai);
 		});
 
 		$('.hapus').click(function() {
-    		var id_jabatan =$(this).attr('ref');
+    		var id_nilai=$(this).attr('req');
 		
 			 if (confirm('Yakin menghapus Penilaian Pegawai ????')) {
 					$.ajax({
 					type: "POST",
-					url: "../include/kontrol/kontrol_penilaian_pegawai.php",
-					data: 'crud=hapus&id_jabatan='+id_jabatan,
+					url: "../include/kontrol/kontrol_penilaian.php",
+					data: 'crud=hapus&id_nilai='+id_nilai,
 					success: function (respons) {
 						
 						console.log(respons);
@@ -169,5 +190,33 @@ $hasil_penilaian=mysqli_query($db_link,$sql_penilaian);
 			 }
 			
 		});
+
+    var $rows = $('tbody tr');
+     $rows.show().filter(function() {
+    $("tr:contains('Non')").hide();
+     }).hide();
+
+    $('tbody tr:visible').each(function (i) {
+   $(" td:first", this).html(i+1);
+    });
+
+    $('#showall').click(function() {
+    $("tr:contains('Non')").toggle();
+    $('tbody tr:visible').each(function (i) {
+   $(" td:first", this).html(i+1);
+    });
+    });
+
+    var $rows = $('tbody tr:visible');
+$('#nama').keyup(function() {
+    var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+    
+    $rows.show().filter(function() {
+        var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+        return !~text.indexOf(val);
+    }).hide();
+});
+
+
 	 });
 </script>
