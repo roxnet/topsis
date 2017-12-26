@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.5
+-- version 4.6.5.2
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Waktu pembuatan: 25 Des 2017 pada 11.45
--- Versi server: 5.7.19
--- Versi PHP: 7.1.7
+-- Host: 127.0.0.1
+-- Generation Time: 26 Des 2017 pada 08.38
+-- Versi Server: 10.1.21-MariaDB
+-- PHP Version: 7.1.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -53,7 +51,7 @@ CREATE TABLE `bobot_penilaian` (
   `id_bobot` int(11) NOT NULL,
   `id_bagian` char(8) DEFAULT NULL,
   `jabatan` enum('manager','HRD','koordinator','karyawan') DEFAULT NULL,
-  `status` bit(1) NOT NULL
+  `status` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -61,8 +59,9 @@ CREATE TABLE `bobot_penilaian` (
 --
 
 INSERT INTO `bobot_penilaian` (`id_bobot`, `id_bagian`, `jabatan`, `status`) VALUES
-(3, 'B-0001', 'karyawan', b'0'),
-(5, 'B-0001', 'karyawan', b'1');
+(8, 'B-0001', 'karyawan', 0),
+(9, 'B-0001', 'karyawan', 0),
+(12, 'B-0001', 'karyawan', 1);
 
 -- --------------------------------------------------------
 
@@ -83,18 +82,16 @@ CREATE TABLE `detail_bobot` (
 --
 
 INSERT INTO `detail_bobot` (`id_detailbobot`, `id_bobot`, `id_kriteria`, `bobot`, `akumulasi`) VALUES
-(25, 3, 'K-0001', 90, '21.33'),
-(26, 3, 'K-0002', 80, '18.96'),
-(27, 3, 'K-0003', 75, '17.77'),
-(28, 3, 'K-0004', 2, '0.47'),
-(29, 3, 'K-0005', 90, '21.33'),
-(30, 3, 'K-0006', 85, '20.14'),
-(37, 5, 'K-0001', 90, '22.67'),
-(38, 5, 'K-0002', 80, '20.15'),
-(39, 5, 'K-0003', 95, '23.93'),
-(40, 5, 'K-0004', 2, '0.50'),
-(41, 5, 'K-0005', 70, '17.63'),
-(42, 5, 'K-0006', 60, '15.11');
+(55, 8, 'K-0001', 1, '6.67'),
+(56, 8, 'K-0002', 1, '6.67'),
+(57, 8, 'K-0003', 10, '66.67'),
+(58, 8, 'K-0004', 1, '6.67'),
+(59, 8, 'K-0005', 1, '6.67'),
+(73, 12, 'K-0001', 4, '20.00'),
+(74, 12, 'K-0002', 4, '20.00'),
+(75, 12, 'K-0003', 4, '20.00'),
+(76, 12, 'K-0004', 5, '25.00'),
+(77, 12, 'K-0005', 3, '15.00');
 
 -- --------------------------------------------------------
 
@@ -114,18 +111,31 @@ CREATE TABLE `detail_penilaian` (
 --
 
 INSERT INTO `detail_penilaian` (`id_detailnilai`, `id_nilai`, `id_detailbobot`, `nilai`) VALUES
-(7, 4, 37, 80),
-(8, 4, 38, 90),
-(9, 4, 39, 90),
-(10, 4, 40, 2),
-(11, 4, 41, 80),
-(12, 4, 42, 70),
-(13, 5, 38, 80),
-(14, 5, 39, 78),
-(15, 5, 40, 3),
-(16, 5, 41, 78),
-(17, 5, 42, 50),
-(18, 5, 37, 90);
+(49, 9, 73, 85),
+(50, 9, 74, 70),
+(51, 9, 75, 80),
+(52, 9, 76, 3),
+(53, 9, 77, 85),
+(79, 12, 73, 75),
+(80, 12, 74, 80),
+(81, 12, 75, 70),
+(82, 12, 76, 1),
+(83, 12, 77, 75),
+(84, 13, 73, 70),
+(85, 13, 74, 85),
+(86, 13, 75, 75),
+(87, 13, 76, 2),
+(88, 13, 77, 80),
+(89, 14, 73, 85),
+(90, 14, 74, 70),
+(91, 14, 75, 85),
+(92, 14, 76, 3),
+(93, 14, 77, 85),
+(94, 15, 73, 80),
+(95, 15, 74, 75),
+(96, 15, 75, 80),
+(97, 15, 76, 2),
+(98, 15, 77, 70);
 
 -- --------------------------------------------------------
 
@@ -161,7 +171,7 @@ CREATE TABLE `jabatan_pegawai` (
   `id_toko` int(11) NOT NULL DEFAULT '0',
   `id_bagian` char(8) NOT NULL DEFAULT '0',
   `jabatan` enum('manager','HRD','koordinator','karyawan') NOT NULL,
-  `Status` bit(1) NOT NULL,
+  `Status` tinyint(1) NOT NULL,
   `tgl_jabat` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -170,10 +180,11 @@ CREATE TABLE `jabatan_pegawai` (
 --
 
 INSERT INTO `jabatan_pegawai` (`id_jabatan`, `id_pegawai`, `id_toko`, `id_bagian`, `jabatan`, `Status`, `tgl_jabat`) VALUES
-(1, 'P-0001', 27, 'B-0001', 'karyawan', b'1', '2017-12-06'),
-(2, 'P-0003', 27, 'B-0001', 'karyawan', b'1', '2017-06-13'),
-(3, 'P-0002', 27, 'B-0001', 'karyawan', b'1', '2017-12-06'),
-(4, 'P-0004', 27, 'B-0001', 'karyawan', b'1', '2017-12-06');
+(1, 'P-0001', 27, 'B-0001', 'karyawan', 1, '2017-12-06'),
+(2, 'P-0003', 27, 'B-0001', 'karyawan', 1, '2017-06-13'),
+(3, 'P-0002', 27, 'B-0001', 'karyawan', 1, '2017-12-06'),
+(4, 'P-0004', 27, 'B-0001', 'karyawan', 1, '2017-12-06'),
+(5, 'P-0005', 27, 'B-0001', 'karyawan', 1, '2012-02-05');
 
 -- --------------------------------------------------------
 
@@ -196,8 +207,7 @@ INSERT INTO `kriteria` (`id_kriteria`, `nama_kriteria`, `atribut`) VALUES
 ('K-0002', 'Tanggung jawab', 'K'),
 ('K-0003', 'Kejujuran', 'K'),
 ('K-0004', 'Alfa/Absen', 'B'),
-('K-0005', 'Kebersihan', 'K'),
-('K-0006', 'Budaya', 'K');
+('K-0005', 'Kebersihan', 'K');
 
 -- --------------------------------------------------------
 
@@ -226,7 +236,8 @@ INSERT INTO `pegawai` (`no_pegawai`, `nama`, `tempat_lahir`, `tanggal_lahir`, `j
 ('P-0001', 'Arifah', 'Bantul', '1996-02-03', 'L', 'Islam', 'Belum kawin', '085643132000', 'Jalan Raya Bantul', '2012-01-20'),
 ('P-0002', 'Kiki', 'Yogyakarta', '1990-12-05', 'L', 'Islam', 'Belum kawin', '082241403727', 'Bantul', '2016-01-04'),
 ('P-0003', 'Niswa', 'Bantul', '1991-01-01', 'L', 'Islam', 'Belum kawin', '086543210000', 'Jalan Imogiri', '2013-02-05'),
-('P-0004', 'Brian', 'Sleman', '1990-10-03', 'L', 'Islam', 'Kawin', '089765432100', 'Jalan Kusumanegara', '2013-01-29');
+('P-0004', 'Brian', 'Sleman', '1990-10-03', 'L', 'Islam', 'Kawin', '089765432100', 'Jalan Kusumanegara', '2013-01-29'),
+('P-0005', 'Susi', 'Bantul', '1995-12-12', 'L', 'Islam', 'Belum kawin', '089876500000', 'Jalan Bantul', '2012-01-02');
 
 -- --------------------------------------------------------
 
@@ -238,7 +249,7 @@ CREATE TABLE `penilaian` (
   `id_nilai` int(11) NOT NULL,
   `id_jabatan` int(11) NOT NULL,
   `tgl_penilaian` date DEFAULT NULL,
-  `status` bit(1) NOT NULL
+  `status` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -246,8 +257,11 @@ CREATE TABLE `penilaian` (
 --
 
 INSERT INTO `penilaian` (`id_nilai`, `id_jabatan`, `tgl_penilaian`, `status`) VALUES
-(4, 1, '2017-12-25', b'0'),
-(5, 1, '2017-12-25', b'1');
+(9, 4, '2017-11-30', 0),
+(12, 1, '2017-11-30', 1),
+(13, 3, '2017-11-30', 1),
+(14, 2, '2017-11-30', 1),
+(15, 4, '2017-11-30', 1);
 
 -- --------------------------------------------------------
 
@@ -317,20 +331,20 @@ CREATE TABLE `usulan` (
 --
 
 --
--- Indeks untuk tabel `bagian`
+-- Indexes for table `bagian`
 --
 ALTER TABLE `bagian`
   ADD PRIMARY KEY (`id_bagian`);
 
 --
--- Indeks untuk tabel `bobot_penilaian`
+-- Indexes for table `bobot_penilaian`
 --
 ALTER TABLE `bobot_penilaian`
   ADD PRIMARY KEY (`id_bobot`),
   ADD KEY `FK_bobot_penilaian_bagian` (`id_bagian`);
 
 --
--- Indeks untuk tabel `detail_bobot`
+-- Indexes for table `detail_bobot`
 --
 ALTER TABLE `detail_bobot`
   ADD PRIMARY KEY (`id_detailbobot`),
@@ -338,7 +352,7 @@ ALTER TABLE `detail_bobot`
   ADD KEY `FK_detail_bobot_kriteria` (`id_kriteria`);
 
 --
--- Indeks untuk tabel `detail_penilaian`
+-- Indexes for table `detail_penilaian`
 --
 ALTER TABLE `detail_penilaian`
   ADD PRIMARY KEY (`id_detailnilai`),
@@ -346,13 +360,13 @@ ALTER TABLE `detail_penilaian`
   ADD KEY `FK_detail_penilaian_detail_bobot` (`id_detailbobot`);
 
 --
--- Indeks untuk tabel `informasi`
+-- Indexes for table `informasi`
 --
 ALTER TABLE `informasi`
   ADD PRIMARY KEY (`id_informasi`);
 
 --
--- Indeks untuk tabel `jabatan_pegawai`
+-- Indexes for table `jabatan_pegawai`
 --
 ALTER TABLE `jabatan_pegawai`
   ADD PRIMARY KEY (`id_jabatan`),
@@ -361,83 +375,77 @@ ALTER TABLE `jabatan_pegawai`
   ADD KEY `FK_jabatan_pegawai_bagian` (`id_bagian`);
 
 --
--- Indeks untuk tabel `kriteria`
+-- Indexes for table `kriteria`
 --
 ALTER TABLE `kriteria`
   ADD PRIMARY KEY (`id_kriteria`);
 
 --
--- Indeks untuk tabel `pegawai`
+-- Indexes for table `pegawai`
 --
 ALTER TABLE `pegawai`
   ADD PRIMARY KEY (`no_pegawai`);
 
 --
--- Indeks untuk tabel `penilaian`
+-- Indexes for table `penilaian`
 --
 ALTER TABLE `penilaian`
   ADD PRIMARY KEY (`id_nilai`),
   ADD KEY `FK_penilaian_jabatan_pegawai` (`id_jabatan`);
 
 --
--- Indeks untuk tabel `toko`
+-- Indexes for table `toko`
 --
 ALTER TABLE `toko`
   ADD PRIMARY KEY (`id_toko`);
 
 --
--- Indeks untuk tabel `user`
+-- Indexes for table `user`
 --
 ALTER TABLE `user`
   ADD UNIQUE KEY `user_name` (`user_name`),
   ADD KEY `FK_user_pegawai` (`id_pegawai`);
 
 --
--- Indeks untuk tabel `usulan`
+-- Indexes for table `usulan`
 --
 ALTER TABLE `usulan`
   ADD PRIMARY KEY (`id_usulan`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `bobot_penilaian`
+-- AUTO_INCREMENT for table `bobot_penilaian`
 --
 ALTER TABLE `bobot_penilaian`
-  MODIFY `id_bobot` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
+  MODIFY `id_bobot` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
--- AUTO_INCREMENT untuk tabel `detail_bobot`
+-- AUTO_INCREMENT for table `detail_bobot`
 --
 ALTER TABLE `detail_bobot`
-  MODIFY `id_detailbobot` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
-
+  MODIFY `id_detailbobot` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
 --
--- AUTO_INCREMENT untuk tabel `detail_penilaian`
+-- AUTO_INCREMENT for table `detail_penilaian`
 --
 ALTER TABLE `detail_penilaian`
-  MODIFY `id_detailnilai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
-
+  MODIFY `id_detailnilai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
 --
--- AUTO_INCREMENT untuk tabel `jabatan_pegawai`
+-- AUTO_INCREMENT for table `jabatan_pegawai`
 --
 ALTER TABLE `jabatan_pegawai`
-  MODIFY `id_jabatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
+  MODIFY `id_jabatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
--- AUTO_INCREMENT untuk tabel `penilaian`
+-- AUTO_INCREMENT for table `penilaian`
 --
 ALTER TABLE `penilaian`
-  MODIFY `id_nilai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
+  MODIFY `id_nilai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
--- AUTO_INCREMENT untuk tabel `toko`
+-- AUTO_INCREMENT for table `toko`
 --
 ALTER TABLE `toko`
   MODIFY `id_toko` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
-
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
@@ -481,7 +489,6 @@ ALTER TABLE `penilaian`
 --
 ALTER TABLE `user`
   ADD CONSTRAINT `FK_user_pegawai` FOREIGN KEY (`id_pegawai`) REFERENCES `pegawai` (`no_pegawai`) ON DELETE CASCADE ON UPDATE CASCADE;
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
