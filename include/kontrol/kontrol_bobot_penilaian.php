@@ -104,17 +104,11 @@ if(isset($_POST['id_bobot'])|| isset ($_POST['jabatan'])){
         }
 
         if($_POST['crud']=='hapus'){
-<<<<<<< HEAD
-           $id_bagian = $_POST['id_bagian'];
-           $jabatan= $_POST['jabatan'];
-            $sql = "DELETE FROM bobot_penilaian WHERE id_bagian='".$id_bagian."' AND jabatan='".$jabatan."'";
-=======
            $id_bobot = $_POST['id_bobot'];
          
            $sql = "DELETE from detail_bobot where id_bobot=$id_bobot";
             $hasil = mysqli_query($db_link,$sql);
             $sql = "DELETE from bobot_penilaian where id_bobot=$id_bobot";
->>>>>>> fc803ec1fed62d052695cdca5c18dbd6c1032789
             $hasil = mysqli_query($db_link,$sql);
             if($hasil){
                 
