@@ -24,7 +24,7 @@ if(isset($_POST['id_bobot'])|| isset ($_POST['jabatan'])){
                 $kriteria[]=$_POST["kriteria$b"];
                 $bobot[]=$_POST["bobot$b"];
                $cek_kriteria=" INSERT INTO detail_bobot (id_bobot,id_kriteria)
-                    SELECT * FROM (SELECT ".$id_bobot." aa,'".$kriteria[$b-1]."' cc,) AS Temp
+                    SELECT * FROM (SELECT ".$id_bobot." aa,'".$kriteria[$b-1]."' cc) AS Temp
                      WHERE NOT EXISTS (SELECT * FROM detail_bobot WHERE id_bobot=$id_bobot AND id_kriteria='".$kriteria[$b-1]."')
                 ";
                mysqli_query($db_link,$cek_kriteria);
