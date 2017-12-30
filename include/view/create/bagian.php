@@ -22,10 +22,11 @@
                                 <input type="hidden" name="id_bagian" autocomplete="off" value="<?php echo $newID;?>"/>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-3" for="bagian">BAGIAN :</label>
+                        <div class="form-group" id="id_group">
+                            <label class="control-label col-sm-3" for="bagian" >BAGIAN :</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" name="nama_bagian" placeholder="Nama Bagian" required>
+                                <input type="text" class="form-control" id="nama_bagian" name="nama_bagian" placeholder="Nama Bagian" >
+                                <div></div>
                             </div>
                         </div>
                     </form>
@@ -49,6 +50,14 @@
           $("#tambah").click(function () {
             var id_bagian = $('input[name=id_bagian]').val();
             var bagian = $('input[name=nama_bagian]').val();
+             if (bagian=='' || bagian==null) {
+
+                $("#id_group").addClass("form-group has-error has-feedback");
+                $("#nama_bagian").after("<span class='glyphicon glyphicon-remove form-control-feedback'></span>");
+                 $('#pesan_required').text("Nama Bagian Tidak Boleh Kosong");
+                  $("#required").show();
+                }
+                else {
             $.ajax({
               type: "POST",
               url: "../include/kontrol/kontrol_bagian.php",
@@ -71,7 +80,10 @@
                   }
                   
               }
-            });
+            }); 
+                }
           });
       });
 </script>
+
+<link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">

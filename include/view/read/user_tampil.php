@@ -44,7 +44,7 @@
 									<td>
 										  <a class='btn btn-primary ubah' ref='".$data['id_pegawai']."'>Ubah</a>&nbsp;";
 									if ($data['hak_akses']<>0){
-										echo "<a class='btn btn-danger hapus' ref='".$data['id_pegawai']."' nama='".$data['id_pegawai']."'>Hapus</a>";
+										echo "<a class='btn btn-danger hapus' ref='".$data['id_pegawai']."' nama='".$data['user_name']."'>Hapus</a>";
 									}
                                     echo "</td>";
 							echo "</tr>";
@@ -79,12 +79,12 @@
 
 		$('.hapus').click(function() {
     		var id_pegawai =$(this).attr('ref');
-			var nama=$(this).attr('nama');
+			var username=$(this).attr('nama');
 			 if (confirm('Yakin menghapus User '+id_pegawai+'????')) {
 					$.ajax({
 					type: "POST",
 					url: "../include/kontrol/kontrol_user.php",
-					data: 'crud=hapus&id_pegawai='+id_pegawai,
+					data: 'crud=hapus&id_pegawai='+id_pegawai+'&username='+username,
 					success: function (respons) {
 						
 						console.log(respons);

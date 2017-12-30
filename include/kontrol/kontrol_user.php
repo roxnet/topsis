@@ -41,8 +41,9 @@ if(isset($_POST['id_pegawai']) || isset ($_POST['user_name']) || isset ($_POST['
         }
 
         if($_POST['crud']=='hapus'){
-           $user_name = $_POST['user_name'];
-            $sql_delete = "DELETE from user where id_pegawai='$id_pegawai'";
+           $user_name = $_POST['username'];
+            $id_pegawai=$_POST['id_pegawai'];
+            $sql_delete = "DELETE from user where id_pegawai='$id_pegawai' AND user_name='$user_name'";
             $hasil = mysqli_query($db_link,$sql_delete);
             if($hasil){
                  echo "berhasil";

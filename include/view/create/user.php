@@ -108,3 +108,5 @@ $pegawai=("SELECT A.no_pegawai,A.nama from pegawai A
       });
       
 </script>
+
+<link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">

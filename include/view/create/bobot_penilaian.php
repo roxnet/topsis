@@ -82,6 +82,14 @@
             var bobotstring='';
             var kriteria=[];
             var kriteriastring='';
+             if ($('input[name=bobot1]').val()=='' || $('input[name=bobot1]').val()==null) {
+
+                $("#id_group").addClass("form-group has-error has-feedback");
+                $("#nama_kriteria").after("<span class='glyphicon glyphicon-remove form-control-feedback'></span>");
+                 $('#pesan_required').text("Bobot Nilai Tidak Boleh Kosong");
+                  $("#required").show();
+             }
+             else {
         while (count<=bobotcount){
             bobot[count]=$('input[name=bobot'+count+']').val();
             bobotstring=bobotstring+'&bobot'+count+'='+bobot[count];
@@ -90,7 +98,15 @@
             kriteriastring=kriteriastring+'&kriteria'+count+'='+kriteria[count];
             count++;
         }
-            
+          }
+            if (bagian=='' || bagian==null) {
+
+                $("#id_group").addClass("form-group has-error has-feedback");
+                $("#nama_kriteria").after("<span class='glyphicon glyphicon-remove form-control-feedback'></span>");
+                 $('#pesan_required').text("Nama Kriteria Tidak Boleh Kosong");
+                  $("#required").show();
+                }
+                else {
             $.ajax({
               type: "POST",
               url: "../include/kontrol/kontrol_bobot_penilaian.php",
@@ -107,7 +123,7 @@
                         }, 2000);
                   }
                   else {
-                        $('#pesan_gagal').text("Bobot Penilaian Gagal Ditambah");
+                        $('#pesan_gagal').text('Bobot Penilaian Gagal Ditambah');
                         $("#gagal").show();
                         setTimeout(function(){
                             $("#gagal").hide(); 
@@ -117,7 +133,9 @@
               }
               
             });
+                }
           });
       });
       
 </script>
+<link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">

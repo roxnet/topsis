@@ -13,11 +13,11 @@
                 <div class="panel-body">
            
                <form class="form-horizontal">
-                    <div class="form-group">
+                    <div class="form-group" id="nama_group">
                         <input type="hidden" name="id_toko" value="<?php echo $id_toko;?>"/>   
                         <label class="control-label col-sm-3" for="name">Nama Toko : </label>
                          <div class="col-sm-8">
-                            <input class="form-control"  type="text" name="nama_toko" value="<?php echo $row['nama_toko'];?>" />
+                            <input class="form-control" id="nama_toko" type="text" name="nama_toko" value="<?php echo $row['nama_toko'];?>" />
                         </div>
                     </div>
                     <div class="form-group" id='alamat_toko'>  
@@ -47,6 +47,15 @@
             var nama_toko = $('input[name=nama_toko]').val();
             var alamat_toko = $('input[name=alamat_toko]').val();
            
+            if (nama_toko=='' || nama_toko==null) {
+
+                $("#nama_group").addClass("form-group has-error has-feedback");
+                $("#nama_toko").after("<span class='glyphicon glyphicon-remove form-control-feedback'></span>");
+                 $('#pesan_required').text("Nama Toko Tidak Boleh Kosong");
+                  $("#required").show();
+                }
+               
+            else{
             $.ajax({
                 type: "POST",
                 url: "../include/kontrol/kontrol_toko.php",
@@ -69,6 +78,8 @@
                     }
                 }
             });
+            }
           });
       });
 </script>
+<link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">

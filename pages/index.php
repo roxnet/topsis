@@ -197,7 +197,7 @@
 
         <!-- Page Content -->
 
-        <div class="page-wrapper" style="background-color:white">
+        <div class="page-wrapper" >
             <div class="container" >
                 <div class="row" >
                    

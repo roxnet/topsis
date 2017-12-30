@@ -45,6 +45,7 @@
                  $('#pesan_required').text("Nama Tidak Boleh Kosong");
                   $("#required").show();
                 }
+               
             else{
             $.ajax({
               type: "POST",
@@ -73,3 +74,4 @@
       });
       
 </script>
+<link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">

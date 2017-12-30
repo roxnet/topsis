@@ -12,12 +12,12 @@
                 <div class="panel-body">
            
                <form class="form-horizontal">
-                    <div class="form-group">
+                    <div class="form-group" id="id_group">
                         <input type="hidden" name="id_bagian" value="<?php echo $id_bagian;?>"/>
                                 
                         <label class="control-label col-sm-3" for="name">Nama Bagian : </label>
                          <div class="col-sm-8">
-                            <input class="form-control"  type="text" name="bagian" value="<?php echo $row['bagian'];?>" />
+                            <input class="form-control" id="nama_bagian"  type="text" name="bagian" value="<?php echo $row['bagian'];?>" />
                         </div>
                     </div>
                         
@@ -40,6 +40,14 @@
           $("#simpan").click(function () {
             var id_bagian = $('input[name=id_bagian]').val();
             var bagian = $('input[name=bagian]').val();
+             if (bagian=='' || bagian==null) {
+
+                $("#id_group").addClass("form-group has-error has-feedback");
+                $("#nama_bagian").after("<span class='glyphicon glyphicon-remove form-control-feedback'></span>");
+                 $('#pesan_required').text("Nama Bagian Tidak Boleh Kosong");
+                  $("#required").show();
+                }
+                else {
             $.ajax({
               type: "POST",
               url: "../include/kontrol/kontrol_bagian.php",
@@ -62,6 +70,9 @@
                   }
               }
             });
+                }
           });
       });
 </script>
+
+<link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">

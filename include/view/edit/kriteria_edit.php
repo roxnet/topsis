@@ -17,10 +17,10 @@
                       <input type="text" class="form-control" id="id_kriteria" name="id_kriteria" placeholder="Id Kriteria" value="<?php echo $row['id_kriteria'];?>" readonly/>
                       </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" id="id_group">
                         <label class="control-label col-sm-3" for="name">Nama Kriteria : </label>
                          <div class="col-sm-8">
-                            <input class="form-control"  type="text" name="nama_kriteria" value="<?php echo $row['nama_kriteria'];?>" />
+                            <input class="form-control" id="nama_kriteria" type="text" name="nama_kriteria" value="<?php echo $row['nama_kriteria'];?>" />
                         </div>
                     </div>
                     <div class="form-group">
@@ -52,7 +52,14 @@
             var id_kriteria = $('input[name=id_kriteria]').val();
             var nama_kriteria = $('input[name=nama_kriteria]').val();
             var atribut= $('select[name=atribut]').val();
-           
+           if (nama_kriteria=='' || nama_kriteria==null) {
+
+                $("#id_group").addClass("form-group has-error has-feedback");
+                $("#nama_kriteria").after("<span class='glyphicon glyphicon-remove form-control-feedback'></span>");
+                 $('#pesan_required').text("Nama Kriteria Tidak Boleh Kosong");
+                  $("#required").show();
+                }
+            else{
             $.ajax({
                 type: "POST",
                 url: "../include/kontrol/kontrol_kriteria.php",
@@ -75,6 +82,8 @@
                     }
                 }
             });
+            }
           });
       });
 </script>
+<link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
