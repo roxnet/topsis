@@ -134,7 +134,8 @@ $hasil_penilaian=mysqli_query($db_link,$sql_penilaian);
 	 $(document).ready(function () {
 
         $(".detail").click(function () {
-           		window.location.replace("index.php?navigasi=laporan_penilaian_pegawai&crud=detail");
+				var id_jabatan=$(this).attr('ref');
+			 window.location.replace("index.php?navigasi=laporan_penilaian_pegawai&crud=detail&id_jabatan="+id_jabatan);
           });
   
    
