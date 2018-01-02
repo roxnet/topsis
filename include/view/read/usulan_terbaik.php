@@ -75,8 +75,9 @@ $bag=mysqli_query($db_link,"SELECT id_bagian,bagian FROM bagian");
            </div>
            <div class="text-center">	
 					<button type="button" id="tampil" class="btn btn-success">TAMPIL</button>
+                    &nbsp; &nbsp; &nbsp; &nbsp;
+                    <button type="button" id="matrik" class="btn btn-success">MATRIKS</button>
 				</div>
-                    
             </form>
             </div>
             <br/>
@@ -115,6 +116,26 @@ $('#show').hide();
                     }
                });
         });
+
+ $("#matrik").click(function () {
+             var start= $('input[name=start]').val();
+             var end= $('input[name=end]').val();
+            var id_toko= $('select[name=toko]').val();
+            var jabatan= $('select[name=jabatan]').val();
+            var id_bagian= $('select[name=bagian]').val();
+            var jum_terbaik= $('input[name=jumlah_terbaik]').val();
+           	$.ajax({
+					type: "POST",
+					url: "../include/view/read/matrik1.php",
+					data: 'start='+start+'&end='+end+'&id_toko='+id_toko+'&jabatan='+jabatan+'&id_bagian='+id_bagian+'&jum_terbaik='+jum_terbaik,
+					success: function (respons) {
+                        $('.point').html(respons);
+                        $('#show').show();
+                        
+                    }
+               });
+        });
+
         $("#simpan").click(function () {
 
               penilaiancount=penilaiancount;

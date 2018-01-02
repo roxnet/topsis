@@ -1,66 +1,42 @@
  
 
-<div class="col-sm-12 col-xs-offset-2">  
+<div class="col-sm-10 col-xs-offset-2">  
  
 	<h2 class="text-center">HISTORY PENILAIAN PEGAWAI TERBAIK</h2> 
 	<div class="panel-group" >
 		<div class="panel panel-default" style="padding:10px" >
             <br/>
-
-        <div class="col-sm-3 input-group pull-right">
-         <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-        <input type="text" class="form-control" id="nama" placeholder="Search">
-        <span class="input-group-btn">
-        <button id="showall" class="btn btn-danger pull-right"><i class="glyphicon glyphicon-align-justify"></i></button>
-        </span>
-        </div>
-        <br/><br/>
-<?php 
-$sql_rangking="SELECT * FROM usulan ORDER BY nilai DESC";
-$hasil_rangking=mysqli_query($db_link,$sql_rangking);
-        echo '<table class="table table-bordered table-hover text-center panel panel-primary" >
-                    
-                <thead class="panel-heading">
-                <tr>
-                    <th class="text-center" rowspan="2" style="vertical-align: middle;">RANGKING</th>
-                    <th class="text-center" rowspan="2" style="vertical-align: middle;">NO PEGAWAI</th>
-                    <th class="text-center" rowspan="2" style="vertical-align: middle;">NAMA PEGAWAI</th>
-                    <th class="text-center" rowspan="2" style="vertical-align: middle;">PAMELLA</th>
-                    <th class="text-center" rowspan="2" style="vertical-align: middle;">NILAI</th>
-                    <th class="text-center" rowspan="2" style="vertical-align: middle;">BAGIAN</th>
-                    <th class="text-center" rowspan="2" style="vertical-align: middle;">JABATAN</th>
-                    <th class="text-center" rowspan="2" style="vertical-align: middle;">PERIODE</th>
-                </tr>
-        </thead>
-        <tbody> ';
-        $s=1;
-        $number=0;
-        while ($data_rangking=mysqli_fetch_assoc($hasil_rangking)) {
-            echo "<tr>";
-            echo "  
-                <td>".$s."</td>
-                 <td>{$data_rangking['no_pegawai']}</td>
-                <td>{$data_rangking['nama_pegawai']}</td>
-                <td>{$data_rangking['nama_toko']}</td>
-                <td>".$data_rangking['nilai']."</td>
-                <td>{$data_rangking['bagian']}</td>
-                <td>{$data_rangking['jabatan']}</td>
-                <td>{$data_rangking['periode']}</td>";
-            echo "</tr>";
-           
-            $number=$s;
-        $s++;
-        }
-?>
-	 </tbody>
-     </table>
-		</div>
-         <center>
-             <button class="btn btn-primary hidden-print" onclick="printJS('../include/view/read/laporan_penilaian_pegawai_for_print.php')"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print</button>
-	    </center>
+         <form class="form-horizontal">
+              <div class="form-group">
+                    <label class="control-label col-sm-3" for="start">Periode Start :</label>
+                    <div class="col-sm-5">
+                        <div class='input-group date datetimepicker1'>
+                            <input type="text" class="form-control"  name="start" placeholder="Bulan" >
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label class="control-label col-sm-3" for="end">Periode End :</label>
+                    <div class="col-sm-5">
+                        <div class='input-group date datetimepicker1'>
+                            <input type="text" class="form-control"  name="end" placeholder="Bulan" >
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+           <div class="text-center">	
+					<button type="button" id="tampil" class="btn btn-success">TAMPIL</button>
+			</div>
+            </form>
+            
+        </div>   <br/>
+        <div class="point"></div>
 	</div>
-   
-  
 </div>
 
 
@@ -69,6 +45,20 @@ $hasil_rangking=mysqli_query($db_link,$sql_rangking);
 
 <script>
 	 $(document).ready(function () {
+        $("#tampil").click(function () {
+             var start= $('input[name=start]').val();
+             var end= $('input[name=end]').val();
+           	$.ajax({
+					type: "POST",
+					url: "../include/view/read/history_usulan_terbaik2.php",
+					data: 'start='+start+'&end='+end,
+					success: function (respons) {
+                        $('.point').html(respons);
+                        
+                    }
+               });
+        });
+
 
         $(".detail").click(function () {
            		window.location.replace("index.php?navigasi=laporan_penilaian_pegawai&crud=detail");
@@ -101,7 +91,13 @@ $('#nama').keyup(function() {
         return !~text.indexOf(val);
     }).hide();
 });
-
+  $(function () {
+                $('.datetimepicker1').datetimepicker({
+                viewMode: 'months',
+                format: 'MM/YYYY'
+            }
+                );
+            });
 	 });
 </script>
 
