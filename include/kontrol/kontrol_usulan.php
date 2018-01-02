@@ -15,15 +15,15 @@ include_once "../../koneksi.php";
             $tgl_rangking=array();
             
             while($b<=$count){
-                 $no_peg[]=$_POST["no_peg$b"];
-                 $nama_peg[]=$_POST["nama_peg$b"];
-                 $toko_kerja[]=$_POST["toko_kerja$b"];
-                 $nilai_kerja[]=$_POST["nilai_kerja$b"];
-                 $bagian[]=$_POST["bagian$b"];
-                 $jabatan_peg[]=$_POST["jabatan_peg$b"];
-                 $tgl_rangking[]=$_POST["tgl_rangking$b"];
-               $usulan="INSERT INTO usulan(no_peg,nama_peg,toko_kerja,nilai_kerja,bagian,jabatan_peg,tgl_rangking)
-               VALUES ($no_peg[$b],'$nama_peg[$b]','$toko_kerja[$b]',$nilai_kerja[$b],'$bagian[$b]','$jabatan_peg[$b]',STR_TO_DATE('".$tgl_rangking[$b]."', '%d/%m/%Y'))";
+                 $no_peg[$b]=$_POST["no_peg$b"];
+                 $nama_peg[$b]=$_POST["nama_peg$b"];
+                 $toko_kerja[$b]=$_POST["toko_kerja$b"];
+                 $nilai_kerja[$b]=$_POST["nilai_kerja$b"];
+                 $bagian[$b]=$_POST["bagian$b"];
+                 $jabatan_peg[$b]=$_POST["jabatan_peg$b"];
+                 $tgl_rangking[$b]=$_POST["tgl_rangking$b"];
+               $usulan="INSERT INTO usulan(no_pegawai,nama_pegawai,nama_toko,nilai,bagian,jabatan,periode)
+               VALUES ('$no_peg[$b]','$nama_peg[$b]','$toko_kerja[$b]',$nilai_kerja[$b],'$bagian[$b]','$jabatan_peg[$b]','".$tgl_rangking[$b]."')";
                 $hasil = mysqli_query($db_link,$usulan); 
                 echo mysqli_error($db_link);
            $b++;
@@ -35,8 +35,9 @@ include_once "../../koneksi.php";
                 echo "berhasil";
             } 
             else {
+                
                 echo "gagal";
-                echo mysqli_error(db_link);
+                echo mysqli_error($db_link);
             }
         }
 

@@ -117,7 +117,7 @@ $('#show').hide();
         });
         $("#simpan").click(function () {
 
-              penilaiancount=penilaiancount-1;
+              penilaiancount=penilaiancount;
             var count=1;
              var no_peg=[];
             var nama_peg=[];
@@ -143,13 +143,13 @@ $('#show').hide();
             jabatan_peg[count]=$('input[name=jabatan_peg'+count+']').val();
             tgl_rangking[count]=$('input[name=tgl_rangking'+count+']').val();
 
-            no_pegstring=no_pegstring+'&no_peg'+count+'='+no_pegstring[count];
-            nama_pegstring=nama_pegstring+'&nama_peg'+count+'='+nama_pegstring[count];
-            toko_kerjastring=toko_kerjastring+'&toko_kerja'+count+'='+toko_kerjastring[count];
-            nilai_kerjastring=nilai_kerjastring+'&nilai_kerja'+count+'='+nilai_kerjastring[count];
-            bagianstring=bagianstring+'&bagian'+count+'='+bagianstring[count];
-            jabatan_pegstring=jabatan_pegstring+'&jabatan_peg'+count+'='+jabatan_pegstring[count];
-            tgl_rangkingstring=tgl_rangkingstring+'&tgl_rangking'+count+'='+tgl_rangkingstring[count];
+            no_pegstring=no_pegstring+'&no_peg'+count+'='+no_peg[count];
+            nama_pegstring=nama_pegstring+'&nama_peg'+count+'='+nama_peg[count];
+            toko_kerjastring=toko_kerjastring+'&toko_kerja'+count+'='+toko_kerja[count];
+            nilai_kerjastring=nilai_kerjastring+'&nilai_kerja'+count+'='+nilai_kerja[count];
+            bagianstring=bagianstring+'&bagian'+count+'='+bagian[count];
+            jabatan_pegstring=jabatan_pegstring+'&jabatan_peg'+count+'='+jabatan_peg[count];
+            tgl_rangkingstring=tgl_rangkingstring+'&tgl_rangking'+count+'='+tgl_rangking[count];
             count++;
         }
 

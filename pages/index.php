@@ -179,7 +179,7 @@
                             ';
 
                         }
-                         if($hak_akses==0 || $hak_akses=2){
+                         if($hak_akses==0 || $hak_akses==2){
                             echo ' 
                             <li>
                             <a href="index.php?navigasi=user&crud=view"><i class="fa fa-table fa-fw"></i> User</a>
@@ -200,7 +200,6 @@
         <div class="page-wrapper" >
             <div class="container" >
                 <div class="row" >
-                   
                     <!-- /.col-lg-12 -->
                 <!--</div>-->
                 <!-- /.row -->

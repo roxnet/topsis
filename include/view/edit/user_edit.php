@@ -78,6 +78,14 @@
 			var user_name = $('input[name=user_name]').val();
             var password = $('input[name=password]').val();
             var hak_akses= $('select[name=hak_akses]').val();
+              if (user_name=='' || user_name==null || password='' || password=null) {
+
+                $("#nama_group").addClass("form-group has-error has-feedback");
+                $("#user_name").after("<span class='glyphicon glyphicon-remove form-control-feedback'></span>");
+                 $('#pesan_required').text("Username Atau Password Tidak Boleh Kosong");
+                  $("#required").show();
+                }
+            else{
            
             $.ajax({
                 type: "POST",
@@ -101,6 +109,7 @@
                     }
                 }
             });
+            }
           });
       });
 </script>

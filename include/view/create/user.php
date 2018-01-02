@@ -34,7 +34,7 @@ $pegawai=("SELECT A.no_pegawai,A.nama from pegawai A
                         <div class="form-group">
                             <label class="control-label col-sm-3" for="password">Password :</label>
                             <div class="col-sm-8"> 
-                            <input type="text" class="form-control" id="password" name="password" placeholder="Password" require/>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Password" require/>
                             </div>
                         </div>
 						
@@ -73,11 +73,11 @@ $pegawai=("SELECT A.no_pegawai,A.nama from pegawai A
             var user_name = $('input[name=user_name]').val();
             var password= $('input[name=password]').val();
 			var hak_akses= $('select[name=hak_akses]').val();
-            if (user_name=='' || user_name==null) {
+            if (user_name=='' || user_name==null || password=='' || password==null) {
 
                 $("#nama_group").addClass("form-group has-error has-feedback");
                 $("#user_name").after("<span class='glyphicon glyphicon-remove form-control-feedback'></span>");
-                 $('#pesan_required').text("Username Tidak Boleh Kosong");
+                 $('#pesan_required').text("Username Atau Password Tidak Boleh Kosong");
                   $("#required").show();
                 }
             else{

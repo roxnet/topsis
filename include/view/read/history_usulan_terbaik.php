@@ -40,12 +40,12 @@ $hasil_rangking=mysqli_query($db_link,$sql_rangking);
             echo "  
                 <td>".$s."</td>
                  <td>{$data_rangking['no_pegawai']}</td>
-                <td>{$data_rangking['nama']}</td>
-                <td>{$data_rangking['toko']}</td>
+                <td>{$data_rangking['nama_pegawai']}</td>
+                <td>{$data_rangking['nama_toko']}</td>
                 <td>".$data_rangking['nilai']."</td>
                 <td>{$data_rangking['bagian']}</td>
                 <td>{$data_rangking['jabatan']}</td>
-                <td>{$data_rangking['tgl_penilaian']}</td>";
+                <td>{$data_rangking['periode']}</td>";
             echo "</tr>";
            
             $number=$s;
