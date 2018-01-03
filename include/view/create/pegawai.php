@@ -125,7 +125,7 @@
             var nama_pegawai = $('input[name=nama_pegawai]').val();
             var tempat_lahir = $('input[name=tempat_lahir]').val();
             var tanggal_lahir = $('input[name=tanggal_lahir]').val();
-            var jekel = $('input[name=jekel]').val();
+            var jekel = $('input:radio[name=jekel]:checked').val();
             var agama = $('select[name=agama]').val();
             var status = $('select[name=status]').val();
             var no_telp = $('input[name=no_telp]').val();
