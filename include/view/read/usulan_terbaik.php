@@ -9,22 +9,22 @@ $bag=mysqli_query($db_link,"SELECT id_bagian,bagian FROM bagian");
 		<div class="panel panel-default" style="padding:10px" >
             <br/>
             <form class="form-horizontal">
-              <div class="form-group">
+              <div class="form-group" id="id_group_start">
                     <label class="control-label col-sm-3" for="start">Periode Start :</label>
                     <div class="col-sm-5">
                         <div class='input-group date datetimepicker1'>
-                            <input type="text" class="form-control"  name="start" placeholder="Bulan" >
+                            <input type="text" class="form-control" id="start" name="start" placeholder="Bulan" >
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar"></span>
                             </span>
                         </div>
                     </div>
                 </div>
-                 <div class="form-group">
+                 <div class="form-group" id="id_group_end">
                     <label class="control-label col-sm-3" for="end">Periode End :</label>
                     <div class="col-sm-5">
                         <div class='input-group date datetimepicker1'>
-                            <input type="text" class="form-control"  name="end" placeholder="Bulan" >
+                            <input type="text" class="form-control" id="start" name="end" placeholder="Bulan" >
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar"></span>
                             </span>
@@ -67,7 +67,7 @@ $bag=mysqli_query($db_link,"SELECT id_bagian,bagian FROM bagian");
                 </select> 
                 </div>
            </div>
-           <div class="form-group">
+           <div class="form-group" id="id_group_jum_terbaik">
                 <label class="control-label col-sm-3" for="toko">Jumlah Terbaik : </label>
                 <div class="col-sm-5">
                    <input type="number" name='jumlah_terbaik' class="form-control" >
@@ -155,6 +155,28 @@ $('#show').hide();
             var bagianstring='';
             var jabatan_pegstring='';
             var tgl_rangkingstring='';
+       if (start=='' || start==null ) {
+
+                $("#id_group_start").addClass("form-group has-error has-feedback");
+                $("#start").after("<span class='glyphicon glyphicon-remove form-control-feedback'></span>");
+                 $('#pesan_required').text("Tidak Boleh Kosong");
+                  $("#required").show();
+                }
+                 if ( end='' || end=null) {
+
+                $("#id_group_end").addClass("form-group has-error has-feedback");
+                $("#end").after("<span class='glyphicon glyphicon-remove form-control-feedback'></span>");
+                 $('#pesan_required').text("Tidak Boleh Kosong");
+                  $("#required").show();
+                }
+                 if (jum_terbaik='' || jum_terbaik=null) {
+
+                $("#id_group_jum_terbaik").addClass("form-group has-error has-feedback");
+                $("#nama_bagian").after("<span class='glyphicon glyphicon-remove form-control-feedback'></span>");
+                 $('#pesan_required').text("Tidak Boleh Kosong");
+                  $("#required").show();
+                }
+        else {
         while (count<=penilaiancount){
             no_peg[count]=$('input[name=no_peg'+count+']').val();
             nama_peg[count]=$('input[name=nama_peg'+count+']').val();
@@ -201,13 +223,12 @@ $('#show').hide();
                });    
 
         });
-
+        }
         $(function () {
                 $('.datetimepicker1').datetimepicker({
                 viewMode: 'months',
                 format: 'MM/YYYY'
-            }
-                );
+                });
             });
 
      });
