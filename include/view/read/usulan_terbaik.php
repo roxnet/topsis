@@ -140,6 +140,12 @@ $('#show').hide();
 
               penilaiancount=penilaiancount;
             var count=1;
+             var start= $('input[name=start]').val();
+             var end= $('input[name=end]').val();
+            var id_toko= $('select[name=toko]').val();
+            var jabatan= $('select[name=jabatan]').val();
+            var id_bagian= $('select[name=bagian]').val();
+            var jum_terbaik= $('input[name=jumlah_terbaik]').val();
              var no_peg=[];
             var nama_peg=[];
             var toko_kerja=[];
@@ -162,14 +168,14 @@ $('#show').hide();
                  $('#pesan_required').text("Tidak Boleh Kosong");
                   $("#required").show();
                 }
-         if ( end=='' || end==null) {
+         if (end=='' || end==null) {
 
                 $("#id_group_end").addClass("form-group has-error has-feedback");
                 $("#end").after("<span class='glyphicon glyphicon-remove form-control-feedback'></span>");
                  $('#pesan_required').text("Tidak Boleh Kosong");
                   $("#required").show();
                 }
-         if (jum_terbaik=='' || jum_terbaik==null) {
+        if (jum_terbaik=='' || jum_terbaik==null) {
 
                 $("#id_group_jum_terbaik").addClass("form-group has-error has-feedback");
                 $("#nama_bagian").after("<span class='glyphicon glyphicon-remove form-control-feedback'></span>");
