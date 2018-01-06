@@ -162,14 +162,14 @@ $('#show').hide();
                  $('#pesan_required').text("Tidak Boleh Kosong");
                   $("#required").show();
                 }
-                 if ( end='' || end=null) {
+         if ( end=='' || end==null) {
 
                 $("#id_group_end").addClass("form-group has-error has-feedback");
                 $("#end").after("<span class='glyphicon glyphicon-remove form-control-feedback'></span>");
                  $('#pesan_required').text("Tidak Boleh Kosong");
                   $("#required").show();
                 }
-                 if (jum_terbaik='' || jum_terbaik=null) {
+         if (jum_terbaik=='' || jum_terbaik==null) {
 
                 $("#id_group_jum_terbaik").addClass("form-group has-error has-feedback");
                 $("#nama_bagian").after("<span class='glyphicon glyphicon-remove form-control-feedback'></span>");
@@ -221,9 +221,9 @@ $('#show').hide();
                     }
                
                });    
-
-        });
         }
+        });
+        
         $(function () {
                 $('.datetimepicker1').datetimepicker({
                 viewMode: 'months',
