@@ -25,7 +25,10 @@
 							echo "<tr>";
                             echo "  <td>{$data['id_kriteria']}</td>
                                     <td>{$data['nama_kriteria']}</td>
-                                    <td>{$data['atribut']}</td>
+                                    <td>";
+									if ($data['atribut']=='K') {echo 'Keuntungan'; }
+									ELSE echo 'Biaya';
+							echo "</td>
 									<td>";
 									 if($hak_akses==0 || $hak_akses==2  ){
 										echo "<a class='btn btn-primary ubah' ref='".$data['id_kriteria']."'>Ubah</a>

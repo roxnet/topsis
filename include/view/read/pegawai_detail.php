@@ -22,11 +22,12 @@
                             
                         </div>
                         <div class="form-group" id="tgl_lhr_group">
-                            <label class="control-label col-sm-4" for="tanggal_lahir">TANGGAL LAHIR :</label> <?php echo $row['tempat_lahir'];?>
+                            <label class="control-label col-sm-4" for="tanggal_lahir">TANGGAL LAHIR :</label> <?php echo date("d-m-Y", strtotime($row['tanggal_lahir']));?>
                             
                         </div>
                         <div class="form-group" id="jekel_group">
-                            <label class="control-label col-sm-4" for="jekel">JENIS KELAMIN :</label>  <?php echo $row['jekel'];?>
+                            <label class="control-label col-sm-4" for="jekel">JENIS KELAMIN :</label>  <?php if ($row['jekel']=='L') {echo 'Laki - laki'; }
+									ELSE echo 'Perempuan';?>
                             
                         </div>
                         <div class="form-group" id="agama_group">
@@ -46,7 +47,7 @@
                            
                         </div>
                         <div class="form-group" >
-                            <label class="control-label col-sm-4" for="tanggal_masuk">TANGGAL MASUK :</label><?php echo $row['tgl_masuk'];?>
+                            <label class="control-label col-sm-4" for="tanggal_masuk">TANGGAL MASUK :</label><?php echo date("d-m-Y", strtotime($row['tgl_masuk']));?>
                            
                         </div>
                     </form>
