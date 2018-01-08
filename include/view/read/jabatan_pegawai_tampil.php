@@ -1,6 +1,15 @@
 <div class="col-sm-10 col-sm-offset-2">  
 	<h2 class="text-center">DAFTAR JABATAN PEGAWAI</h2> 
 	<div class="panel-group">
+	<div class="panel panel-default" style="padding:10px">
+            <div class="col-sm-3 input-group pull-right">
+         <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+        <input type="text" class="form-control" id="nama" placeholder="Search">
+        <span class="input-group-btn">
+        <button id="showall" class="btn btn-danger pull-right"><i class="glyphicon glyphicon-align-justify"></i></button>
+        </span>
+        </div>
+        <br/><br/>
 		<div class="panel panel-default">
 			<table class="table table-bordered table-hover text-center panel panel-primary">
 				<thead class="panel-heading">
@@ -11,16 +20,18 @@
 						<th class="text-center">BAGIAN</th>
 						<th class="text-center">JABATAN</th>
 						<th class="text-center">MULAI TUGAS</th>
+						<th class="text-center">STATUS</th>
 						<th class="text-center">AKSI</th>
 					</tr>
 				</thead>
 				<tbody>
 					<?php /*php pembuka tabel atas*/
-							$sql = "SELECT A.id_jabatan,B.no_pegawai,B.nama,C.nama_toko,D.bagian,A.jabatan,A.tgl_jabat
+							$sql = "SELECT A.id_jabatan,B.no_pegawai,B.nama,C.nama_toko,D.bagian,A.jabatan,A.tgl_jabat,A.Status
                                     FROM jabatan_pegawai A
                                     INNER JOIN pegawai B ON A.id_pegawai=B.no_pegawai
                                     INNER JOIN toko C ON A.id_toko=C.id_toko
                                     INNER JOIN bagian D ON A.id_bagian=D.id_bagian 
+<<<<<<< HEAD
 										LEFT JOIN user bb ON b.no_pegawai=bb.id_pegawai
 										WHERE  A.id_toko=
 							CASE WHEN $hak_akses=3 THEN
@@ -37,6 +48,9 @@
 							ELSE A.id_bagian END
 							AND bb.user_name=CASE WHEN $hak_akses=4 THEN $hak_akses ELSE bb.user_name END
                                     AND A.Status=1 ORDER BY B.no_pegawai";
+=======
+                                    ORDER BY B.no_pegawai";
+>>>>>>> 1d238df5361aed8fcd7d699b4ee1189b64635499
 							$hasil = mysqli_query($db_link,$sql);
 							if (!$hasil){
 							die(mysqli_error($db_link));}
@@ -50,7 +64,10 @@
 									<td>";
 									echo ucwords($data['jabatan']); 
 									echo "</td>
-									<td>{$data['tgl_jabat']}</td>
+									<td>".date("d-m-Y", strtotime($data['tgl_jabat']))."</td>
+									<td>";
+               							if ($data['Status']==1) echo "Aktif"; else echo "Non Aktif";
+        							echo "</td>
 									<td>";
 									 if($hak_akses==0 || $hak_akses==2){
 										echo "<a class='btn btn-primary ubah' ref='".$data['id_jabatan']."'>Ubah</a>
@@ -127,5 +144,31 @@
 			 }
 			
 		});
+
+        var $rows = $('tbody tr');
+     $rows.show().filter(function() {
+    $("tr:contains('Non')").hide();
+     }).hide();
+
+    $('tbody tr:visible').each(function (i) {
+   $(" td:first", this).html(i+1);
+    });
+
+    $('#showall').click(function() {
+    $("tr:contains('Non')").toggle();
+    $('tbody tr:visible').each(function (i) {
+   $(" td:first", this).html(i+1);
+    });
+    });
+
+    var $rows = $('tbody tr:visible');
+$('#nama').keyup(function() {
+    var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+    
+    $rows.show().filter(function() {
+        var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+        return !~text.indexOf(val);
+    }).hide();
+});
 	 });
 </script>

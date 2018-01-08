@@ -44,16 +44,16 @@
                             echo "  <td>{$data['no_pegawai']}</td>
                                     <td>{$data['nama']}</td>
 									<td>";
-									if ($data['jekel']=='L') {echo 'LAKI-LAKI'; }
-									ELSE echo 'PEREMPUAN';
+									if ($data['jekel']=='L') {echo 'Laki - laki'; }
+									ELSE echo 'Perempuan';
 							echo "</td>
 									<td>{$data['agama']}</td>
 									<td>{$data['status_perkawinan']}</td>
-									<td>{$data['tgl_masuk']}</td>
-									<td>
+									<td>".date("d-m-Y", strtotime($data['tgl_masuk']))."</td>";
+							echo "<td>
 										<a class='btn btn-info detail' ref='".$data['no_pegawai']."'>Detail</a>";
 							 if($hak_akses==0 || $hak_akses==2  ){
-										echo "<a class='btn btn-primary ubah' ref='".$data['no_pegawai']."'>Ubah</a>
+										echo " <a class='btn btn-primary ubah' ref='".$data['no_pegawai']."'>Ubah</a>
 										<a class='btn btn-danger hapus' ref='".$data['no_pegawai']."' nama='".$data['nama']."'>Hapus</a>&nbsp;";
 									}
                                   		

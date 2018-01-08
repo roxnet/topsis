@@ -176,7 +176,7 @@ $hasil_rangking=mysqli_query($db_link,$sql_rangking);
                 <td>".$data_rangking['nilai']."</td>
                 <td>{$data_rangking['bagian']}</td>
                 <td>{$data_rangking['jabatan']}</td>
-                <td>{$data_rangking['tgl_penilaian']}</td>";
+                <td>".date("d-m-Y", strtotime($data_rangking['tgl_penilaian']))."</td>";
             echo "</tr>";
             echo "<input type='hidden' name='no_peg$s' value='".$data_rangking['no_pegawai']."'>";
             echo "<input type='hidden' name='nama_peg$s' value='".$data_rangking['nama']."'>";

@@ -43,7 +43,7 @@ $hasil_rangking=mysqli_query($db_link,$sql_rangking);
                 <td>".$data_rangking['nilai']."</td>
                 <td>{$data_rangking['bagian']}</td>
                 <td>{$data_rangking['jabatan']}</td>
-                <td>{$data_rangking['periode']}</td>";
+                <td>".date("d-m-Y", strtotime($data_rangking['periode']))."</td>";
             echo "</tr>";
            
             $number=$s;
