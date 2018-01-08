@@ -33,7 +33,9 @@
 							INNER JOIN user c ON b.no_pegawai=c.id_pegawai
 							WHERE c.user_name='$username')
 							ELSE bb.id_bagian END
-							AND b.user_name=CASE WHEN $hak_akses=4 THEN $hak_akses ELSE b.user_name END
+							AND 1= CASE WHEN $hak_akses<>4 THEN 1
+WHEN $hak_akses=4 AND b.user_name='$username' THEN 1
+ELSE 0 END
 							 ORDER BY no_pegawai";
 							$hasil = mysqli_query($db_link,$sql);
 							if (!$hasil){

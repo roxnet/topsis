@@ -31,30 +31,28 @@
                                     INNER JOIN pegawai B ON A.id_pegawai=B.no_pegawai
                                     INNER JOIN toko C ON A.id_toko=C.id_toko
                                     INNER JOIN bagian D ON A.id_bagian=D.id_bagian 
-<<<<<<< HEAD
 										LEFT JOIN user bb ON b.no_pegawai=bb.id_pegawai
 										WHERE  A.id_toko=
 							CASE WHEN $hak_akses=3 THEN
-							(SELECT distinct id_toko FROM jabatan_pegawai a 
+							(SELECT  id_toko FROM jabatan_pegawai a 
 							INNER JOIN pegawai b ON a.id_pegawai=b.no_pegawai
 							INNER JOIN user c ON b.no_pegawai=c.id_pegawai
-							WHERE c.user_name='$username')  
+							WHERE c.user_name='$username' limit 1)  
 							ELSE A.id_toko END
 							AND A.id_bagian=
-							CASE WHEN $hak_akses=3 THEN(SELECT distinct id_bagian FROM jabatan_pegawai a 
+							CASE WHEN $hak_akses=3 THEN(SELECT  id_bagian FROM jabatan_pegawai a 
 							INNER JOIN pegawai b ON a.id_pegawai=b.no_pegawai
 							INNER JOIN user c ON b.no_pegawai=c.id_pegawai
-							WHERE c.user_name='$username')
+							WHERE c.user_name='$username' limit 1)
 							ELSE A.id_bagian END
-							AND bb.user_name=CASE WHEN $hak_akses=4 THEN $hak_akses ELSE bb.user_name END
-                                    AND A.Status=1 ORDER BY B.no_pegawai";
-=======
-                                    ORDER BY B.no_pegawai";
->>>>>>> 1d238df5361aed8fcd7d699b4ee1189b64635499
+							AND 1= CASE WHEN $hak_akses<>4 THEN 1
+WHEN $hak_akses=4 AND bb.user_name='$username' THEN 1
+ELSE 0 END
+                                AND A.Status=1 ORDER BY B.no_pegawai";
 							$hasil = mysqli_query($db_link,$sql);
 							if (!$hasil){
 							die(mysqli_error($db_link));}
-							
+
 							while ($data=mysqli_fetch_array($hasil)) {
 							echo "<tr>";
                             echo "  <td>{$data['no_pegawai']}</td>
