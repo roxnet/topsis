@@ -16,10 +16,28 @@
 				</thead>
 				<tbody>
 					<?php /*php pembuka tabel atas*/
-							$sql = "SELECT no_pegawai,nama,jekel,agama,status_perkawinan,tgl_masuk FROM pegawai ORDER BY no_pegawai";
+							$sql = "SELECT no_pegawai,nama,jekel,agama,status_perkawinan,tgl_masuk 
+							FROM pegawai a
+							LEFT JOIN jabatan_pegawai bb on a.no_pegawai=bb.id_pegawai
+							LEFT JOIN user b ON a.no_pegawai=b.id_pegawai
+							WHERE  bb.id_toko=
+							CASE WHEN $hak_akses=3 THEN
+							(SELECT distinct id_toko FROM jabatan_pegawai a 
+							INNER JOIN pegawai b ON a.id_pegawai=b.no_pegawai
+							INNER JOIN user c ON b.no_pegawai=c.id_pegawai
+							WHERE c.user_name='$username')  
+							ELSE bb.id_toko END
+							AND bb.id_bagian=
+							CASE WHEN $hak_akses=3 THEN(SELECT distinct id_bagian FROM jabatan_pegawai a 
+							INNER JOIN pegawai b ON a.id_pegawai=b.no_pegawai
+							INNER JOIN user c ON b.no_pegawai=c.id_pegawai
+							WHERE c.user_name='$username')
+							ELSE bb.id_bagian END
+							AND b.user_name=CASE WHEN $hak_akses=4 THEN $hak_akses ELSE b.user_name END
+							 ORDER BY no_pegawai";
 							$hasil = mysqli_query($db_link,$sql);
 							if (!$hasil){
-							die("Gagal Query Data ");}
+							die(mysqli_error($db_link));}
 							
 							while ($data=mysqli_fetch_array($hasil)) {
 							echo "<tr>";

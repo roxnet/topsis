@@ -21,10 +21,25 @@
                                     INNER JOIN pegawai B ON A.id_pegawai=B.no_pegawai
                                     INNER JOIN toko C ON A.id_toko=C.id_toko
                                     INNER JOIN bagian D ON A.id_bagian=D.id_bagian 
-                                    WHERE A.Status=1 ORDER BY B.no_pegawai";
+										LEFT JOIN user bb ON b.no_pegawai=bb.id_pegawai
+										WHERE  A.id_toko=
+							CASE WHEN $hak_akses=3 THEN
+							(SELECT distinct id_toko FROM jabatan_pegawai a 
+							INNER JOIN pegawai b ON a.id_pegawai=b.no_pegawai
+							INNER JOIN user c ON b.no_pegawai=c.id_pegawai
+							WHERE c.user_name='$username')  
+							ELSE A.id_toko END
+							AND A.id_bagian=
+							CASE WHEN $hak_akses=3 THEN(SELECT distinct id_bagian FROM jabatan_pegawai a 
+							INNER JOIN pegawai b ON a.id_pegawai=b.no_pegawai
+							INNER JOIN user c ON b.no_pegawai=c.id_pegawai
+							WHERE c.user_name='$username')
+							ELSE A.id_bagian END
+							AND bb.user_name=CASE WHEN $hak_akses=4 THEN $hak_akses ELSE bb.user_name END
+                                    AND A.Status=1 ORDER BY B.no_pegawai";
 							$hasil = mysqli_query($db_link,$sql);
 							if (!$hasil){
-							die("Gagal Query Data ");}
+							die(mysqli_error($db_link));}
 							
 							while ($data=mysqli_fetch_array($hasil)) {
 							echo "<tr>";

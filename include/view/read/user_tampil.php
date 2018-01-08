@@ -7,7 +7,6 @@
 					<tr>
 						<th class="text-center">No Pegawai</th>
 						<th class="text-center">Username</th>
-						<th class="text-center">Password</th>
 						<th class="text-center">Hak Akses</th>
 						<th class="text-center">Aksi</th>
 					</tr>
@@ -23,7 +22,6 @@
 							echo "<tr>";
                             echo "  <td>{$data['id_pegawai']}</td>
 									<td>{$data['user_name']}</td>
-                                    <td>{$data['password']}</td>
 									<td>";
 									if($data['hak_akses']==0){
 										echo "Admin";
