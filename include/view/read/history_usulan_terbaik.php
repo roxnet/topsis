@@ -2,7 +2,7 @@
 
 <div class="col-sm-10 col-xs-offset-2">  
  
-	<h2 class="text-center">HISTORY PENILAIAN PEGAWAI TERBAIK</h2> 
+	<h2 class="text-center">FILTER HISTORY PENILAIAN PEGAWAI TERBAIK</h2> 
 	<div class="panel-group" >
 		<div class="panel panel-default" style="padding:10px" >
             <br/>

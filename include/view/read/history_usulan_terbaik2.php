@@ -1,4 +1,4 @@
- 
+ 	<h2 class="text-center">HISTORY PENILAIAN PEGAWAI TERBAIK</h2> 
 
         <div class="col-sm-3 input-group pull-right">
          <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>

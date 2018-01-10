@@ -1,10 +1,10 @@
-<div class="col-sm-6 col-sm-offset-4">  
+<div class="col-sm-9 col-sm-offset-3">  
 <?php 
 $toko=mysqli_query($db_link,"SELECT id_toko,nama_toko FROM toko");
 $bag=mysqli_query($db_link,"SELECT id_bagian,bagian FROM bagian");  
 ?>
 
-<h2 class="text-center">LAPORAN USULAN PEGAWAI TERBAIK</h2> 
+<h2 class="text-center">FILTER KATEGORI USULAN PEGAWAI TERBAIK</h2> 
 	<div class="panel-group" >
 		<div class="panel panel-default" style="padding:10px" >
             <br/>

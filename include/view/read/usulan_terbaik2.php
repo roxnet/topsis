@@ -16,7 +16,7 @@
 		,nama varchar(50)
         ,nilai decimal(10,8)
         ,toko varchar(255)
-        ,jabatan varchar(8)
+        ,jabatan varchar(12)
         ,bagian varchar(255)
         ,tgl_penilaian date);");
 
@@ -142,6 +142,7 @@
     //munculkan toko
 $sql_rangking="SELECT no_pegawai,nama,nilai,toko,jabatan,bagian,tgl_penilaian FROM rangking ORDER BY nilai DESC limit ".$jum_terbaik." ";
 $hasil_rangking=mysqli_query($db_link,$sql_rangking);
+echo '<h2 class="text-center">USULAN PEGAWAI TERBAIK</h2>';
         echo '<table class="table table-bordered table-hover text-center panel panel-primary" >
                     
                 <thead class="panel-heading">
