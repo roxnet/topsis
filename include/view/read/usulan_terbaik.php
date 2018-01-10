@@ -76,7 +76,11 @@ $bag=mysqli_query($db_link,"SELECT id_bagian,bagian FROM bagian");
            <div class="text-center">	
 					<button type="button" id="tampil" class="btn btn-success">TAMPIL</button>
                     &nbsp; &nbsp; &nbsp; &nbsp;
-                    <button type="button" id="matrik" class="btn btn-success">MATRIKS</button>
+					 <?php
+                    	if($hak_akses==0){
+							echo '<button type="button" id="matrik" class="btn btn-success">MATRIKS</button>';
+						}
+					?>
 				</div>
             </form>
             </div>
@@ -87,7 +91,12 @@ $bag=mysqli_query($db_link,"SELECT id_bagian,bagian FROM bagian");
                      
 		</div>
       <div class="text-center"  id="show">	
-    <button type="button"  id='simpan' class="btn btn-success">SIMPAN</button>
+		 <?php
+		if($hak_akses==0 || $hak_akses==2 ){
+			echo '<button type="button"  id="simpan" class="btn btn-success">SIMPAN</button>';
+		}
+		?>
+
 </div>
 	</div>
       
