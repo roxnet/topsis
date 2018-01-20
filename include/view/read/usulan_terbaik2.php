@@ -44,7 +44,7 @@
                       AND E.id_toko=CASE WHEN ".$id_toko."=0 THEN E.id_toko ELSE ".$id_toko." END
                       AND B.jabatan=CASE WHEN '".$jabatan."'='none'THEN B.jabatan ELSE '".$jabatan."' END
                       AND F.id_bagian=CASE WHEN '".$id_bagian."'='none' THEN F.id_bagian ELSE '".$id_bagian."' END
-                      AND date_format(periode,'%m/%Y')>='$start' AND date_format(periode,'%m/%Y')<='$end'
+                      AND date_format(A.tgl_penilaian,'%m/%Y')>='$start' AND date_format(A.tgl_penilaian,'%m/%Y')<='$end'
                       AND D.status=1 AND A.status=1
                       ORDER BY C.no_pegawai;
                       "; 
