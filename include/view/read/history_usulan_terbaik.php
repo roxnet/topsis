@@ -11,7 +11,7 @@
                     <label class="control-label col-sm-3" for="start">Periode Start :</label>
                     <div class="col-sm-5">
                         <div class='input-group date datetimepicker1'>
-                            <input type="text" class="form-control"  name="start" placeholder="Bulan" >
+                            <input type="text" class="form-control" id="start" name="start" placeholder="Bulan" >
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar"></span>
                             </span>
@@ -22,7 +22,7 @@
                     <label class="control-label col-sm-3" for="end">Periode End :</label>
                     <div class="col-sm-5">
                         <div class='input-group date datetimepicker1'>
-                            <input type="text" class="form-control"  name="end" placeholder="Bulan" >
+                            <input type="text" class="form-control" id="end"  name="end" placeholder="Bulan" >
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar"></span>
                             </span>
@@ -40,7 +40,6 @@
 </div>
 
 
-
 <script src="../vendor/jquery/jquery.min.js"></script>
 
 <script>
@@ -48,6 +47,21 @@
         $("#tampil").click(function () {
              var start= $('input[name=start]').val();
              var end= $('input[name=end]').val();
+               if (start=='' || start==null ) {
+
+                $("#id_group_start").addClass("form-group has-error has-feedback");
+                $("#start").after("<span class='glyphicon glyphicon-remove form-control-feedback'></span>");
+                 $('#pesan_required').text("Tidak Boleh Kosong");
+                  $("#required").show();
+                }
+         if (end=='' || end==null) {
+
+                $("#id_group_end").addClass("form-group has-error has-feedback");
+                $("#end").after("<span class='glyphicon glyphicon-remove form-control-feedback'></span>");
+                 $('#pesan_required').text("Tidak Boleh Kosong");
+                  $("#required").show();
+                }
+                else {
            	$.ajax({
 					type: "POST",
 					url: "../include/view/read/history_usulan_terbaik2.php",
@@ -57,6 +71,7 @@
                         
                     }
                });
+                }
         });
 
 

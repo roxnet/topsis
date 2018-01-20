@@ -12,8 +12,9 @@
 include_once "../../../koneksi.php";
 $start=$_POST['start'];
 $end=$_POST['end'];
-$sql_rangking="SELECT * FROM usulan WHERE
-     date_format(periode,'MM/YYYY')>=date_format($start, 'MM/YYYY') AND date_format(periode,'MM/YYYY')<=date_format($end, 'MM/YYYY')
+$sql_rangking="SELECT DISTINCT no_pegawai,nama_pegawai,nama_toko,nilai,bagian,jabatan,periode FROM usulan WHERE
+     date_format(periode,'%m/%Y')>='$start'
+     AND date_format(periode,'%m/%Y')<='$end'
  ORDER BY nilai DESC";
 $hasil_rangking=mysqli_query($db_link,$sql_rangking);
         echo '<table class="table table-bordered table-hover text-center panel panel-primary" >

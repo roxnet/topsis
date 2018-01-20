@@ -32,7 +32,7 @@
     while($data_kriteria=mysqli_fetch_assoc($kriteria)){
         //per kriteria
         //masih seluruh pegawai belum ada filter
-        $sqlfornilai="SELECT C.no_pegawai,C.nama,BB.nilai,DD.akumulasi,E.nama_toko,B.jabatan,F.bagian,A.tgl_penilaian FROM penilaian A
+        $sqlfornilai="SELECT DISTINCT C.no_pegawai,C.nama,BB.nilai,DD.akumulasi,E.nama_toko,B.jabatan,F.bagian,A.tgl_penilaian FROM penilaian A
                     INNER JOIN detail_penilaian BB ON A.id_nilai=BB.id_nilai
                       INNER JOIN jabatan_pegawai B ON A.id_jabatan=B.id_jabatan
                       INNER JOIN pegawai C ON B.id_pegawai=C.no_pegawai
@@ -44,7 +44,7 @@
                       AND E.id_toko=CASE WHEN ".$id_toko."=0 THEN E.id_toko ELSE ".$id_toko." END
                       AND B.jabatan=CASE WHEN '".$jabatan."'='none'THEN B.jabatan ELSE '".$jabatan."' END
                       AND F.id_bagian=CASE WHEN '".$id_bagian."'='none' THEN F.id_bagian ELSE '".$id_bagian."' END
-                      AND date_format(A.tgl_penilaian,'MM/YYYY')>=date_format($start, 'MM/YYYY') AND date_format(A.tgl_penilaian,'MM/YYYY')<=date_format($end, 'MM/YYYY')
+                      AND date_format(periode,'%m/%Y')>='$start' AND date_format(periode,'%m/%Y')<='$end'
                       AND D.status=1 AND A.status=1
                       ORDER BY C.no_pegawai;
                       "; 

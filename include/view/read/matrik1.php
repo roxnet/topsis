@@ -10,7 +10,7 @@
     $x=array();
     $dd=0;
     $y=array();
-
+    $n=array();
      mysqli_query($db_link,"CREATE TEMPORARY TABLE rangking(Rangking INT AUTO_INCREMENT primary key
 		,no_pegawai varchar(8)
 		,nama varchar(50)
@@ -44,7 +44,7 @@
                       AND E.id_toko=CASE WHEN ".$id_toko."=0 THEN E.id_toko ELSE ".$id_toko." END
                       AND B.jabatan=CASE WHEN '".$jabatan."'='none'THEN B.jabatan ELSE '".$jabatan."' END
                       AND F.id_bagian=CASE WHEN '".$id_bagian."'='none' THEN F.id_bagian ELSE '".$id_bagian."' END
-                      AND date_format(A.tgl_penilaian,'MM/YYYY')>=date_format($start, 'MM/YYYY') AND date_format(A.tgl_penilaian,'MM/YYYY')<=date_format($end, 'MM/YYYY')
+                      AND date_format(A.tgl_penilaian,'%m/%y')>='$start' AND date_format(A.tgl_penilaian,'%m/%y')<='$end'
                       AND D.status=1 AND A.status=1
                       ORDER BY C.no_pegawai;
                       "; 
@@ -70,9 +70,12 @@
         echo "Y sudah dikalikan bobot normalisasi<br/>";
          while($data_nilai=mysqli_fetch_assoc($nilai_krit2)){
                 //nilai merupakan hasil pangkat
+                $n[$d][$e]=($data_nilai['nilai']/$x[$d]); 
                 $y[$d][$e]=($data_nilai['nilai']/$x[$d])*$data_nilai['akumulasi'];   
-
+                 echo "R".$d.".".$e."=".$n[$d][$e]."&nbsp;&nbsp;";
+                 echo "<br/>";
                 echo "Y".$d.".".$e."=".$y[$d][$e]."&nbsp;&nbsp;";
+                echo "<br/>";
   
          //mencari nilai Y;
             if($data_kriteria['atribut']=='K'){
@@ -140,7 +143,7 @@
         $d_plus[$zz]=sqrt($d_plus[$zz]);
         $d_minus[$zz]=sqrt($d_minus[$zz]);
         echo "D+ ". $d_plus[$zz]."<br>";
-        echo "D- ". $d_plus[$zz]."<br><br>";
+        echo "D- ". $d_minus[$zz]."<br><br>";
         //nilai preferensi alternatif
         //echo $d_minus[$zz].'/'.$d_minus[$zz].'+'.$d_plus[$zz].'<br>';
         $v[$zz]=$d_minus[$zz]/($d_minus[$zz]+$d_plus[$zz]);
