@@ -1,18 +1,19 @@
-	<?php /*ob_start(); */?>
+	<?php /*ob_start(); */
+$start	=$_GET['start'];
+$end	=$_GET['end'];
+?>
 <html>
 <head>
 	<title>Cetak PDF</title>
 </head>
 <body onLoad="window.print()">
 
-<h3 align="center">History Usulan Pegawai Terbaik</h3> 
-
-<?php 
+<h3 align="center">History Usulan Pegawai Terbaik </h3> 
+<h4 align="center"> Periode Bulan <?php echo $start ?> s/d Bulan<?php echo $end ?></h4>
+<?php
 include_once "../koneksi.php";
 //$start='11/2017';
 //$end='11/2017';
-$start	=$_GET['start'];
-$end	=$_GET['end'];
 $sql_rangking="SELECT * FROM usulan WHERE
      date_format(periode,'MM/YYYY')>=date_format($start, 'MM/YYYY') AND date_format(periode,'MM/YYYY')<=date_format($end, 'MM/YYYY')
  ORDER BY nilai DESC";
@@ -44,7 +45,7 @@ $hasil_rangking=mysqli_query($db_link,$sql_rangking);
                 <td>".$data_rangking['nilai']."</td>
                 <td>{$data_rangking['bagian']}</td>
                 <td>{$data_rangking['jabatan']}</td>
-                <td>{$data_rangking['periode']}</td>";
+                <td>".date('d-M-Y',strtotime($data_rangking['periode']))."</td>";
             echo "</tr>";
            
             $number=$s;
