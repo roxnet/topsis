@@ -1,4 +1,4 @@
- 	<h2 class="text-center">HISTORY PENILAIAN PEGAWAI TERBAIK</h2> 
+ 
 
         <div class="col-sm-3 input-group pull-right">
          <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
@@ -43,7 +43,7 @@ $hasil_rangking=mysqli_query($db_link,$sql_rangking);
                 <td>".$data_rangking['nilai']."</td>
                 <td>{$data_rangking['bagian']}</td>
                 <td>{$data_rangking['jabatan']}</td>
-                <td>".date("d-m-Y", strtotime($data_rangking['periode']))."</td>";
+                <td>{$data_rangking['periode']}</td>";
             echo "</tr>";
            
             $number=$s;
@@ -54,9 +54,10 @@ $hasil_rangking=mysqli_query($db_link,$sql_rangking);
      </table>
 		</div>
         <br><br>
-         <center>
-             <button class="btn btn-primary hidden-print" onclick="printJS('../pdf/print_history.php')"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print</button>
-	    </center>
+		 <center>
+				<button class="btn btn-primary hidden-print" onclick="printJS('../pdf/print_history.php?start=<?php echo $start; ?>&end=<?php echo $end; ?>')">
+				<span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print</button>
+		</center>
 
 
 <script src="../vendor/jquery/jquery.min.js"></script>
