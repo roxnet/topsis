@@ -1,6 +1,6 @@
  <?php
 
-$get_user_cek=mysqli_query ($db_link,"SELECT A.id_toko,A.id_bagian FROM jabatan_pegawai A
+$get_user_cek=mysqli_query ($db_link,"SELECT A.id_toko,A.id_bagian,B.no_pegawai FROM jabatan_pegawai A
                             INNER JOIN pegawai B ON A.id_pegawai=B.no_pegawai
                             INNER JOIN user c ON B.no_pegawai=c.id_pegawai
                             WHERE c.user_name=CASE WHEN $hak_akses=3 
@@ -15,6 +15,9 @@ $get_toko_user=mysqli_fetch_assoc($get_user_cek);
                 ELSE B.id_toko END AND
                 B.id_bagian=CASE WHEN $hak_akses=3 THEN '".$get_toko_user['id_bagian']."'
                 ELSE B.id_bagian END
+                AND
+                1=CASE WHEN $hak_akses<>3 THEN 1 WHEN $hak_akses=3 AND A.no_pegawai='".$get_toko_user['no_pegawai']."'
+                THEN 0 ELSE 1 END
                 ORDER BY A.no_pegawai";
 $hasil_pegawai=mysqli_query($db_link,$sql_pegawai);
 
