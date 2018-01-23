@@ -2,6 +2,11 @@
     session_start();
     $username=$_SESSION['username'];
     $hak_akses=$_SESSION['hak_akses'];
+    if ($username==NULL || $username=='')
+    {
+         header("location:login.php");
+    }
+    else {
     $cek_user=("SELECT user_name,hak_akses FROM user WHERE user_name ='$username' AND hak_akses=$hak_akses");
     $user_data=mysqli_query($db_link,$cek_user);
     $cek_jum=mysqli_num_rows($user_data);
@@ -11,4 +16,5 @@
     else if($cek_jum==1){
         $data_user=mysqli_fetch_assoc($user_data);
     }
+}
 ?>

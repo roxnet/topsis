@@ -1,4 +1,4 @@
-<div class="col-sm-11 col-sm-offset-2">  
+<div class="col-sm-12 col-sm-offset-2">  
 	<h2 class="text-center">DAFTAR PENILAIAN PEGAWAI</h2> 
 	<div class="panel-group" >
 		<div class="panel panel-default" style="padding:10px" >
@@ -24,10 +24,11 @@ $get_user_cek=mysqli_query ($db_link,"SELECT A.id_toko FROM jabatan_pegawai A
                 THEN '".$username."' ELSE c.user_name END ");
 $get_toko_user=mysqli_fetch_assoc($get_user_cek);
 
-$sql_penilaian="SELECT DISTINCT A.id_nilai,C.nama,B.id_jabatan,A.status FROM penilaian A
+$sql_penilaian="SELECT DISTINCT A.id_nilai,D.nama_toko,C.nama,B.id_jabatan,A.status FROM penilaian A
                 INNER JOIN jabatan_pegawai B ON A.id_jabatan=B.id_jabatan
                 INNER JOIN pegawai C ON B.id_pegawai=C.no_pegawai
-                WHERE B.id_toko=(CASE WHEN $hak_akses =3 
+                INNER JOIN toko D ON B.id_toko=D.id_toko
+                WHERE D.id_toko=(CASE WHEN $hak_akses =3 
                 THEN ".$get_toko_user['id_toko']." ELSE B.id_toko END)
 				AND B.id_toko=(CASE WHEN $hak_akses =4 
                 THEN ".$get_toko_user['id_toko']." ELSE B.id_toko END)
@@ -39,6 +40,7 @@ $hasil_penilaian=mysqli_query($db_link,$sql_penilaian);
                 <tr>
                     <th class="text-center" rowspan="2" style="vertical-align: middle;">NO</th>
                     <th class="text-center" rowspan="2" style="vertical-align: middle;">NAMA PEGAWAI</th>
+                    <th class="text-center" rowspan="2" style="vertical-align: middle;" width="90">TOKO</th>
                     <th class="text-center" colspan="'.$total_kriteria.'">KRITERIA</th>
                     <th class="text-center" rowspan="2" style="vertical-align: middle;">BAGIAN</th>
                     <th class="text-center" rowspan="2" style="vertical-align: middle;">JABATAN</th>
@@ -63,7 +65,8 @@ $hasil_penilaian=mysqli_query($db_link,$sql_penilaian);
             echo "<tr  class='tablerow'>";
             echo "  
                 <td></td>
-                <td>{$data_penilaian['nama']}</td>";
+                <td>{$data_penilaian['nama']}</td>
+                <td>{$data_penilaian['nama_toko']}</td>";
                 $sql_jabatan="SELECT B.jabatan,C.bagian FROM penilaian A
                 INNER JOIN jabatan_pegawai B ON A.id_jabatan=B.id_jabatan
                 INNER JOIN bagian C ON B.id_bagian=C.id_bagian

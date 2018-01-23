@@ -7,8 +7,10 @@ $get_user_cek=mysqli_query ($db_link,"SELECT A.id_toko,A.id_bagian FROM jabatan_
                 THEN '".$username."' ELSE c.user_name END ");
 $get_toko_user=mysqli_fetch_assoc($get_user_cek);
    
-    $sql_pegawai="SELECT B.id_jabatan,A.nama FROM pegawai A
+    $sql_pegawai="SELECT B.id_jabatan,A.nama,D.bagian,C.nama_toko FROM pegawai A
                 INNER JOIN jabatan_pegawai B ON A.no_pegawai=B.id_pegawai 
+                INNER JOIN toko C ON B.id_toko=C.id_toko
+                INNER JOIN bagian D ON B.id_bagian=D.id_bagian
                 WHERE B.id_toko=CASE WHEN $hak_akses=3 THEN '".$get_toko_user['id_toko']."'
                 ELSE B.id_toko END AND
                 B.id_bagian=CASE WHEN $hak_akses=3 THEN '".$get_toko_user['id_bagian']."'
@@ -33,7 +35,7 @@ $b=0;
                                 <option>-</option>
                             <?php
                                 while ($pegawai_tampil=mysqli_fetch_assoc($hasil_pegawai)){
-                                    echo "<option value='".$pegawai_tampil['id_jabatan']."'>".$pegawai_tampil['nama']."</option>";
+                                    echo "<option value='".$pegawai_tampil['id_jabatan']."'>".$pegawai_tampil['nama']." - ".$pegawai_tampil['nama_toko']." - ".$pegawai_tampil['bagian']."</option>";
                                 }
                             ?>
                         </select> 

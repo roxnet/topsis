@@ -1,11 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
 <?php
     include_once "../koneksi.php";
     include_once "../include/kontrol/cek_user.php";
     $username=$data_user['user_name'];
     $hak_akses=$data_user['hak_akses'];
 ?>
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
 
     <meta charset="utf-8">
