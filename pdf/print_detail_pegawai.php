@@ -1,11 +1,11 @@
-<?php ob_start(); ?>
+<?php //ob_start(); ?>
 <html>
 <head>
-	<title>Cetak PDF</title>
+	<title>Pamella Supermarket</title>
 </head>
 <body>
 	
-<h3 style="text-align: center;">Daftar Detail Pegawai <br> Pamella Supermarket Yogyakarta</h3>
+<h3 style="text-align: center;">DETAIL PEGAWAI</h3>
 
 <?php
 // Load file koneksi.php
@@ -65,11 +65,12 @@ $row = mysqli_fetch_array($sql);
 </body>
 </html>
 <?php 
+/*
 $html = ob_get_contents();
 ob_end_clean();
         
 require_once('html2pdf/html2pdf.class.php');
 $pdf = new HTML2PDF('P','A4','en');
 $pdf->WriteHTML($html);
-$pdf->Output('Detail Pegawai.pdf', 'D');
+$pdf->Output('Detail Pegawai.pdf', 'D');*/
 ?>

@@ -1,7 +1,7 @@
 <?php //ob_start(); ?>
 <html>
 <head>
-	<title>Cetak PDF</title>
+	<title>Pamella Supermarket</title>
 </head>
 <body onLoad="window.print()">
    
