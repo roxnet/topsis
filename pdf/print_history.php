@@ -4,11 +4,11 @@ $end	=$_GET['end'];
 ?>
 <html>
 <head>
-	<title>Cetak PDF</title>
+	<title>Pamella Supermarket</title>
 </head>
 <body onLoad="window.print()">
 
-<h3 align="center">History Usulan Pegawai Terbaik </h3> 
+<h3 align="center">HISTORY USULAN PEGAWAI TERBAIK </h3> 
 <h4 align="center"> Periode Bulan <?php echo $start ?> s/d Bulan<?php echo $end ?></h4>
 <?php
 include_once "../koneksi.php";

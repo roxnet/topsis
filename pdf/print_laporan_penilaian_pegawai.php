@@ -1,11 +1,11 @@
 <?php //ob_start(); ?>
 <html>
 <head>
-	<title>Cetak PDF</title>
+	<title>Pamella Supermarket</title>
 </head>
 <body onLoad="window.print()">
 	
-<h3 style="text-align: center;">Laporan Penialaian Pegawai <br> Pamella Supermarket Yogyakarta</h3>
+<h3 style="text-align: center;">LAPORAN PENILAIAN PEGAWAI</h3>
 
         <br/><br/>
 <?php   
