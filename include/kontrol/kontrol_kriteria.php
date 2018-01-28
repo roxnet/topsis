@@ -38,9 +38,13 @@ if(isset($_POST['id_kriteria']) || isset ($_POST['nama_kriteria']) || isset($_PO
 
         if($_POST['crud']=='hapus'){
            $id_kriteria = $_POST['id_kriteria'];
+           $sql1 = "DELETE from detail_bobot where id_kriteria='$id_kriteria'";
+            $hasil1 = mysqli_query($db_link,$sql);
             $sql = "DELETE from kriteria where id_kriteria='$id_kriteria'";
             $hasil = mysqli_query($db_link,$sql);
-            if($hasil){
+            
+
+            if($hasil &&  $hasil1){
                  echo "berhasil";
             }
             else{
