@@ -106,11 +106,11 @@ if(isset($_POST['id_bobot'])|| isset ($_POST['jabatan'])){
         if($_POST['crud']=='hapus'){
            $id_bobot = $_POST['id_bobot'];
          
-           $sql = "DELETE from detail_bobot where id_bobot=$id_bobot";
-            $hasil = mysqli_query($db_link,$sql);
+           $sql1 = "DELETE from detail_bobot where id_bobot=$id_bobot";
+            $hasil1 = mysqli_query($db_link,$sql1);
             $sql = "DELETE from bobot_penilaian where id_bobot=$id_bobot";
             $hasil = mysqli_query($db_link,$sql);
-            if($hasil){
+            if($hasil && $hasil1){
                 
                  echo "berhasil";
             }
