@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 09 Jan 2010 pada 18.03
+-- Generation Time: 29 Jan 2018 pada 04.10
 -- Versi Server: 10.1.21-MariaDB
 -- PHP Version: 7.1.2
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `spk_topsis`
+-- Database: `naskah`
 --
 
 -- --------------------------------------------------------
@@ -43,7 +43,8 @@ INSERT INTO `bagian` (`id_bagian`, `bagian`) VALUES
 ('B-0005', 'Alat Tulis'),
 ('B-0006', 'Gudang'),
 ('B-0007', 'Busana'),
-('B-0008', 'Kasir');
+('B-0008', 'Kasir'),
+('B-0009', 'All');
 
 -- --------------------------------------------------------
 
@@ -1619,7 +1620,9 @@ INSERT INTO `jabatan_pegawai` (`id_jabatan`, `id_pegawai`, `id_toko`, `id_bagian
 (131, 'P-0117', 29, 'B-0008', 'karyawan', 1, '2012-07-07'),
 (132, 'P-0118', 29, 'B-0008', 'karyawan', 1, '2012-07-08'),
 (133, 'P-0119', 29, 'B-0008', 'karyawan', 1, '2012-09-09'),
-(134, 'P-0120', 29, 'B-0008', 'karyawan', 1, '2013-10-09');
+(134, 'P-0120', 29, 'B-0008', 'karyawan', 1, '2013-10-09'),
+(135, 'P-0121', 34, 'B-0009', 'HRD', 1, '1999-05-03'),
+(136, 'P-0122', 34, 'B-0009', 'manager', 1, '2012-12-12');
 
 -- --------------------------------------------------------
 
@@ -1793,7 +1796,8 @@ INSERT INTO `pegawai` (`no_pegawai`, `nama`, `tempat_lahir`, `tanggal_lahir`, `j
 ('P-0118', 'Siska', 'Yogyakarta', '1991-10-06', 'P', 'Islam', 'Belum kawin', '089645798765', 'Jalan Sudirman', '2012-07-08'),
 ('P-0119', 'Koko', 'Bantul', '1990-07-04', 'L', 'Islam', 'Belum kawin', '089765465432', 'Jalan Kyai Mojo', '2012-09-09'),
 ('P-0120', 'Ali', 'Sleman', '1992-11-05', 'L', 'Islam', 'Belum kawin', '089754567851', 'Jalan Jogja - Solo', '2013-10-09'),
-('P-0121', 'Sulistio', 'Yogyakarta', '1972-03-19', 'L', 'Islam', 'Kawin', '082244413456', 'Yogyakarta', '1998-05-12');
+('P-0121', 'Sulistio', 'Yogyakarta', '1972-03-19', 'L', 'Islam', 'Kawin', '082244413456', 'Yogyakarta', '1998-05-12'),
+('P-0122', 'Wildan', 'Sleman', '1984-08-01', 'L', 'Islam', 'Kawin', '081234567800', 'Sleman', '2012-12-12');
 
 -- --------------------------------------------------------
 
@@ -1957,7 +1961,8 @@ INSERT INTO `toko` (`id_toko`, `nama_toko`, `alamat_toko`) VALUES
 (30, 'Pamella 4', '	Jl. Pramuka No.84 Yogyakarta'),
 (31, 'Pamella 6', 'Jl. Raya Candigebang CC. Yogyakarta'),
 (32, 'Pamella 7', 'Ds. Bromonillan, Purwomartani, Kalasan,Sleman, Yogyakarta'),
-(33, 'Pamella 8', 'Jl. Lowanu 88 Yogyakarta');
+(33, 'Pamella 8', 'Jl. Lowanu 88 Yogyakarta'),
+(34, 'All', '');
 
 -- --------------------------------------------------------
 
@@ -1979,7 +1984,9 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`user_name`, `password`, `hak_akses`, `id_pegawai`) VALUES
 ('admin', 'admin', 0, NULL),
 ('Brian', 'brian', 4, 'P-0002'),
-('Lala', 'lala', 3, 'P-0001');
+('Lala', 'lala', 3, 'P-0001'),
+('Sulistio', 'sulis', 2, 'P-0121'),
+('Wildan', 'wildan', 1, 'P-0122');
 
 -- --------------------------------------------------------
 
@@ -2116,7 +2123,7 @@ ALTER TABLE `detail_penilaian`
 -- AUTO_INCREMENT for table `jabatan_pegawai`
 --
 ALTER TABLE `jabatan_pegawai`
-  MODIFY `id_jabatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=135;
+  MODIFY `id_jabatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=137;
 --
 -- AUTO_INCREMENT for table `penilaian`
 --
@@ -2126,7 +2133,7 @@ ALTER TABLE `penilaian`
 -- AUTO_INCREMENT for table `toko`
 --
 ALTER TABLE `toko`
-  MODIFY `id_toko` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id_toko` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 --
 -- AUTO_INCREMENT for table `usulan`
 --
